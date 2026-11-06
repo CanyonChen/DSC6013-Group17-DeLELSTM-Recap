@@ -1,5 +1,7 @@
 # 运行环境
 
+服务器补充实验可直接执行 `bash scripts/eval_and_ablation.sh --gpus 0,1`，自动创建独立 Conda 环境并安装 `requirements-ablation.txt`，其中包含报告绘图所需的 Matplotlib。分阶段操作及设备说明见 [补充实验全流程](../doc/ablation_workflow.md)。下面保留原报告复跑的手动安装方式。
+
 在仓库根目录执行：
 
 ```powershell

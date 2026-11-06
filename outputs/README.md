@@ -16,5 +16,7 @@ PM2.5 的目录名沿用上游的 `newrevision_pmc`。
 [results/README.md](../results/README.md)。新增实验请使用新的输出目录，
 保留参数、种子、日志和权重，核对后一起提交。
 
+服务器补充实验默认生成 `ablation/`（正式任务）和 `ablation-smoke/`（短测试），每个任务保留权重、预测、日志及尝试记录，报告在其 `report/` 下。两者均不被忽略；运行方法见 [补充实验全流程](../doc/ablation_workflow.md)。
+
 `verification/` 及隐藏的环境安装验证目录仅用于本地核验与上传过程，
 由 `.gitignore` 排除，不属于实验交付物。

@@ -7,6 +7,7 @@ DS6013 课程项目：复现 IJCAI 2023 的 **DeLELSTM**，比较其在 Electric
 - [课程报告](doc/DeLELSTM_Five_Run_Course_Paper.docx)
 - [实验结果与证据索引](results/README.md)
 - [代码与实验核查](doc/code_audit.md)
+- [服务器补充实验全流程](doc/ablation_workflow.md)
 - [原论文](https://doi.org/10.24963/ijcai.2023/478) · [作者代码](https://github.com/wangcq01/DeLELSTM)
 
 ## 主要结果
@@ -68,7 +69,20 @@ python scripts/setup_upstream.py
 
 `vendor/DeLELSTM/` 中的三个训练入口分别为 `Electricity.py`、`PM.py`、`Exchange.py`；模型定义在 `networks.py`，训练循环在 `model_training.py`，配置在 `config.py`。
 
-## 运行实验
+## 服务器补充实验
+
+Linux 双 GPU 服务器可从环境配置一直运行到补充实验报告：
+
+```bash
+bash scripts/eval_and_ablation.sh --stage plan
+bash scripts/eval_and_ablation.sh --gpus 0,1
+```
+
+脚本创建独立 Conda 环境，先执行短测试，再完成完整测试审计、时间划分、Top-50% 变量充分性、求解器消融、解释稳定性及 CPU/GPU 对照。默认正式计划为 **554 项任务（90 次历史重评估、464 次新训练）**，每张 GPU 独立运行一个任务；另有 32 项短测试。
+
+报告保存至 `outputs/ablation/report/report.html` 和 `report.md`，权重、预测与日志保存在同一实验目录。使用 `--stage run --resume --gpus 0,1` 跳过已成功任务；`--stage report` 可单独重建报告。参数、实验协议和后台运行方法见 [全流程说明](doc/ablation_workflow.md)。目前已完成本地 CPU 短测试，服务器正式结果须运行后生成。
+
+## 复跑报告原实验
 
 先查看计划，再运行小规模检查：
 
