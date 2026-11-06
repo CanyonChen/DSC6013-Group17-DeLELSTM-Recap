@@ -1,0 +1,7 @@
+{
+  "dataset": "Electricity",
+  "run": 0,
+  "attempt": 0,
+  "torch_seed": 555,
+  "split_seed": 555
+}

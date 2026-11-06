@@ -1,0 +1,7 @@
+{
+  "dataset": "Exchange",
+  "run": 2,
+  "attempt": 0,
+  "torch_seed": 557,
+  "split_seed": 555
+}

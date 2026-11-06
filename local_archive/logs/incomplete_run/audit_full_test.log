@@ -1,0 +1,12 @@
+[prepare] seed=555  train=686  val=137  test=92
+{"dataset": "Electricity", "subset": "retained", "windows": 64, "rmse": 1.6738892793655396, "mae": 1.084531545639038}
+{"dataset": "Electricity", "subset": "omitted", "windows": 28, "rmse": 1.5854289531707764, "mae": 1.0657824277877808}
+{"dataset": "Electricity", "subset": "all", "windows": 92, "rmse": 1.6474695205688477, "mae": 1.0788253545761108}
+[prepare] seed=555  train=1369  val=273  test=184
+{"dataset": "PM", "subset": "retained", "windows": 160, "rmse": 27.19192886352539, "mae": 13.7263765335083}
+{"dataset": "PM", "subset": "omitted", "windows": 24, "rmse": 20.054553985595703, "mae": 10.759651184082031}
+{"dataset": "PM", "subset": "all", "windows": 184, "rmse": 26.370746612548828, "mae": 13.339412689208984}
+[prepare] seed=555  train=5669  val=1133  test=757
+{"dataset": "Exchange", "subset": "retained", "windows": 640, "rmse": 0.0023427410051226616, "mae": 0.001499780802987516}
+{"dataset": "Exchange", "subset": "omitted", "windows": 117, "rmse": 0.002179687609896064, "mae": 0.0014558592811226845}
+{"dataset": "Exchange", "subset": "all", "windows": 757, "rmse": 0.002318289130926132, "mae": 0.0014929923927411437}

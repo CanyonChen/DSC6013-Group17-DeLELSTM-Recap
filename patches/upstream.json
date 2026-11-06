@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/wangcq01/DeLELSTM",
+  "commit": "b9f29dbe48bd2204e5ce7edcdbbfd55f031d30a9",
+  "patched_sha256_lf": {
+    "Electricity.py": "d4dbbfb8166bce0f82a3a37de6293f8d49322e3331eebcae46c8edbcd989f3a7",
+    "PM.py": "d26458b7a4d38272f97fde914718203ac10f456027c3d4e56349b41d2bd4c2d3",
+    "Exchange.py": "38665b0cda10ee7b0cefd3523d10b7c58c163e301f9e85fe1f16d42704536375",
+    "model_training.py": "c28e5c662b6968d3a399ba7c5e4e99816caf627706ddb0a6053c80607b8803a9",
+    "networks.py": "7c7355731a93ef446c47cf98925fa8f88822dfa8bf396fca7d0de779766624cf",
+    "config.py": "9a446482dcd18872cf60713e9cb0841d4a9221e82551369269feda14a62c91c4"
+  }
+}

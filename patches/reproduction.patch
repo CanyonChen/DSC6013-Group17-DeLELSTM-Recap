@@ -1,0 +1,374 @@
+--- a/Electricity.py
++++ b/Electricity.py
+@@ -21,19 +21,25 @@
+ parser.add_argument('--num_exp', type=int, default=5, help='The number of experiment')
+ parser.add_argument('--log', type=bool, default=True, help='Whether log the information of training process')
+ parser.add_argument('--save_models', type=bool, default=False, help='Whether save the training models')
++# [改动 1] 新增开关：每个 exp 是否重新播种并重新划分数据
++parser.add_argument('--resample_split', action='store_true',
++                    help='每个 exp 重新播种并重新划分；默认 False = 与作者代码一致（固定划分）')
+ 
+ 
+ args = parser.parse_args()
+ 
+-if __name__ == '__main__':
+-    np.random.seed(args.seed)
+-    torch.manual_seed(args.seed)
+-    torch.cuda.manual_seed(args.seed)
+-    torch.cuda.manual_seed_all(args.seed)
+ 
+-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
++def prepare(seed):
++    """读数据 -> 全局 min-max 归一化 -> 75/15/10 随机划分 -> 构造 DataLoader。
+ 
+-    data_path = r'C:\clean\Explain_time_series\Code\DATA\Processed\elec'
++    [改动 2] 原来是写在 if __name__ 里、只执行一次的直线代码；
++    现在包成函数并把随机种子作为参数传入，因此 --resample_split 时
++    每个 exp 会拿到不同的 train/val/test 划分。
++    归一化是原地修改 data，所以每次都重新读 CSV，避免重复归一化。
++    """
++    np.random.seed(seed)
++
++    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA', 'Electricity')
+     data = pd.read_csv(os.path.join(data_path, 'newX_train.csv'))
+ 
+     y = pd.read_csv(os.path.join(data_path, 'second_y.csv'))
+@@ -46,9 +52,9 @@
+                 np.max(data[(col)]) - np.min(data[col]))
+ 
+     train_idx = np.random.choice(data_idx, int(0.75 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, train_idx)]
++    data_idx = data_idx[~np.isin(data_idx, train_idx)]
+     val_idx = np.random.choice(data_idx, int(0.15 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, val_idx)]
++    data_idx = data_idx[~np.isin(data_idx, val_idx)]
+     test_idx = data_idx
+ 
+     train_X = data.loc[data['idx'].isin(train_idx), :]
+@@ -80,16 +86,39 @@
+     val_loader = DataLoader(TensorDataset(X_val_t, y_val_t), batch_size=args.batch_size, shuffle=False, drop_last=True)
+     test_loader = DataLoader(TensorDataset(X_test_t, y_test_t), batch_size=args.batch_size, shuffle=False, drop_last=True)
+ 
++    print(f'[prepare] seed={seed}  train={len(train_idx)}  val={len(val_idx)}  test={len(test_idx)}')
++    return train_loader, val_loader, test_loader
++
++
++if __name__ == '__main__':
++    # [改动 3] 播种从"模块级一次性"移到主流程。
++    # 固定划分模式下只在进入循环前种一次（等价作者原行为：5 次 exp 的初始化与 batch 顺序仍不同）。
++    torch_seed = int(os.environ.get("DELE_TORCH_SEED", args.seed))
++    print(f"[info] torch_seed={torch_seed}; split_seed={args.seed}")
++    torch.manual_seed(torch_seed)
++    torch.cuda.manual_seed_all(torch_seed)
++
++    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
++
+     save_path = os.path.join(args.save_dirs, 'Electricity')
+-    if not os.path.exists(save_path):
+-        os.makedirs(save_path)
++    os.makedirs(save_path, exist_ok=True)
+ 
+     short=0
+-    model_list = ['Delelstm', 'IMV_full', 'IMV_tensor', 'Retain', 'LSTM']
+-    #model_list = ['LSTM']
+-    # split the training set and test set and construct the data loader
++    model_list = os.environ.get('DELE_MODELS', 'Delelstm,IMV_full,IMV_tensor,Retain,LSTM').split(',')
++
++    mode = 'RESAMPLE-SPLIT (每个 exp 重新划分)' if args.resample_split else 'FIXED-SPLIT (5 次共用一份划分)'
++    print(f'[info] dataset=Electricity  mode={mode}  num_exp={args.num_exp}')
+ 
+     for exp_id in range(args.num_exp):
++        seed = args.seed + exp_id if args.resample_split else args.seed
++        if args.resample_split:
++            # [改动 4] 只有重采样模式才在循环内重置 torch 种子。
++            # 固定划分模式若也重置，5 次 exp 会得到完全相同的初始化，std 会变成 0。
++            torch.manual_seed(seed)
++            torch.cuda.manual_seed_all(seed)
++        # [改动 5] 划分 + 构造 loader 从循环外移进循环内（每个 exp 一次，不是每个模型一次）
++        train_loader, val_loader, test_loader = prepare(seed)
++
+         for model_name in model_list:
+             if model_name == 'Delelstm':
+                 model = Delelstm(config.config(model_name, args), short).to(device)
+@@ -110,4 +139,4 @@
+             print(f'Training model {model_name}')
+             print(f'Num of trainable params:', sum(p.numel() for p in model.parameters() if p.requires_grad))
+             elec_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id)
+-            print()
+\ No newline at end of file
++            print()
+--- a/PM.py
++++ b/PM.py
+@@ -22,21 +22,24 @@
+ parser.add_argument('--num_exp', type=int, default=5, help='The number of experiment')
+ parser.add_argument('--log', type=bool, default=True, help='Whether log the information of training process')
+ parser.add_argument('--save_models', type=bool, default=False, help='Whether save the training models')
++# [改动 1] 新增开关：每个 exp 是否重新播种并重新划分数据
++parser.add_argument('--resample_split', action='store_true',
++                    help='每个 exp 重新播种并重新划分；默认 False = 与作者代码一致（固定划分）')
+ 
+ 
+ args = parser.parse_args()
+ 
+ 
+-if __name__ == '__main__':
+-    np.random.seed(args.seed)
+-    torch.manual_seed(args.seed)
+-    torch.cuda.manual_seed(args.seed)
+-    torch.cuda.manual_seed_all(args.seed)
++def prepare(seed):
++    """读数据 -> 全局 min-max 归一化 -> 75/15/10 随机划分 -> 构造 DataLoader。
+ 
+-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+-    #PersonActivity('data', download=True, device=device)
++    [改动 2] 原来写在 if __name__ 里、只执行一次；现包成函数并接收随机种子，
++    因此 --resample_split 时每个 exp 会拿到不同的划分。
++    归一化原地修改 data，故每次重新读 CSV。
++    """
++    np.random.seed(seed)
+ 
+-    data_path = r'C:\clean\Explain_time_series\Code\DATA\Processed\pm'
++    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA', 'PM2.5')
+     data = pd.read_csv(os.path.join(data_path, 'newX_train.csv'))
+ 
+     y = pd.read_csv(os.path.join(data_path, 'second_y.csv'))
+@@ -49,9 +52,9 @@
+                 np.max(data[(col)]) - np.min(data[col]))
+ 
+     train_idx = np.random.choice(data_idx, int(0.75 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, train_idx)]
++    data_idx = data_idx[~np.isin(data_idx, train_idx)]
+     val_idx = np.random.choice(data_idx, int(0.15 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, val_idx)]
++    data_idx = data_idx[~np.isin(data_idx, val_idx)]
+     test_idx = data_idx
+ 
+     train_X = data.loc[data['idx'].isin(train_idx), :]
+@@ -83,16 +86,43 @@
+     val_loader = DataLoader(TensorDataset(X_val_t, y_val_t), batch_size=args.batch_size, shuffle=False, drop_last=True)
+     test_loader = DataLoader(TensorDataset(X_test_t, y_test_t), batch_size=args.batch_size, shuffle=False, drop_last=True)
+ 
+-    save_path = os.path.join(args.save_dirs, 'newrevision_pm')
+-    if not os.path.exists(save_path):
+-        os.makedirs(save_path)
++    print(f'[prepare] seed={seed}  train={len(train_idx)}  val={len(val_idx)}  test={len(test_idx)}')
++    return train_loader, val_loader, test_loader
++
++
++if __name__ == '__main__':
++    # [改动 3] 播种移到主流程；固定划分模式下只在循环前种一次
++    torch_seed = int(os.environ.get("DELE_TORCH_SEED", args.seed))
++    print(f"[info] torch_seed={torch_seed}; split_seed={args.seed}")
++    torch.manual_seed(torch_seed)
++    torch.cuda.manual_seed_all(torch_seed)
++
++    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
++
++    # [改动 6] 目录名从 newrevision_pm 改为 newrevision_pmc，
++    # 与 model_training.py 第 434 行真正写入结果的目录保持一致（原来这里只建了个空的 newrevision_pm）
++    save_path = os.path.join(args.save_dirs, 'newrevision_pmc')
++    os.makedirs(save_path, exist_ok=True)
+ 
+     short=0
+-    model_list = ['Delelstm', 'IMV_full', 'IMV_tensor', 'Retain', 'LSTM']
+-    model_list= [   'Retain']
+-    # split the training set and test set and construct the data loader
++    # [改动 7] 删除原来的两行死代码：
++    #   model_list = ['Delelstm', 'IMV_full', 'IMV_tensor', 'Retain', 'LSTM']
++    #   model_list= [   'Retain']          <- 若不注意会只跑 Retain
++    # 保留下面的环境变量开关作为唯一来源
++    model_list = os.environ.get('DELE_MODELS', 'Delelstm,IMV_full,IMV_tensor,Retain,LSTM').split(',')
++
++    mode = 'RESAMPLE-SPLIT (每个 exp 重新划分)' if args.resample_split else 'FIXED-SPLIT (5 次共用一份划分)'
++    print(f'[info] dataset=PM2.5  mode={mode}  num_exp={args.num_exp}')
+ 
+     for exp_id in range(args.num_exp):
++        seed = args.seed + exp_id if args.resample_split else args.seed
++        if args.resample_split:
++            # [改动 4] 只有重采样模式才在循环内重置 torch 种子
++            torch.manual_seed(seed)
++            torch.cuda.manual_seed_all(seed)
++        # [改动 5] 划分 + loader 移到循环内，每个 exp 一次
++        train_loader, val_loader, test_loader = prepare(seed)
++
+         for model_name in model_list:
+             if model_name == 'Delelstm':
+                 model = Delelstm(config.config(model_name, args), short).to(device)
+@@ -112,4 +142,4 @@
+                 ModuleNotFoundError(f'Module {model_name} not found')
+             print(f'Training model {model_name}')
+             print(f'Num of trainable params:', sum(p.numel() for p in model.parameters() if p.requires_grad))
+-            PM_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id)
+\ No newline at end of file
++            PM_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id)
+--- a/Exchange.py
++++ b/Exchange.py
+@@ -22,21 +22,24 @@
+ parser.add_argument('--num_exp', type=int, default=5, help='The number of experiment')
+ parser.add_argument('--log', type=bool, default=True, help='Whether log the information of training process')
+ parser.add_argument('--save_models', type=bool, default=False, help='Whether save the training models')
++# [改动 1] 新增开关：每个 exp 是否重新播种并重新划分数据
++parser.add_argument('--resample_split', action='store_true',
++                    help='每个 exp 重新播种并重新划分；默认 False = 与作者代码一致（固定划分）')
+ 
+ 
+ args = parser.parse_args()
+ 
+ 
+-if __name__ == '__main__':
+-    np.random.seed(args.seed)
+-    torch.manual_seed(args.seed)
+-    torch.cuda.manual_seed(args.seed)
+-    torch.cuda.manual_seed_all(args.seed)
++def prepare(seed):
++    """读数据 -> 全局 min-max 归一化 -> 75/15/10 随机划分 -> 构造 DataLoader。
+ 
+-    device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+-    #PersonActivity('data', download=True, device=device)
++    [改动 2] 原来写在 if __name__ 里、只执行一次；现包成函数并接收随机种子，
++    因此 --resample_split 时每个 exp 会拿到不同的划分。
++    归一化原地修改 data，故每次重新读 CSV。
++    """
++    np.random.seed(seed)
+ 
+-    data_path = r'C:\clean\Explain_time_series\Code\DATA\Processed\exchange'
++    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA', 'Exchange')
+     data = pd.read_csv(os.path.join(data_path, 'newX_train.csv'))
+ 
+     y = pd.read_csv(os.path.join(data_path, 'second_y.csv'))
+@@ -49,9 +52,9 @@
+                 np.max(data[(col)]) - np.min(data[col]))
+ 
+     train_idx = np.random.choice(data_idx, int(0.75 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, train_idx)]
++    data_idx = data_idx[~np.isin(data_idx, train_idx)]
+     val_idx = np.random.choice(data_idx, int(0.15 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, val_idx)]
++    data_idx = data_idx[~np.isin(data_idx, val_idx)]
+     test_idx = data_idx
+ 
+     train_X = data.loc[data['idx'].isin(train_idx), :]
+@@ -83,16 +86,38 @@
+     val_loader = DataLoader(TensorDataset(X_val_t, y_val_t), batch_size=args.batch_size, shuffle=False, drop_last=True)
+     test_loader = DataLoader(TensorDataset(X_test_t, y_test_t), batch_size=args.batch_size, shuffle=False, drop_last=True)
+ 
++    print(f'[prepare] seed={seed}  train={len(train_idx)}  val={len(val_idx)}  test={len(test_idx)}')
++    return train_loader, val_loader, test_loader
++
++
++if __name__ == '__main__':
++    # [改动 3] 播种移到主流程；固定划分模式下只在循环前种一次
++    torch_seed = int(os.environ.get("DELE_TORCH_SEED", args.seed))
++    print(f"[info] torch_seed={torch_seed}; split_seed={args.seed}")
++    torch.manual_seed(torch_seed)
++    torch.cuda.manual_seed_all(torch_seed)
++
++    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
++
+     save_path = os.path.join(args.save_dirs, 'Exchange')
+-    if not os.path.exists(save_path):
+-        os.makedirs(save_path)
++    os.makedirs(save_path, exist_ok=True)
+ 
+     short=0
+-    model_list = ['Delelstm', 'Retain','IMV_full', 'IMV_tensor',  'LSTM']
+-    #model_list=['LSTM']
+-    # split the training set and test set and construct the data loader
++    # [改动 6] 删除被覆盖的死代码 model_list = [...] / #model_list=['LSTM']，只保留环境变量开关
++    model_list = os.environ.get('DELE_MODELS', 'Delelstm,IMV_full,IMV_tensor,Retain,LSTM').split(',')
++
++    mode = 'RESAMPLE-SPLIT (每个 exp 重新划分)' if args.resample_split else 'FIXED-SPLIT (5 次共用一份划分)'
++    print(f'[info] dataset=Exchange  mode={mode}  num_exp={args.num_exp}')
+ 
+     for exp_id in range(args.num_exp):
++        seed = args.seed + exp_id if args.resample_split else args.seed
++        if args.resample_split:
++            # [改动 4] 只有重采样模式才在循环内重置 torch 种子
++            torch.manual_seed(seed)
++            torch.cuda.manual_seed_all(seed)
++        # [改动 5] 划分 + loader 移到循环内，每个 exp 一次
++        train_loader, val_loader, test_loader = prepare(seed)
++
+         for model_name in model_list:
+             if model_name == 'Delelstm':
+                 model = Delelstm(config.config(model_name, args), short).to(device)
+@@ -112,4 +137,4 @@
+                 ModuleNotFoundError(f'Module {model_name} not found')
+             print(f'Training model {model_name}')
+             print(f'Num of trainable params:', sum(p.numel() for p in model.parameters() if p.requires_grad))
+-            exchange_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id)
+\ No newline at end of file
++            exchange_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id)
+--- a/model_training.py
++++ b/model_training.py
+@@ -11,13 +11,14 @@
+ 
+ def elec_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id):
+     opt = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=0.001)
+-    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, verbose=True, min_lr=0.0001)
+-
+-    epochs = 350
++    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, min_lr=0.0001)
++
++    epochs = int(os.environ.get("DELE_EPOCHS", 350))
+     min_val_loss = 1000000
+     loss=nn.MSELoss()
+ 
+-    save_path = os.path.join(args.save_dirs, 'Electricity', 'exp_' + str(exp_id))
++    # [改动 8] 目录名加入 seed：多次独立运行时不会互相覆盖 exp_0
++    save_path = os.path.join(args.save_dirs, 'Electricity', f'exp_{args.seed}_{exp_id}')
+     if not os.path.exists(save_path):
+         os.makedirs(save_path)
+ 
+@@ -218,13 +219,14 @@
+ def exchange_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id):
+     #opt = torch.optim.Adam(model.parameters(), lr=0.005, weight_decay=0.001)
+     opt = torch.optim.Adam(model.parameters(), lr=0.01)
+-    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, verbose=True, min_lr=0.0001)
+-
+-    epochs = 300
++    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, min_lr=0.0001)
++
++    epochs = int(os.environ.get("DELE_EPOCHS", 300))
+     min_val_loss = 1000000
+     loss=nn.MSELoss()
+ 
+-    save_path = os.path.join(args.save_dirs, 'Exchange', 'exp_' + str(exp_id))
++    # [改动 8] 目录名加入 seed：多次独立运行时不会互相覆盖 exp_0
++    save_path = os.path.join(args.save_dirs, 'Exchange', f'exp_{args.seed}_{exp_id}')
+     if not os.path.exists(save_path):
+         os.makedirs(save_path)
+ 
+@@ -424,14 +426,15 @@
+ def PM_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id):
+     #opt = torch.optim.Adam(model.parameters(), lr=0.05, weight_decay=0.03)
+     opt = torch.optim.Adam(model.parameters(), lr=0.05,weight_decay=0.03)
+-    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, verbose=True, min_lr=0.0001)
++    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, min_lr=0.0001)
+ 
+     #epoch_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=32)
+-    epochs =300
++    epochs = int(os.environ.get("DELE_EPOCHS", 300))
+     min_val_loss = 1000000
+     loss=nn.MSELoss()
+ 
+-    save_path = os.path.join(args.save_dirs, 'newrevision_pmc', 'exp_' + str(exp_id))
++    # [改动 8] 目录名加入 seed：多次独立运行时不会互相覆盖 exp_0
++    save_path = os.path.join(args.save_dirs, 'newrevision_pmc', f'exp_{args.seed}_{exp_id}')
+     if not os.path.exists(save_path):
+         os.makedirs(save_path)
+ 
+--- a/networks.py
++++ b/networks.py
+@@ -376,7 +376,10 @@
+         self.outputDimSize = Retain_pertime_params['output_dim']
+         self.keep_prob = Retain_pertime_params['keep_prob']
+         self.embedding = nn.Linear(self.inputDimSize, self.embDimSize)
+-        self.dropout = nn.Dropout(self.keep_prob)
++        # [改动 9] 原写法把 keep_prob 当成 drop_prob 传给 nn.Dropout，语义反了。
++        # keep_prob=1.0 时两者恰好都等于 0（且被下面的 if self.keep_prob < 1 挡住），
++        # 因此本次修改不改变任何已有结果，只是修掉潜在陷阱。
++        self.dropout = nn.Dropout(1 - self.keep_prob)
+         self.gru_alpha = nn.GRU(self.embDimSize, self.alphaHiddenDimSize)
+         self.gru_beta = nn.GRU(self.embDimSize, self.betaHiddenDimSize)
+         self.alpha_att = nn.Linear(self.alphaHiddenDimSize, 1)

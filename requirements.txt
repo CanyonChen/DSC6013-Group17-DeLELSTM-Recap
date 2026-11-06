@@ -1,0 +1,10 @@
+# GPU dependencies for Python 3.13 on Windows/Linux x86-64.
+# Install inside the Conda environment defined in environment.yml.
+# Pin the CUDA build explicitly so a CPU-only torch wheel cannot satisfy it.
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.10.0+cu126
+# 2.4.0 (the recorded CPU version) was yanked for a compatibility bug.
+numpy==2.4.6
+pandas==3.0.1
+scikit-learn==1.8.0
+torchmetrics==1.9.0

@@ -1,0 +1,1900 @@
+dataset=PM run=3 attempt=0 torch_seed=559 split_seed=555 epochs=default
+[info] torch_seed=559; split_seed=555
+[info] dataset=PM2.5  mode=FIXED-SPLIT (5 次共用一份划分)  num_exp=1
+[prepare] seed=555  train=1369  val=273  test=184
+Training model Delelstm
+Num of trainable params: 40097
+Experiment: 0
+Training loss at epoch 0: mse=12819.9192, rmse=113.2251, time elapsed: 1.75
+Saving...
+lr:  0.05
+Training loss at epoch 1: mse=8226.0249, rmse=90.6974, time elapsed: 1.81
+Saving...
+Training loss at epoch 2: mse=5581.9046, rmse=74.7121, time elapsed: 1.86
+Saving...
+Training loss at epoch 3: mse=3679.9006, rmse=60.6622, time elapsed: 1.88
+Saving...
+Training loss at epoch 4: mse=2723.7319, rmse=52.1894, time elapsed: 1.74
+Saving...
+Training loss at epoch 5: mse=2099.7944, rmse=45.8235, time elapsed: 1.90
+Saving...
+Training loss at epoch 6: mse=1792.7983, rmse=42.3414, time elapsed: 1.70
+Saving...
+Training loss at epoch 7: mse=1481.7362, rmse=38.4933, time elapsed: 1.81
+Saving...
+Training loss at epoch 8: mse=1324.7521, rmse=36.3971, time elapsed: 1.76
+Saving...
+Training loss at epoch 9: mse=1177.4988, rmse=34.3147, time elapsed: 1.72
+Saving...
+Training loss at epoch 10: mse=1077.2510, rmse=32.8215, time elapsed: 1.89
+Saving...
+lr:  0.05
+Training loss at epoch 11: mse=999.0905, rmse=31.6084, time elapsed: 1.80
+Saving...
+Training loss at epoch 12: mse=918.9957, rmse=30.3149, time elapsed: 1.77
+Saving...
+Training loss at epoch 13: mse=882.3271, rmse=29.7040, time elapsed: 1.93
+Training loss at epoch 14: mse=851.5672, rmse=29.1816, time elapsed: 1.73
+Saving...
+Training loss at epoch 15: mse=804.6843, rmse=28.3670, time elapsed: 1.86
+Saving...
+Training loss at epoch 16: mse=782.4795, rmse=27.9728, time elapsed: 1.79
+Training loss at epoch 17: mse=777.8825, rmse=27.8905, time elapsed: 1.82
+Saving...
+Training loss at epoch 18: mse=703.3285, rmse=26.5203, time elapsed: 2.01
+Saving...
+Training loss at epoch 19: mse=716.3968, rmse=26.7656, time elapsed: 1.91
+Saving...
+Training loss at epoch 20: mse=676.3526, rmse=26.0068, time elapsed: 2.03
+lr:  0.05
+Training loss at epoch 21: mse=669.2476, rmse=25.8698, time elapsed: 1.84
+Training loss at epoch 22: mse=668.9042, rmse=25.8632, time elapsed: 1.91
+Saving...
+Training loss at epoch 23: mse=641.9238, rmse=25.3362, time elapsed: 1.82
+Saving...
+Training loss at epoch 24: mse=627.3374, rmse=25.0467, time elapsed: 1.80
+Saving...
+Training loss at epoch 25: mse=619.7396, rmse=24.8946, time elapsed: 1.77
+Training loss at epoch 26: mse=627.3218, rmse=25.0464, time elapsed: 1.95
+Training loss at epoch 27: mse=614.3464, rmse=24.7860, time elapsed: 1.80
+Training loss at epoch 28: mse=596.4021, rmse=24.4213, time elapsed: 1.81
+Training loss at epoch 29: mse=618.3389, rmse=24.8664, time elapsed: 1.80
+Training loss at epoch 30: mse=587.9126, rmse=24.2469, time elapsed: 1.87
+Saving...
+lr:  0.05
+Training loss at epoch 31: mse=596.0232, rmse=24.4136, time elapsed: 1.94
+Training loss at epoch 32: mse=583.8652, rmse=24.1633, time elapsed: 1.81
+Training loss at epoch 33: mse=593.0203, rmse=24.3520, time elapsed: 2.03
+Saving...
+Training loss at epoch 34: mse=585.9941, rmse=24.2073, time elapsed: 1.96
+Training loss at epoch 35: mse=578.8431, rmse=24.0592, time elapsed: 1.93
+Saving...
+Training loss at epoch 36: mse=576.1538, rmse=24.0032, time elapsed: 2.00
+Training loss at epoch 37: mse=583.2914, rmse=24.1514, time elapsed: 1.93
+Training loss at epoch 38: mse=573.7911, rmse=23.9539, time elapsed: 2.26
+Saving...
+Training loss at epoch 39: mse=564.5125, rmse=23.7595, time elapsed: 2.16
+Training loss at epoch 40: mse=559.2268, rmse=23.6480, time elapsed: 2.07
+lr:  0.05
+Training loss at epoch 41: mse=568.8114, rmse=23.8498, time elapsed: 1.81
+Saving...
+Training loss at epoch 42: mse=557.3562, rmse=23.6084, time elapsed: 1.96
+Training loss at epoch 43: mse=572.1455, rmse=23.9196, time elapsed: 1.77
+Training loss at epoch 44: mse=564.7063, rmse=23.7635, time elapsed: 1.74
+Saving...
+Training loss at epoch 45: mse=540.9635, rmse=23.2586, time elapsed: 1.79
+Training loss at epoch 46: mse=542.6357, rmse=23.2945, time elapsed: 1.88
+Training loss at epoch 47: mse=555.4165, rmse=23.5673, time elapsed: 1.79
+Training loss at epoch 48: mse=560.2185, rmse=23.6689, time elapsed: 1.76
+Training loss at epoch 49: mse=543.2449, rmse=23.3076, time elapsed: 1.79
+Saving...
+Training loss at epoch 50: mse=550.3661, rmse=23.4599, time elapsed: 1.86
+Saving...
+lr:  0.05
+Training loss at epoch 51: mse=552.0164, rmse=23.4950, time elapsed: 1.89
+Training loss at epoch 52: mse=543.3821, rmse=23.3106, time elapsed: 1.82
+Training loss at epoch 53: mse=555.2402, rmse=23.5635, time elapsed: 1.79
+Saving...
+Training loss at epoch 54: mse=542.0723, rmse=23.2824, time elapsed: 1.80
+Training loss at epoch 55: mse=570.2797, rmse=23.8805, time elapsed: 1.88
+Training loss at epoch 56: mse=590.5493, rmse=24.3012, time elapsed: 1.86
+Training loss at epoch 57: mse=585.1327, rmse=24.1895, time elapsed: 1.86
+Training loss at epoch 58: mse=575.7392, rmse=23.9946, time elapsed: 1.83
+Training loss at epoch 59: mse=561.3807, rmse=23.6935, time elapsed: 1.80
+Training loss at epoch 60: mse=570.6734, rmse=23.8888, time elapsed: 2.02
+lr:  0.05
+Training loss at epoch 61: mse=554.0853, rmse=23.5390, time elapsed: 2.17
+Training loss at epoch 62: mse=607.7005, rmse=24.6516, time elapsed: 1.86
+Training loss at epoch 63: mse=608.9669, rmse=24.6773, time elapsed: 2.05
+Training loss at epoch 64: mse=568.6638, rmse=23.8467, time elapsed: 1.89
+Training loss at epoch 65: mse=561.0075, rmse=23.6856, time elapsed: 1.77
+Training loss at epoch 66: mse=565.8956, rmse=23.7886, time elapsed: 1.92
+Training loss at epoch 67: mse=542.4403, rmse=23.2903, time elapsed: 2.05
+Training loss at epoch 68: mse=513.5542, rmse=22.6617, time elapsed: 1.81
+Training loss at epoch 69: mse=567.3650, rmse=23.8194, time elapsed: 1.78
+Training loss at epoch 70: mse=554.5848, rmse=23.5496, time elapsed: 1.77
+lr:  0.05
+Training loss at epoch 71: mse=544.1208, rmse=23.3264, time elapsed: 1.74
+Training loss at epoch 72: mse=542.2354, rmse=23.2859, time elapsed: 1.91
+Training loss at epoch 73: mse=528.2676, rmse=22.9841, time elapsed: 1.93
+Training loss at epoch 74: mse=529.7307, rmse=23.0159, time elapsed: 2.03
+Training loss at epoch 75: mse=515.5486, rmse=22.7057, time elapsed: 2.17
+Training loss at epoch 76: mse=511.8238, rmse=22.6235, time elapsed: 1.93
+Saving...
+Training loss at epoch 77: mse=515.1518, rmse=22.6970, time elapsed: 1.88
+Saving...
+Training loss at epoch 78: mse=515.0443, rmse=22.6946, time elapsed: 1.83
+Training loss at epoch 79: mse=517.5145, rmse=22.7489, time elapsed: 1.75
+Training loss at epoch 80: mse=510.1533, rmse=22.5866, time elapsed: 2.13
+lr:  0.025
+Training loss at epoch 81: mse=510.9360, rmse=22.6039, time elapsed: 1.83
+Training loss at epoch 82: mse=507.5969, rmse=22.5299, time elapsed: 1.83
+Training loss at epoch 83: mse=501.8787, rmse=22.4026, time elapsed: 1.83
+Training loss at epoch 84: mse=510.5143, rmse=22.5946, time elapsed: 1.75
+Training loss at epoch 85: mse=503.9666, rmse=22.4492, time elapsed: 1.79
+Training loss at epoch 86: mse=507.7445, rmse=22.5332, time elapsed: 1.83
+Training loss at epoch 87: mse=499.7108, rmse=22.3542, time elapsed: 1.92
+Training loss at epoch 88: mse=509.5254, rmse=22.5727, time elapsed: 1.77
+Saving...
+Training loss at epoch 89: mse=505.8738, rmse=22.4916, time elapsed: 2.14
+Saving...
+Training loss at epoch 90: mse=501.0145, rmse=22.3834, time elapsed: 1.87
+lr:  0.025
+Training loss at epoch 91: mse=504.2375, rmse=22.4552, time elapsed: 1.91
+Training loss at epoch 92: mse=502.6833, rmse=22.4206, time elapsed: 1.83
+Training loss at epoch 93: mse=503.5746, rmse=22.4405, time elapsed: 1.70
+Training loss at epoch 94: mse=505.3904, rmse=22.4809, time elapsed: 1.71
+Training loss at epoch 95: mse=507.9554, rmse=22.5379, time elapsed: 1.73
+Saving...
+Training loss at epoch 96: mse=497.4587, rmse=22.3038, time elapsed: 1.75
+Training loss at epoch 97: mse=496.8070, rmse=22.2892, time elapsed: 1.85
+Training loss at epoch 98: mse=489.2648, rmse=22.1193, time elapsed: 1.73
+Training loss at epoch 99: mse=496.9176, rmse=22.2916, time elapsed: 1.76
+Training loss at epoch 100: mse=501.5585, rmse=22.3955, time elapsed: 1.98
+lr:  0.025
+Training loss at epoch 101: mse=506.1004, rmse=22.4967, time elapsed: 1.84
+Training loss at epoch 102: mse=500.8033, rmse=22.3786, time elapsed: 1.94
+Training loss at epoch 103: mse=504.3922, rmse=22.4587, time elapsed: 1.96
+Training loss at epoch 104: mse=503.6699, rmse=22.4426, time elapsed: 1.84
+Training loss at epoch 105: mse=508.3058, rmse=22.5456, time elapsed: 1.90
+Training loss at epoch 106: mse=511.2622, rmse=22.6111, time elapsed: 1.83
+Training loss at epoch 107: mse=492.1678, rmse=22.1849, time elapsed: 1.97
+Training loss at epoch 108: mse=504.3604, rmse=22.4580, time elapsed: 1.94
+Saving...
+Training loss at epoch 109: mse=500.9710, rmse=22.3824, time elapsed: 1.87
+Training loss at epoch 110: mse=487.0573, rmse=22.0694, time elapsed: 1.87
+lr:  0.025
+Training loss at epoch 111: mse=500.0531, rmse=22.3619, time elapsed: 1.76
+Training loss at epoch 112: mse=504.1425, rmse=22.4531, time elapsed: 1.80
+Training loss at epoch 113: mse=477.9397, rmse=21.8618, time elapsed: 1.87
+Training loss at epoch 114: mse=501.8353, rmse=22.4017, time elapsed: 1.90
+Training loss at epoch 115: mse=498.3645, rmse=22.3241, time elapsed: 1.87
+Training loss at epoch 116: mse=504.4877, rmse=22.4608, time elapsed: 1.93
+Training loss at epoch 117: mse=493.7367, rmse=22.2202, time elapsed: 1.99
+Training loss at epoch 118: mse=501.1620, rmse=22.3866, time elapsed: 2.05
+Training loss at epoch 119: mse=500.3937, rmse=22.3695, time elapsed: 1.88
+Training loss at epoch 120: mse=494.5866, rmse=22.2393, time elapsed: 1.78
+lr:  0.025
+Training loss at epoch 121: mse=492.9725, rmse=22.2030, time elapsed: 1.83
+Training loss at epoch 122: mse=507.4481, rmse=22.5266, time elapsed: 1.88
+Training loss at epoch 123: mse=491.9601, rmse=22.1802, time elapsed: 1.86
+Training loss at epoch 124: mse=496.2503, rmse=22.2767, time elapsed: 1.80
+Training loss at epoch 125: mse=496.7476, rmse=22.2878, time elapsed: 1.69
+Training loss at epoch 126: mse=490.8352, rmse=22.1548, time elapsed: 1.75
+Training loss at epoch 127: mse=498.7515, rmse=22.3327, time elapsed: 1.72
+Training loss at epoch 128: mse=497.7515, rmse=22.3103, time elapsed: 1.74
+Training loss at epoch 129: mse=495.4416, rmse=22.2585, time elapsed: 1.86
+Training loss at epoch 130: mse=485.8368, rmse=22.0417, time elapsed: 1.82
+lr:  0.0125
+Training loss at epoch 131: mse=483.7549, rmse=21.9944, time elapsed: 1.75
+Training loss at epoch 132: mse=483.5401, rmse=21.9895, time elapsed: 2.01
+Saving...
+Training loss at epoch 133: mse=481.4880, rmse=21.9428, time elapsed: 2.50
+Training loss at epoch 134: mse=485.9641, rmse=22.0446, time elapsed: 2.11
+Training loss at epoch 135: mse=483.2773, rmse=21.9836, time elapsed: 2.02
+Training loss at epoch 136: mse=481.8671, rmse=21.9515, time elapsed: 2.03
+Training loss at epoch 137: mse=476.1459, rmse=21.8208, time elapsed: 1.94
+Training loss at epoch 138: mse=482.7257, rmse=21.9710, time elapsed: 3.18
+Saving...
+Training loss at epoch 139: mse=480.4082, rmse=21.9182, time elapsed: 2.38
+Training loss at epoch 140: mse=478.2301, rmse=21.8685, time elapsed: 4.04
+lr:  0.0125
+Training loss at epoch 141: mse=484.4221, rmse=22.0096, time elapsed: 2.61
+Training loss at epoch 142: mse=482.6569, rmse=21.9695, time elapsed: 2.09
+Training loss at epoch 143: mse=481.1342, rmse=21.9348, time elapsed: 2.02
+Training loss at epoch 144: mse=472.5982, rmse=21.7393, time elapsed: 1.81
+Training loss at epoch 145: mse=480.7404, rmse=21.9258, time elapsed: 1.86
+Training loss at epoch 146: mse=469.3164, rmse=21.6637, time elapsed: 1.81
+Training loss at epoch 147: mse=479.1299, rmse=21.8890, time elapsed: 1.99
+Training loss at epoch 148: mse=478.9828, rmse=21.8857, time elapsed: 3.30
+Training loss at epoch 149: mse=484.8255, rmse=22.0188, time elapsed: 2.40
+Training loss at epoch 150: mse=482.8151, rmse=21.9731, time elapsed: 1.67
+lr:  0.0125
+Training loss at epoch 151: mse=479.9317, rmse=21.9073, time elapsed: 1.86
+Training loss at epoch 152: mse=473.4823, rmse=21.7596, time elapsed: 1.74
+Training loss at epoch 153: mse=476.4851, rmse=21.8285, time elapsed: 1.99
+Training loss at epoch 154: mse=474.5219, rmse=21.7835, time elapsed: 1.98
+Training loss at epoch 155: mse=438.4202, rmse=20.9385, time elapsed: 1.93
+Training loss at epoch 156: mse=477.0467, rmse=21.8414, time elapsed: 1.84
+Training loss at epoch 157: mse=480.9520, rmse=21.9306, time elapsed: 2.33
+Training loss at epoch 158: mse=471.9638, rmse=21.7247, time elapsed: 2.83
+Training loss at epoch 159: mse=475.2905, rmse=21.8012, time elapsed: 2.85
+Training loss at epoch 160: mse=466.8528, rmse=21.6068, time elapsed: 2.33
+lr:  0.00625
+Training loss at epoch 161: mse=461.6792, rmse=21.4867, time elapsed: 2.16
+Training loss at epoch 162: mse=460.3676, rmse=21.4562, time elapsed: 2.17
+Training loss at epoch 163: mse=464.6483, rmse=21.5557, time elapsed: 1.92
+Training loss at epoch 164: mse=460.1017, rmse=21.4500, time elapsed: 1.89
+Training loss at epoch 165: mse=456.6689, rmse=21.3698, time elapsed: 1.74
+Training loss at epoch 166: mse=462.0127, rmse=21.4945, time elapsed: 1.93
+Training loss at epoch 167: mse=445.6123, rmse=21.1095, time elapsed: 1.89
+Training loss at epoch 168: mse=452.2470, rmse=21.2661, time elapsed: 1.94
+Training loss at epoch 169: mse=461.4457, rmse=21.4813, time elapsed: 1.75
+Training loss at epoch 170: mse=463.7077, rmse=21.5339, time elapsed: 3.03
+lr:  0.00625
+Training loss at epoch 171: mse=461.1937, rmse=21.4754, time elapsed: 1.78
+Training loss at epoch 172: mse=459.3447, rmse=21.4323, time elapsed: 1.67
+Training loss at epoch 173: mse=457.0085, rmse=21.3778, time elapsed: 1.72
+Training loss at epoch 174: mse=456.5987, rmse=21.3682, time elapsed: 1.65
+Training loss at epoch 175: mse=452.6489, rmse=21.2755, time elapsed: 1.96
+Training loss at epoch 176: mse=451.6780, rmse=21.2527, time elapsed: 1.63
+Training loss at epoch 177: mse=457.2233, rmse=21.3828, time elapsed: 1.70
+Training loss at epoch 178: mse=457.5657, rmse=21.3908, time elapsed: 1.63
+Training loss at epoch 179: mse=453.0532, rmse=21.2850, time elapsed: 1.70
+Training loss at epoch 180: mse=451.5146, rmse=21.2489, time elapsed: 1.71
+lr:  0.00625
+Training loss at epoch 181: mse=448.3003, rmse=21.1731, time elapsed: 1.65
+Training loss at epoch 182: mse=448.1527, rmse=21.1696, time elapsed: 1.66
+Training loss at epoch 183: mse=444.8882, rmse=21.0924, time elapsed: 1.63
+Training loss at epoch 184: mse=441.0275, rmse=21.0007, time elapsed: 1.64
+Training loss at epoch 185: mse=439.6197, rmse=20.9671, time elapsed: 1.72
+Training loss at epoch 186: mse=440.2160, rmse=20.9813, time elapsed: 1.73
+Training loss at epoch 187: mse=441.9264, rmse=21.0220, time elapsed: 1.69
+Training loss at epoch 188: mse=440.3084, rmse=20.9835, time elapsed: 2.06
+Training loss at epoch 189: mse=438.1578, rmse=20.9322, time elapsed: 1.87
+Training loss at epoch 190: mse=439.8397, rmse=20.9724, time elapsed: 2.18
+lr:  0.003125
+Training loss at epoch 191: mse=440.2257, rmse=20.9816, time elapsed: 1.88
+Training loss at epoch 192: mse=442.4042, rmse=21.0334, time elapsed: 2.03
+Training loss at epoch 193: mse=433.7902, rmse=20.8276, time elapsed: 1.77
+Training loss at epoch 194: mse=439.9586, rmse=20.9752, time elapsed: 1.88
+Training loss at epoch 195: mse=435.0958, rmse=20.8590, time elapsed: 1.76
+Training loss at epoch 196: mse=439.0224, rmse=20.9529, time elapsed: 1.80
+Training loss at epoch 197: mse=439.3278, rmse=20.9601, time elapsed: 1.76
+Training loss at epoch 198: mse=434.2669, rmse=20.8391, time elapsed: 1.96
+Training loss at epoch 199: mse=434.6336, rmse=20.8479, time elapsed: 1.75
+Training loss at epoch 200: mse=428.2950, rmse=20.6953, time elapsed: 1.85
+lr:  0.003125
+Training loss at epoch 201: mse=434.0920, rmse=20.8349, time elapsed: 1.72
+Training loss at epoch 202: mse=427.8038, rmse=20.6834, time elapsed: 1.74
+Training loss at epoch 203: mse=425.6258, rmse=20.6307, time elapsed: 1.74
+Training loss at epoch 204: mse=427.1215, rmse=20.6669, time elapsed: 1.75
+Training loss at epoch 205: mse=425.7847, rmse=20.6346, time elapsed: 1.73
+Training loss at epoch 206: mse=421.7920, rmse=20.5376, time elapsed: 1.66
+Training loss at epoch 207: mse=425.2957, rmse=20.6227, time elapsed: 1.76
+Training loss at epoch 208: mse=423.8235, rmse=20.5870, time elapsed: 1.68
+Training loss at epoch 209: mse=425.2443, rmse=20.6215, time elapsed: 1.63
+Training loss at epoch 210: mse=419.4860, rmse=20.4814, time elapsed: 1.63
+lr:  0.0015625
+Training loss at epoch 211: mse=420.9682, rmse=20.5175, time elapsed: 1.64
+Training loss at epoch 212: mse=419.6097, rmse=20.4844, time elapsed: 1.66
+Training loss at epoch 213: mse=422.6804, rmse=20.5592, time elapsed: 1.69
+Training loss at epoch 214: mse=419.7140, rmse=20.4869, time elapsed: 1.63
+Training loss at epoch 215: mse=417.7115, rmse=20.4380, time elapsed: 1.72
+Training loss at epoch 216: mse=417.3632, rmse=20.4295, time elapsed: 1.72
+Training loss at epoch 217: mse=416.0425, rmse=20.3971, time elapsed: 1.71
+Training loss at epoch 218: mse=416.5804, rmse=20.4103, time elapsed: 1.69
+Training loss at epoch 219: mse=416.2411, rmse=20.4020, time elapsed: 1.75
+Training loss at epoch 220: mse=419.7950, rmse=20.4889, time elapsed: 1.73
+lr:  0.0015625
+Training loss at epoch 221: mse=417.2134, rmse=20.4258, time elapsed: 1.69
+Training loss at epoch 222: mse=383.9142, rmse=19.5937, time elapsed: 1.69
+Training loss at epoch 223: mse=409.6472, rmse=20.2397, time elapsed: 1.63
+Training loss at epoch 224: mse=410.8768, rmse=20.2701, time elapsed: 1.70
+Training loss at epoch 225: mse=410.1321, rmse=20.2517, time elapsed: 1.75
+Training loss at epoch 226: mse=410.2557, rmse=20.2548, time elapsed: 1.65
+Training loss at epoch 227: mse=412.2814, rmse=20.3047, time elapsed: 1.71
+Training loss at epoch 228: mse=411.8614, rmse=20.2944, time elapsed: 1.89
+Training loss at epoch 229: mse=413.0413, rmse=20.3234, time elapsed: 2.36
+Training loss at epoch 230: mse=412.1533, rmse=20.3016, time elapsed: 1.81
+lr:  0.00078125
+Training loss at epoch 231: mse=400.2418, rmse=20.0060, time elapsed: 1.88
+Training loss at epoch 232: mse=411.1233, rmse=20.2762, time elapsed: 1.99
+Training loss at epoch 233: mse=406.9940, rmse=20.1741, time elapsed: 1.79
+Training loss at epoch 234: mse=410.8832, rmse=20.2703, time elapsed: 1.85
+Training loss at epoch 235: mse=408.6272, rmse=20.2145, time elapsed: 2.10
+Training loss at epoch 236: mse=408.8381, rmse=20.2197, time elapsed: 1.79
+Training loss at epoch 237: mse=406.3412, rmse=20.1579, time elapsed: 1.91
+Training loss at epoch 238: mse=407.1664, rmse=20.1784, time elapsed: 1.77
+Training loss at epoch 239: mse=406.5146, rmse=20.1622, time elapsed: 1.81
+Training loss at epoch 240: mse=405.5608, rmse=20.1385, time elapsed: 2.09
+lr:  0.00078125
+Training loss at epoch 241: mse=407.8574, rmse=20.1955, time elapsed: 1.84
+Training loss at epoch 242: mse=406.4443, rmse=20.1605, time elapsed: 2.09
+Training loss at epoch 243: mse=403.3304, rmse=20.0831, time elapsed: 1.80
+Training loss at epoch 244: mse=395.7219, rmse=19.8928, time elapsed: 1.80
+Training loss at epoch 245: mse=402.4677, rmse=20.0616, time elapsed: 2.18
+Training loss at epoch 246: mse=403.3470, rmse=20.0835, time elapsed: 1.78
+Training loss at epoch 247: mse=391.8816, rmse=19.7960, time elapsed: 2.09
+Training loss at epoch 248: mse=401.9798, rmse=20.0494, time elapsed: 1.93
+Training loss at epoch 249: mse=400.3633, rmse=20.0091, time elapsed: 2.04
+Training loss at epoch 250: mse=394.0749, rmse=19.8513, time elapsed: 2.12
+lr:  0.000390625
+Training loss at epoch 251: mse=399.7573, rmse=19.9939, time elapsed: 1.82
+Training loss at epoch 252: mse=398.6435, rmse=19.9661, time elapsed: 1.69
+Training loss at epoch 253: mse=403.1963, rmse=20.0797, time elapsed: 1.70
+Training loss at epoch 254: mse=398.0778, rmse=19.9519, time elapsed: 1.64
+Training loss at epoch 255: mse=400.6073, rmse=20.0152, time elapsed: 1.75
+Training loss at epoch 256: mse=364.8847, rmse=19.1020, time elapsed: 1.73
+Training loss at epoch 257: mse=402.7478, rmse=20.0686, time elapsed: 1.73
+Training loss at epoch 258: mse=391.5589, rmse=19.7878, time elapsed: 1.72
+Training loss at epoch 259: mse=401.3635, rmse=20.0341, time elapsed: 1.69
+Training loss at epoch 260: mse=398.5187, rmse=19.9629, time elapsed: 1.76
+lr:  0.000390625
+Training loss at epoch 261: mse=400.1197, rmse=20.0030, time elapsed: 1.74
+Training loss at epoch 262: mse=394.1337, rmse=19.8528, time elapsed: 1.78
+Training loss at epoch 263: mse=398.6326, rmse=19.9658, time elapsed: 1.78
+Training loss at epoch 264: mse=401.4758, rmse=20.0369, time elapsed: 2.02
+Training loss at epoch 265: mse=399.5694, rmse=19.9892, time elapsed: 3.01
+Training loss at epoch 266: mse=395.1688, rmse=19.8789, time elapsed: 1.70
+Training loss at epoch 267: mse=396.8141, rmse=19.9202, time elapsed: 1.67
+Training loss at epoch 268: mse=399.3278, rmse=19.9832, time elapsed: 1.78
+Training loss at epoch 269: mse=395.6475, rmse=19.8909, time elapsed: 1.86
+Training loss at epoch 270: mse=398.3206, rmse=19.9580, time elapsed: 1.83
+lr:  0.0001953125
+Training loss at epoch 271: mse=399.1455, rmse=19.9786, time elapsed: 1.75
+Training loss at epoch 272: mse=399.0462, rmse=19.9761, time elapsed: 1.76
+Training loss at epoch 273: mse=397.8795, rmse=19.9469, time elapsed: 1.65
+Training loss at epoch 274: mse=399.6152, rmse=19.9904, time elapsed: 1.65
+Training loss at epoch 275: mse=391.8294, rmse=19.7947, time elapsed: 1.68
+Training loss at epoch 276: mse=396.7052, rmse=19.9175, time elapsed: 1.69
+Training loss at epoch 277: mse=397.4212, rmse=19.9354, time elapsed: 1.66
+Training loss at epoch 278: mse=397.9675, rmse=19.9491, time elapsed: 1.70
+Training loss at epoch 279: mse=388.0867, rmse=19.6999, time elapsed: 1.65
+Training loss at epoch 280: mse=399.5437, rmse=19.9886, time elapsed: 1.63
+lr:  0.0001953125
+Training loss at epoch 281: mse=396.0592, rmse=19.9012, time elapsed: 1.63
+Training loss at epoch 282: mse=396.5494, rmse=19.9135, time elapsed: 1.73
+Training loss at epoch 283: mse=398.9222, rmse=19.9730, time elapsed: 1.62
+Training loss at epoch 284: mse=396.6830, rmse=19.9169, time elapsed: 1.63
+Training loss at epoch 285: mse=395.7097, rmse=19.8925, time elapsed: 1.66
+Training loss at epoch 286: mse=394.5921, rmse=19.8643, time elapsed: 1.69
+Training loss at epoch 287: mse=396.2190, rmse=19.9053, time elapsed: 1.66
+Training loss at epoch 288: mse=393.8700, rmse=19.8462, time elapsed: 1.71
+Training loss at epoch 289: mse=388.1735, rmse=19.7021, time elapsed: 1.63
+Training loss at epoch 290: mse=397.4044, rmse=19.9350, time elapsed: 1.72
+lr:  0.0001
+Training loss at epoch 291: mse=397.4711, rmse=19.9367, time elapsed: 1.83
+Training loss at epoch 292: mse=392.3950, rmse=19.8090, time elapsed: 1.88
+Training loss at epoch 293: mse=395.0244, rmse=19.8752, time elapsed: 1.75
+Training loss at epoch 294: mse=392.6952, rmse=19.8165, time elapsed: 1.64
+Training loss at epoch 295: mse=394.5566, rmse=19.8634, time elapsed: 1.65
+Training loss at epoch 296: mse=394.9685, rmse=19.8738, time elapsed: 1.64
+Training loss at epoch 297: mse=395.2539, rmse=19.8810, time elapsed: 1.65
+Training loss at epoch 298: mse=393.0852, rmse=19.8264, time elapsed: 1.67
+Training loss at epoch 299: mse=385.4636, rmse=19.6332, time elapsed: 1.68
+Testing:
+mse, rmse, mae,mape 664.4542846679688 25.777010778365455 13.400650024414062 0.2244352102279663
+Training model IMV_full
+Num of trainable params: 55114
+Experiment: 0
+Training loss at epoch 0: mse=13138.9876, rmse=114.6254, time elapsed: 0.90
+Saving...
+lr:  0.05
+Training loss at epoch 1: mse=8588.1159, rmse=92.6721, time elapsed: 0.85
+Saving...
+Training loss at epoch 2: mse=8131.9870, rmse=90.1775, time elapsed: 0.86
+Training loss at epoch 3: mse=8007.5470, rmse=89.4849, time elapsed: 0.84
+Saving...
+Training loss at epoch 4: mse=7574.3201, rmse=87.0306, time elapsed: 0.87
+Saving...
+Training loss at epoch 5: mse=6358.6944, rmse=79.7414, time elapsed: 0.92
+Saving...
+Training loss at epoch 6: mse=5150.9003, rmse=71.7698, time elapsed: 0.94
+Saving...
+Training loss at epoch 7: mse=4008.6267, rmse=63.3137, time elapsed: 0.94
+Saving...
+Training loss at epoch 8: mse=3294.7605, rmse=57.4000, time elapsed: 1.00
+Saving...
+Training loss at epoch 9: mse=2910.9405, rmse=53.9531, time elapsed: 1.10
+Saving...
+Training loss at epoch 10: mse=2938.2241, rmse=54.2054, time elapsed: 0.90
+lr:  0.05
+Training loss at epoch 11: mse=2750.9395, rmse=52.4494, time elapsed: 0.92
+Saving...
+Training loss at epoch 12: mse=2153.0996, rmse=46.4015, time elapsed: 0.98
+Saving...
+Training loss at epoch 13: mse=1993.6184, rmse=44.6500, time elapsed: 1.01
+Saving...
+Training loss at epoch 14: mse=1616.4699, rmse=40.2053, time elapsed: 0.89
+Saving...
+Training loss at epoch 15: mse=1854.7536, rmse=43.0668, time elapsed: 0.99
+Saving...
+Training loss at epoch 16: mse=1593.4421, rmse=39.9179, time elapsed: 0.88
+Saving...
+Training loss at epoch 17: mse=1394.3495, rmse=37.3410, time elapsed: 0.95
+Training loss at epoch 18: mse=1397.3916, rmse=37.3817, time elapsed: 0.89
+Saving...
+Training loss at epoch 19: mse=1163.5060, rmse=34.1102, time elapsed: 0.91
+Saving...
+Training loss at epoch 20: mse=1117.8577, rmse=33.4344, time elapsed: 1.18
+Saving...
+lr:  0.05
+Training loss at epoch 21: mse=1138.6351, rmse=33.7437, time elapsed: 0.97
+Training loss at epoch 22: mse=2032.2353, rmse=45.0803, time elapsed: 0.95
+Training loss at epoch 23: mse=1630.0960, rmse=40.3744, time elapsed: 0.98
+Training loss at epoch 24: mse=1479.3117, rmse=38.4618, time elapsed: 0.98
+Training loss at epoch 25: mse=1440.4694, rmse=37.9535, time elapsed: 1.05
+Training loss at epoch 26: mse=1196.7570, rmse=34.5942, time elapsed: 1.03
+Training loss at epoch 27: mse=1121.5860, rmse=33.4901, time elapsed: 1.05
+Saving...
+Training loss at epoch 28: mse=1058.0271, rmse=32.5273, time elapsed: 0.95
+Training loss at epoch 29: mse=1265.3586, rmse=35.5719, time elapsed: 1.06
+Training loss at epoch 30: mse=999.7478, rmse=31.6188, time elapsed: 1.02
+Saving...
+lr:  0.05
+Training loss at epoch 31: mse=968.6833, rmse=31.1237, time elapsed: 1.03
+Saving...
+Training loss at epoch 32: mse=916.9613, rmse=30.2814, time elapsed: 0.94
+Saving...
+Training loss at epoch 33: mse=872.0456, rmse=29.5304, time elapsed: 0.92
+Training loss at epoch 34: mse=848.9439, rmse=29.1366, time elapsed: 1.04
+Saving...
+Training loss at epoch 35: mse=855.8145, rmse=29.2543, time elapsed: 0.96
+Saving...
+Training loss at epoch 36: mse=851.9679, rmse=29.1885, time elapsed: 0.90
+Training loss at epoch 37: mse=912.3000, rmse=30.2043, time elapsed: 0.89
+Training loss at epoch 38: mse=774.7436, rmse=27.8342, time elapsed: 0.87
+Saving...
+Training loss at epoch 39: mse=754.1344, rmse=27.4615, time elapsed: 1.29
+Training loss at epoch 40: mse=819.8169, rmse=28.6324, time elapsed: 1.18
+lr:  0.05
+Training loss at epoch 41: mse=794.9377, rmse=28.1946, time elapsed: 1.05
+Saving...
+Training loss at epoch 42: mse=845.7264, rmse=29.0814, time elapsed: 1.01
+Training loss at epoch 43: mse=775.8063, rmse=27.8533, time elapsed: 0.97
+Training loss at epoch 44: mse=733.8099, rmse=27.0889, time elapsed: 1.07
+Training loss at epoch 45: mse=743.8488, rmse=27.2736, time elapsed: 0.98
+Saving...
+Training loss at epoch 46: mse=699.1229, rmse=26.4409, time elapsed: 1.24
+Saving...
+Training loss at epoch 47: mse=680.4220, rmse=26.0849, time elapsed: 0.93
+Training loss at epoch 48: mse=704.7071, rmse=26.5463, time elapsed: 1.24
+Saving...
+Training loss at epoch 49: mse=666.9049, rmse=25.8245, time elapsed: 1.07
+Saving...
+Training loss at epoch 50: mse=660.4175, rmse=25.6986, time elapsed: 1.00
+Saving...
+lr:  0.05
+Training loss at epoch 51: mse=664.2955, rmse=25.7739, time elapsed: 0.98
+Saving...
+Training loss at epoch 52: mse=664.9676, rmse=25.7870, time elapsed: 0.96
+Training loss at epoch 53: mse=678.0463, rmse=26.0393, time elapsed: 0.92
+Training loss at epoch 54: mse=659.3611, rmse=25.6780, time elapsed: 1.00
+Training loss at epoch 55: mse=661.3439, rmse=25.7166, time elapsed: 1.01
+Training loss at epoch 56: mse=680.2284, rmse=26.0812, time elapsed: 0.90
+Training loss at epoch 57: mse=675.5643, rmse=25.9916, time elapsed: 0.95
+Training loss at epoch 58: mse=719.2808, rmse=26.8194, time elapsed: 1.00
+Training loss at epoch 59: mse=637.9090, rmse=25.2569, time elapsed: 1.31
+Saving...
+Training loss at epoch 60: mse=630.1791, rmse=25.1034, time elapsed: 1.15
+lr:  0.05
+Training loss at epoch 61: mse=666.8867, rmse=25.8241, time elapsed: 1.16
+Saving...
+Training loss at epoch 62: mse=641.2607, rmse=25.3231, time elapsed: 1.89
+Training loss at epoch 63: mse=644.9847, rmse=25.3965, time elapsed: 1.20
+Training loss at epoch 64: mse=682.7347, rmse=26.1292, time elapsed: 1.08
+Training loss at epoch 65: mse=680.4325, rmse=26.0851, time elapsed: 1.06
+Training loss at epoch 66: mse=667.0840, rmse=25.8280, time elapsed: 1.05
+Training loss at epoch 67: mse=716.4416, rmse=26.7664, time elapsed: 0.97
+Training loss at epoch 68: mse=1657.0954, rmse=40.7074, time elapsed: 0.98
+Training loss at epoch 69: mse=1247.1252, rmse=35.3147, time elapsed: 0.87
+Training loss at epoch 70: mse=1201.8853, rmse=34.6682, time elapsed: 1.00
+lr:  0.05
+Training loss at epoch 71: mse=934.4616, rmse=30.5690, time elapsed: 0.92
+Training loss at epoch 72: mse=2637.4591, rmse=51.3562, time elapsed: 0.94
+Training loss at epoch 73: mse=1570.8750, rmse=39.6343, time elapsed: 1.39
+Training loss at epoch 74: mse=1379.2545, rmse=37.1383, time elapsed: 0.98
+Training loss at epoch 75: mse=1204.7454, rmse=34.7094, time elapsed: 1.20
+Training loss at epoch 76: mse=1088.8637, rmse=32.9979, time elapsed: 0.92
+Training loss at epoch 77: mse=982.9856, rmse=31.3526, time elapsed: 0.87
+Training loss at epoch 78: mse=862.1800, rmse=29.3629, time elapsed: 0.94
+Training loss at epoch 79: mse=823.2480, rmse=28.6923, time elapsed: 1.04
+Training loss at epoch 80: mse=786.5647, rmse=28.0458, time elapsed: 0.92
+lr:  0.05
+Training loss at epoch 81: mse=813.4795, rmse=28.5216, time elapsed: 0.94
+Training loss at epoch 82: mse=754.8227, rmse=27.4740, time elapsed: 0.87
+Training loss at epoch 83: mse=702.0713, rmse=26.4966, time elapsed: 0.99
+Training loss at epoch 84: mse=688.0111, rmse=26.2300, time elapsed: 1.30
+Training loss at epoch 85: mse=681.2890, rmse=26.1015, time elapsed: 0.98
+Training loss at epoch 86: mse=677.5510, rmse=26.0298, time elapsed: 0.89
+Training loss at epoch 87: mse=674.1201, rmse=25.9638, time elapsed: 0.91
+Training loss at epoch 88: mse=674.3005, rmse=25.9673, time elapsed: 1.01
+Training loss at epoch 89: mse=604.9701, rmse=24.5961, time elapsed: 0.89
+Training loss at epoch 90: mse=660.3171, rmse=25.6966, time elapsed: 0.92
+lr:  0.025
+Training loss at epoch 91: mse=664.9049, rmse=25.7857, time elapsed: 0.97
+Training loss at epoch 92: mse=656.7898, rmse=25.6279, time elapsed: 0.94
+Training loss at epoch 93: mse=652.8799, rmse=25.5515, time elapsed: 0.98
+Training loss at epoch 94: mse=646.0674, rmse=25.4179, time elapsed: 1.16
+Training loss at epoch 95: mse=635.2698, rmse=25.2046, time elapsed: 1.04
+Training loss at epoch 96: mse=637.1458, rmse=25.2417, time elapsed: 1.39
+Training loss at epoch 97: mse=632.6892, rmse=25.1533, time elapsed: 1.02
+Training loss at epoch 98: mse=620.9810, rmse=24.9195, time elapsed: 0.92
+Training loss at epoch 99: mse=651.5983, rmse=25.5264, time elapsed: 1.09
+Training loss at epoch 100: mse=621.9758, rmse=24.9394, time elapsed: 0.94
+lr:  0.025
+Training loss at epoch 101: mse=614.6527, rmse=24.7922, time elapsed: 0.89
+Training loss at epoch 102: mse=614.1903, rmse=24.7829, time elapsed: 0.91
+Training loss at epoch 103: mse=625.0308, rmse=25.0006, time elapsed: 0.90
+Training loss at epoch 104: mse=606.9169, rmse=24.6357, time elapsed: 1.10
+Training loss at epoch 105: mse=600.8572, rmse=24.5124, time elapsed: 1.16
+Training loss at epoch 106: mse=601.4416, rmse=24.5243, time elapsed: 0.98
+Saving...
+Training loss at epoch 107: mse=613.0987, rmse=24.7608, time elapsed: 1.01
+Training loss at epoch 108: mse=599.1004, rmse=24.4765, time elapsed: 0.91
+Training loss at epoch 109: mse=591.6332, rmse=24.3235, time elapsed: 0.92
+Training loss at epoch 110: mse=595.4050, rmse=24.4009, time elapsed: 0.95
+lr:  0.0125
+Training loss at epoch 111: mse=595.6488, rmse=24.4059, time elapsed: 1.05
+Training loss at epoch 112: mse=584.1369, rmse=24.1689, time elapsed: 0.96
+Saving...
+Training loss at epoch 113: mse=585.7575, rmse=24.2024, time elapsed: 1.03
+Training loss at epoch 114: mse=582.2906, rmse=24.1307, time elapsed: 0.94
+Training loss at epoch 115: mse=586.7033, rmse=24.2220, time elapsed: 1.06
+Training loss at epoch 116: mse=577.7718, rmse=24.0369, time elapsed: 0.95
+Training loss at epoch 117: mse=590.2047, rmse=24.2941, time elapsed: 0.88
+Training loss at epoch 118: mse=586.7312, rmse=24.2225, time elapsed: 0.96
+Training loss at epoch 119: mse=578.4880, rmse=24.0518, time elapsed: 0.98
+Training loss at epoch 120: mse=583.4791, rmse=24.1553, time elapsed: 0.93
+lr:  0.0125
+Training loss at epoch 121: mse=579.7930, rmse=24.0789, time elapsed: 0.93
+Training loss at epoch 122: mse=581.7814, rmse=24.1201, time elapsed: 1.01
+Training loss at epoch 123: mse=587.9532, rmse=24.2477, time elapsed: 1.79
+Training loss at epoch 124: mse=582.5464, rmse=24.1360, time elapsed: 1.22
+Training loss at epoch 125: mse=565.0234, rmse=23.7702, time elapsed: 1.10
+Training loss at epoch 126: mse=529.7860, rmse=23.0171, time elapsed: 1.17
+Training loss at epoch 127: mse=563.0995, rmse=23.7297, time elapsed: 1.21
+Saving...
+Training loss at epoch 128: mse=579.8735, rmse=24.0806, time elapsed: 1.02
+Training loss at epoch 129: mse=579.0218, rmse=24.0629, time elapsed: 1.03
+Training loss at epoch 130: mse=575.2926, rmse=23.9853, time elapsed: 0.88
+lr:  0.0125
+Training loss at epoch 131: mse=579.4109, rmse=24.0710, time elapsed: 1.56
+Training loss at epoch 132: mse=573.1638, rmse=23.9408, time elapsed: 1.32
+Training loss at epoch 133: mse=570.0670, rmse=23.8761, time elapsed: 1.11
+Training loss at epoch 134: mse=575.5584, rmse=23.9908, time elapsed: 1.35
+Saving...
+Training loss at epoch 135: mse=570.1311, rmse=23.8774, time elapsed: 0.91
+Training loss at epoch 136: mse=573.4692, rmse=23.9472, time elapsed: 0.98
+Training loss at epoch 137: mse=574.5623, rmse=23.9700, time elapsed: 0.85
+Training loss at epoch 138: mse=569.9550, rmse=23.8737, time elapsed: 0.84
+Training loss at epoch 139: mse=577.0579, rmse=24.0220, time elapsed: 0.90
+Training loss at epoch 140: mse=576.2652, rmse=24.0055, time elapsed: 0.97
+lr:  0.0125
+Training loss at epoch 141: mse=561.7064, rmse=23.7003, time elapsed: 1.20
+Training loss at epoch 142: mse=570.1254, rmse=23.8773, time elapsed: 0.96
+Training loss at epoch 143: mse=570.8512, rmse=23.8925, time elapsed: 0.93
+Training loss at epoch 144: mse=570.1873, rmse=23.8786, time elapsed: 0.97
+Training loss at epoch 145: mse=575.5253, rmse=23.9901, time elapsed: 1.00
+Training loss at epoch 146: mse=562.5469, rmse=23.7181, time elapsed: 0.95
+Training loss at epoch 147: mse=573.3811, rmse=23.9454, time elapsed: 0.95
+Training loss at epoch 148: mse=571.1409, rmse=23.8986, time elapsed: 0.93
+Training loss at epoch 149: mse=561.4353, rmse=23.6946, time elapsed: 0.89
+Training loss at epoch 150: mse=561.5282, rmse=23.6966, time elapsed: 0.94
+lr:  0.0125
+Training loss at epoch 151: mse=576.1496, rmse=24.0031, time elapsed: 0.97
+Saving...
+Training loss at epoch 152: mse=560.9943, rmse=23.6853, time elapsed: 0.96
+Training loss at epoch 153: mse=568.8152, rmse=23.8498, time elapsed: 1.07
+Training loss at epoch 154: mse=584.8734, rmse=24.1842, time elapsed: 0.92
+Training loss at epoch 155: mse=572.7574, rmse=23.9324, time elapsed: 0.95
+Training loss at epoch 156: mse=563.7754, rmse=23.7440, time elapsed: 0.93
+Training loss at epoch 157: mse=566.9040, rmse=23.8097, time elapsed: 1.00
+Training loss at epoch 158: mse=570.3025, rmse=23.8810, time elapsed: 0.94
+Training loss at epoch 159: mse=569.8442, rmse=23.8714, time elapsed: 1.12
+Saving...
+Training loss at epoch 160: mse=509.2324, rmse=22.5662, time elapsed: 1.34
+lr:  0.0125
+Training loss at epoch 161: mse=568.6007, rmse=23.8454, time elapsed: 0.88
+Training loss at epoch 162: mse=559.1966, rmse=23.6473, time elapsed: 0.91
+Training loss at epoch 163: mse=576.6590, rmse=24.0137, time elapsed: 1.03
+Training loss at epoch 164: mse=562.3579, rmse=23.7141, time elapsed: 1.00
+Training loss at epoch 165: mse=551.5425, rmse=23.4849, time elapsed: 0.89
+Training loss at epoch 166: mse=555.9251, rmse=23.5781, time elapsed: 0.93
+Training loss at epoch 167: mse=554.0370, rmse=23.5380, time elapsed: 1.02
+Training loss at epoch 168: mse=558.4136, rmse=23.6308, time elapsed: 0.98
+Training loss at epoch 169: mse=568.0908, rmse=23.8347, time elapsed: 1.13
+Training loss at epoch 170: mse=563.3784, rmse=23.7356, time elapsed: 1.00
+lr:  0.0125
+Training loss at epoch 171: mse=549.7522, rmse=23.4468, time elapsed: 0.91
+Saving...
+Training loss at epoch 172: mse=558.9935, rmse=23.6430, time elapsed: 0.99
+Training loss at epoch 173: mse=560.8875, rmse=23.6831, time elapsed: 0.98
+Training loss at epoch 174: mse=551.7048, rmse=23.4884, time elapsed: 1.06
+Training loss at epoch 175: mse=559.7860, rmse=23.6598, time elapsed: 0.93
+Training loss at epoch 176: mse=553.6077, rmse=23.5289, time elapsed: 0.91
+Training loss at epoch 177: mse=551.2656, rmse=23.4790, time elapsed: 0.99
+Saving...
+Training loss at epoch 178: mse=556.5085, rmse=23.5904, time elapsed: 0.99
+Training loss at epoch 179: mse=558.5709, rmse=23.6341, time elapsed: 0.98
+Training loss at epoch 180: mse=555.1449, rmse=23.5615, time elapsed: 1.04
+lr:  0.0125
+Training loss at epoch 181: mse=548.0056, rmse=23.4095, time elapsed: 0.96
+Training loss at epoch 182: mse=561.1555, rmse=23.6887, time elapsed: 1.03
+Training loss at epoch 183: mse=561.6057, rmse=23.6982, time elapsed: 0.92
+Training loss at epoch 184: mse=557.3984, rmse=23.6093, time elapsed: 0.90
+Training loss at epoch 185: mse=558.3872, rmse=23.6302, time elapsed: 0.88
+Training loss at epoch 186: mse=551.0233, rmse=23.4739, time elapsed: 0.91
+Training loss at epoch 187: mse=551.0248, rmse=23.4739, time elapsed: 0.97
+Training loss at epoch 188: mse=553.0068, rmse=23.5161, time elapsed: 0.93
+Training loss at epoch 189: mse=554.3520, rmse=23.5447, time elapsed: 0.97
+Training loss at epoch 190: mse=554.2272, rmse=23.5420, time elapsed: 1.05
+lr:  0.0125
+Training loss at epoch 191: mse=565.0745, rmse=23.7713, time elapsed: 0.96
+Training loss at epoch 192: mse=558.8710, rmse=23.6405, time elapsed: 0.93
+Training loss at epoch 193: mse=554.9243, rmse=23.5568, time elapsed: 0.88
+Training loss at epoch 194: mse=550.1720, rmse=23.4557, time elapsed: 0.90
+Training loss at epoch 195: mse=559.9540, rmse=23.6633, time elapsed: 0.87
+Training loss at epoch 196: mse=552.2812, rmse=23.5007, time elapsed: 0.87
+Saving...
+Training loss at epoch 197: mse=554.7168, rmse=23.5524, time elapsed: 0.88
+Training loss at epoch 198: mse=558.2313, rmse=23.6269, time elapsed: 0.88
+Training loss at epoch 199: mse=552.7894, rmse=23.5115, time elapsed: 0.91
+Saving...
+Training loss at epoch 200: mse=549.8429, rmse=23.4487, time elapsed: 0.89
+lr:  0.0125
+Training loss at epoch 201: mse=576.5273, rmse=24.0110, time elapsed: 0.90
+Training loss at epoch 202: mse=558.1766, rmse=23.6258, time elapsed: 0.97
+Training loss at epoch 203: mse=562.2646, rmse=23.7121, time elapsed: 1.07
+Training loss at epoch 204: mse=554.4561, rmse=23.5469, time elapsed: 1.01
+Training loss at epoch 205: mse=547.3688, rmse=23.3959, time elapsed: 0.89
+Saving...
+Training loss at epoch 206: mse=549.6049, rmse=23.4437, time elapsed: 0.95
+Training loss at epoch 207: mse=554.6763, rmse=23.5516, time elapsed: 0.95
+Training loss at epoch 208: mse=560.7895, rmse=23.6810, time elapsed: 1.22
+Training loss at epoch 209: mse=570.9527, rmse=23.8946, time elapsed: 1.04
+Training loss at epoch 210: mse=511.9937, rmse=22.6273, time elapsed: 1.11
+lr:  0.0125
+Training loss at epoch 211: mse=561.3777, rmse=23.6934, time elapsed: 1.10
+Training loss at epoch 212: mse=545.9994, rmse=23.3666, time elapsed: 0.97
+Training loss at epoch 213: mse=554.6773, rmse=23.5516, time elapsed: 1.08
+Training loss at epoch 214: mse=558.4757, rmse=23.6321, time elapsed: 1.45
+Training loss at epoch 215: mse=553.6481, rmse=23.5297, time elapsed: 1.13
+Training loss at epoch 216: mse=548.2681, rmse=23.4151, time elapsed: 0.90
+Training loss at epoch 217: mse=555.8126, rmse=23.5757, time elapsed: 1.01
+Training loss at epoch 218: mse=546.4175, rmse=23.3756, time elapsed: 0.93
+Training loss at epoch 219: mse=545.5251, rmse=23.3565, time elapsed: 1.07
+Training loss at epoch 220: mse=567.3988, rmse=23.8201, time elapsed: 0.90
+lr:  0.0125
+Training loss at epoch 221: mse=564.3784, rmse=23.7566, time elapsed: 0.90
+Training loss at epoch 222: mse=555.8958, rmse=23.5774, time elapsed: 0.93
+Training loss at epoch 223: mse=554.3036, rmse=23.5437, time elapsed: 0.96
+Training loss at epoch 224: mse=541.1423, rmse=23.2625, time elapsed: 1.14
+Training loss at epoch 225: mse=556.9642, rmse=23.6001, time elapsed: 1.17
+Training loss at epoch 226: mse=565.9705, rmse=23.7901, time elapsed: 1.03
+Training loss at epoch 227: mse=547.9939, rmse=23.4093, time elapsed: 0.95
+Training loss at epoch 228: mse=539.7644, rmse=23.2328, time elapsed: 0.87
+Training loss at epoch 229: mse=541.7555, rmse=23.2756, time elapsed: 0.93
+Training loss at epoch 230: mse=541.2037, rmse=23.2638, time elapsed: 0.89
+lr:  0.00625
+Training loss at epoch 231: mse=541.4048, rmse=23.2681, time elapsed: 0.97
+Training loss at epoch 232: mse=530.0128, rmse=23.0220, time elapsed: 1.04
+Training loss at epoch 233: mse=536.0597, rmse=23.1530, time elapsed: 0.91
+Saving...
+Training loss at epoch 234: mse=536.8151, rmse=23.1693, time elapsed: 0.99
+Training loss at epoch 235: mse=536.9849, rmse=23.1729, time elapsed: 0.88
+Training loss at epoch 236: mse=524.6523, rmse=22.9053, time elapsed: 0.90
+Training loss at epoch 237: mse=542.5140, rmse=23.2919, time elapsed: 0.88
+Training loss at epoch 238: mse=533.9891, rmse=23.1082, time elapsed: 0.87
+Training loss at epoch 239: mse=541.0698, rmse=23.2609, time elapsed: 0.93
+Training loss at epoch 240: mse=537.5969, rmse=23.1861, time elapsed: 0.98
+lr:  0.00625
+Training loss at epoch 241: mse=535.5288, rmse=23.1415, time elapsed: 0.90
+Training loss at epoch 242: mse=534.4074, rmse=23.1173, time elapsed: 0.89
+Training loss at epoch 243: mse=536.0899, rmse=23.1536, time elapsed: 0.89
+Training loss at epoch 244: mse=536.1903, rmse=23.1558, time elapsed: 0.88
+Training loss at epoch 245: mse=534.2353, rmse=23.1135, time elapsed: 0.91
+Saving...
+Training loss at epoch 246: mse=533.7305, rmse=23.1026, time elapsed: 0.91
+Training loss at epoch 247: mse=535.5932, rmse=23.1429, time elapsed: 0.94
+Training loss at epoch 248: mse=539.7519, rmse=23.2326, time elapsed: 0.88
+Training loss at epoch 249: mse=532.4862, rmse=23.0757, time elapsed: 0.88
+Training loss at epoch 250: mse=535.2119, rmse=23.1346, time elapsed: 0.97
+lr:  0.00625
+Training loss at epoch 251: mse=527.7196, rmse=22.9721, time elapsed: 0.89
+Training loss at epoch 252: mse=530.6991, rmse=23.0369, time elapsed: 0.88
+Training loss at epoch 253: mse=536.3826, rmse=23.1599, time elapsed: 0.89
+Training loss at epoch 254: mse=533.7654, rmse=23.1034, time elapsed: 0.88
+Training loss at epoch 255: mse=532.8426, rmse=23.0834, time elapsed: 1.12
+Training loss at epoch 256: mse=538.3103, rmse=23.2015, time elapsed: 1.23
+Training loss at epoch 257: mse=535.9323, rmse=23.1502, time elapsed: 0.95
+Training loss at epoch 258: mse=527.1874, rmse=22.9606, time elapsed: 0.97
+Saving...
+Training loss at epoch 259: mse=536.1677, rmse=23.1553, time elapsed: 1.29
+Training loss at epoch 260: mse=537.8031, rmse=23.1906, time elapsed: 1.00
+lr:  0.00625
+Training loss at epoch 261: mse=537.6379, rmse=23.1870, time elapsed: 1.10
+Training loss at epoch 262: mse=536.7609, rmse=23.1681, time elapsed: 1.03
+Training loss at epoch 263: mse=537.1173, rmse=23.1758, time elapsed: 0.99
+Saving...
+Training loss at epoch 264: mse=533.6511, rmse=23.1009, time elapsed: 0.98
+Training loss at epoch 265: mse=533.7275, rmse=23.1025, time elapsed: 0.96
+Training loss at epoch 266: mse=533.7289, rmse=23.1026, time elapsed: 0.97
+Training loss at epoch 267: mse=528.7445, rmse=22.9944, time elapsed: 1.01
+Training loss at epoch 268: mse=536.7308, rmse=23.1675, time elapsed: 0.95
+Training loss at epoch 269: mse=533.7321, rmse=23.1026, time elapsed: 1.18
+Training loss at epoch 270: mse=524.0648, rmse=22.8925, time elapsed: 0.92
+lr:  0.00625
+Training loss at epoch 271: mse=527.2079, rmse=22.9610, time elapsed: 0.88
+Training loss at epoch 272: mse=524.4178, rmse=22.9002, time elapsed: 0.89
+Training loss at epoch 273: mse=525.8000, rmse=22.9303, time elapsed: 0.89
+Training loss at epoch 274: mse=526.4961, rmse=22.9455, time elapsed: 0.90
+Training loss at epoch 275: mse=529.9681, rmse=23.0210, time elapsed: 0.86
+Training loss at epoch 276: mse=526.6148, rmse=22.9481, time elapsed: 0.90
+Training loss at epoch 277: mse=533.1159, rmse=23.0893, time elapsed: 0.88
+Training loss at epoch 278: mse=519.7449, rmse=22.7979, time elapsed: 0.88
+Training loss at epoch 279: mse=526.9685, rmse=22.9558, time elapsed: 0.87
+Training loss at epoch 280: mse=523.7050, rmse=22.8846, time elapsed: 0.92
+lr:  0.00625
+Training loss at epoch 281: mse=528.0539, rmse=22.9794, time elapsed: 0.94
+Training loss at epoch 282: mse=525.1595, rmse=22.9164, time elapsed: 1.01
+Training loss at epoch 283: mse=517.0566, rmse=22.7389, time elapsed: 1.16
+Training loss at epoch 284: mse=524.0435, rmse=22.8920, time elapsed: 0.97
+Training loss at epoch 285: mse=516.7178, rmse=22.7314, time elapsed: 1.06
+Training loss at epoch 286: mse=522.3286, rmse=22.8545, time elapsed: 0.99
+Training loss at epoch 287: mse=523.3279, rmse=22.8764, time elapsed: 0.96
+Training loss at epoch 288: mse=516.3676, rmse=22.7237, time elapsed: 1.16
+Training loss at epoch 289: mse=516.4822, rmse=22.7262, time elapsed: 1.23
+Training loss at epoch 290: mse=515.2056, rmse=22.6981, time elapsed: 1.17
+lr:  0.003125
+Training loss at epoch 291: mse=507.6812, rmse=22.5318, time elapsed: 0.87
+Training loss at epoch 292: mse=473.6633, rmse=21.7638, time elapsed: 0.87
+Training loss at epoch 293: mse=517.4615, rmse=22.7478, time elapsed: 1.15
+Training loss at epoch 294: mse=513.3403, rmse=22.6570, time elapsed: 1.13
+Saving...
+Training loss at epoch 295: mse=510.9637, rmse=22.6045, time elapsed: 0.99
+Training loss at epoch 296: mse=511.3413, rmse=22.6129, time elapsed: 1.15
+Training loss at epoch 297: mse=508.6184, rmse=22.5526, time elapsed: 1.00
+Training loss at epoch 298: mse=505.6675, rmse=22.4871, time elapsed: 1.04
+Training loss at epoch 299: mse=509.9332, rmse=22.5817, time elapsed: 0.89
+Testing:
+mse, rmse, mae,mape 800.7606811523438 28.297715122467817 14.01914119720459 0.24063457548618317
+Training model IMV_tensor
+Num of trainable params: 35210
+Experiment: 0
+Training loss at epoch 0: mse=10829.4294, rmse=104.0645, time elapsed: 1.61
+Saving...
+lr:  0.05
+Training loss at epoch 1: mse=8192.9714, rmse=90.5150, time elapsed: 1.50
+Saving...
+Training loss at epoch 2: mse=8152.6381, rmse=90.2920, time elapsed: 1.37
+Saving...
+Training loss at epoch 3: mse=7554.9125, rmse=86.9190, time elapsed: 1.58
+Saving...
+Training loss at epoch 4: mse=7129.9614, rmse=84.4391, time elapsed: 1.61
+Saving...
+Training loss at epoch 5: mse=6122.0715, rmse=78.2437, time elapsed: 1.67
+Saving...
+Training loss at epoch 6: mse=6353.1700, rmse=79.7068, time elapsed: 2.08
+Training loss at epoch 7: mse=6203.9125, rmse=78.7649, time elapsed: 1.52
+Training loss at epoch 8: mse=5993.0669, rmse=77.4149, time elapsed: 1.60
+Saving...
+Training loss at epoch 9: mse=5817.1326, rmse=76.2701, time elapsed: 1.38
+Saving...
+Training loss at epoch 10: mse=5202.9440, rmse=72.1314, time elapsed: 1.40
+Saving...
+lr:  0.05
+Training loss at epoch 11: mse=4503.7616, rmse=67.1101, time elapsed: 1.49
+Saving...
+Training loss at epoch 12: mse=4416.2835, rmse=66.4551, time elapsed: 1.38
+Saving...
+Training loss at epoch 13: mse=3442.0704, rmse=58.6692, time elapsed: 1.34
+Saving...
+Training loss at epoch 14: mse=2897.2122, rmse=53.8258, time elapsed: 1.34
+Saving...
+Training loss at epoch 15: mse=2609.6296, rmse=51.0845, time elapsed: 1.61
+Saving...
+Training loss at epoch 16: mse=2317.3742, rmse=48.1391, time elapsed: 1.45
+Saving...
+Training loss at epoch 17: mse=2243.6503, rmse=47.3672, time elapsed: 1.54
+Training loss at epoch 18: mse=1996.8433, rmse=44.6861, time elapsed: 1.57
+Saving...
+Training loss at epoch 19: mse=1699.7892, rmse=41.2285, time elapsed: 1.49
+Saving...
+Training loss at epoch 20: mse=1611.5077, rmse=40.1436, time elapsed: 1.45
+Saving...
+lr:  0.05
+Training loss at epoch 21: mse=1537.6267, rmse=39.2126, time elapsed: 1.38
+Saving...
+Training loss at epoch 22: mse=1408.5025, rmse=37.5300, time elapsed: 1.45
+Saving...
+Training loss at epoch 23: mse=1339.5771, rmse=36.6002, time elapsed: 1.49
+Training loss at epoch 24: mse=1248.6919, rmse=35.3368, time elapsed: 1.69
+Saving...
+Training loss at epoch 25: mse=1189.1055, rmse=34.4834, time elapsed: 1.53
+Training loss at epoch 26: mse=1132.6568, rmse=33.6550, time elapsed: 1.48
+Saving...
+Training loss at epoch 27: mse=1100.7826, rmse=33.1780, time elapsed: 1.56
+Saving...
+Training loss at epoch 28: mse=1026.9814, rmse=32.0465, time elapsed: 1.63
+Saving...
+Training loss at epoch 29: mse=1019.6207, rmse=31.9315, time elapsed: 1.90
+Saving...
+Training loss at epoch 30: mse=1040.9386, rmse=32.2636, time elapsed: 1.95
+lr:  0.05
+Training loss at epoch 31: mse=961.0731, rmse=31.0012, time elapsed: 1.65
+Saving...
+Training loss at epoch 32: mse=923.5220, rmse=30.3895, time elapsed: 1.71
+Training loss at epoch 33: mse=931.4866, rmse=30.5203, time elapsed: 1.71
+Training loss at epoch 34: mse=872.5151, rmse=29.5384, time elapsed: 1.89
+Saving...
+Training loss at epoch 35: mse=848.9392, rmse=29.1366, time elapsed: 1.64
+Saving...
+Training loss at epoch 36: mse=883.4124, rmse=29.7223, time elapsed: 2.32
+Training loss at epoch 37: mse=928.9328, rmse=30.4784, time elapsed: 1.81
+Training loss at epoch 38: mse=853.5067, rmse=29.2148, time elapsed: 2.01
+Training loss at epoch 39: mse=765.7422, rmse=27.6720, time elapsed: 1.60
+Saving...
+Training loss at epoch 40: mse=796.9249, rmse=28.2299, time elapsed: 1.75
+lr:  0.05
+Training loss at epoch 41: mse=743.4918, rmse=27.2670, time elapsed: 1.83
+Training loss at epoch 42: mse=770.7534, rmse=27.7624, time elapsed: 1.68
+Saving...
+Training loss at epoch 43: mse=809.0340, rmse=28.4435, time elapsed: 1.51
+Training loss at epoch 44: mse=719.1965, rmse=26.8178, time elapsed: 1.75
+Training loss at epoch 45: mse=724.9490, rmse=26.9249, time elapsed: 1.95
+Training loss at epoch 46: mse=745.6821, rmse=27.3072, time elapsed: 1.89
+Training loss at epoch 47: mse=701.9317, rmse=26.4940, time elapsed: 1.57
+Saving...
+Training loss at epoch 48: mse=694.3381, rmse=26.3503, time elapsed: 1.66
+Training loss at epoch 49: mse=712.3815, rmse=26.6905, time elapsed: 1.57
+Training loss at epoch 50: mse=715.3153, rmse=26.7454, time elapsed: 1.58
+lr:  0.05
+Training loss at epoch 51: mse=678.4033, rmse=26.0462, time elapsed: 1.88
+Training loss at epoch 52: mse=683.2774, rmse=26.1396, time elapsed: 1.86
+Training loss at epoch 53: mse=679.0255, rmse=26.0581, time elapsed: 1.64
+Training loss at epoch 54: mse=724.8207, rmse=26.9225, time elapsed: 1.62
+Saving...
+Training loss at epoch 55: mse=663.4920, rmse=25.7583, time elapsed: 1.61
+Training loss at epoch 56: mse=687.9593, rmse=26.2290, time elapsed: 1.62
+Training loss at epoch 57: mse=693.8966, rmse=26.3419, time elapsed: 1.59
+Saving...
+Training loss at epoch 58: mse=644.8898, rmse=25.3947, time elapsed: 1.69
+Training loss at epoch 59: mse=663.1624, rmse=25.7519, time elapsed: 1.47
+Training loss at epoch 60: mse=653.2576, rmse=25.5589, time elapsed: 1.60
+lr:  0.05
+Training loss at epoch 61: mse=662.0988, rmse=25.7313, time elapsed: 1.58
+Training loss at epoch 62: mse=762.5367, rmse=27.6141, time elapsed: 1.56
+Training loss at epoch 63: mse=645.2270, rmse=25.4013, time elapsed: 1.54
+Training loss at epoch 64: mse=665.5964, rmse=25.7992, time elapsed: 1.66
+Training loss at epoch 65: mse=642.9796, rmse=25.3570, time elapsed: 1.51
+Training loss at epoch 66: mse=699.4112, rmse=26.4464, time elapsed: 1.57
+Training loss at epoch 67: mse=688.7904, rmse=26.2448, time elapsed: 1.61
+Training loss at epoch 68: mse=661.7863, rmse=25.7252, time elapsed: 1.44
+Training loss at epoch 69: mse=623.3628, rmse=24.9672, time elapsed: 1.41
+Saving...
+Training loss at epoch 70: mse=608.9474, rmse=24.6769, time elapsed: 1.66
+lr:  0.05
+Training loss at epoch 71: mse=604.4240, rmse=24.5850, time elapsed: 1.51
+Training loss at epoch 72: mse=620.5294, rmse=24.9104, time elapsed: 1.48
+Training loss at epoch 73: mse=618.4782, rmse=24.8692, time elapsed: 1.67
+Training loss at epoch 74: mse=636.1245, rmse=25.2215, time elapsed: 1.54
+Training loss at epoch 75: mse=619.5784, rmse=24.8913, time elapsed: 1.46
+Training loss at epoch 76: mse=678.2685, rmse=26.0436, time elapsed: 1.44
+Training loss at epoch 77: mse=611.5659, rmse=24.7299, time elapsed: 1.53
+Training loss at epoch 78: mse=619.1847, rmse=24.8834, time elapsed: 1.43
+Training loss at epoch 79: mse=615.1132, rmse=24.8015, time elapsed: 1.46
+Training loss at epoch 80: mse=619.6434, rmse=24.8926, time elapsed: 1.47
+lr:  0.05
+Training loss at epoch 81: mse=616.7013, rmse=24.8335, time elapsed: 1.44
+Training loss at epoch 82: mse=626.8929, rmse=25.0378, time elapsed: 1.44
+Training loss at epoch 83: mse=616.9411, rmse=24.8383, time elapsed: 1.58
+Training loss at epoch 84: mse=665.4200, rmse=25.7957, time elapsed: 1.45
+Training loss at epoch 85: mse=618.9994, rmse=24.8797, time elapsed: 1.44
+Saving...
+Training loss at epoch 86: mse=597.1429, rmse=24.4365, time elapsed: 1.47
+Saving...
+Training loss at epoch 87: mse=609.1097, rmse=24.6801, time elapsed: 1.45
+Training loss at epoch 88: mse=599.8182, rmse=24.4912, time elapsed: 1.44
+Training loss at epoch 89: mse=632.2925, rmse=25.1454, time elapsed: 1.42
+Training loss at epoch 90: mse=641.8620, rmse=25.3350, time elapsed: 1.64
+lr:  0.05
+Training loss at epoch 91: mse=621.3835, rmse=24.9276, time elapsed: 1.44
+Training loss at epoch 92: mse=578.0702, rmse=24.0431, time elapsed: 1.44
+Training loss at epoch 93: mse=603.6670, rmse=24.5696, time elapsed: 1.47
+Training loss at epoch 94: mse=604.4174, rmse=24.5849, time elapsed: 1.44
+Training loss at epoch 95: mse=699.8187, rmse=26.4541, time elapsed: 1.47
+Training loss at epoch 96: mse=692.5659, rmse=26.3166, time elapsed: 1.63
+Training loss at epoch 97: mse=634.6704, rmse=25.1927, time elapsed: 1.60
+Training loss at epoch 98: mse=589.0127, rmse=24.2696, time elapsed: 1.52
+Training loss at epoch 99: mse=645.4166, rmse=25.4051, time elapsed: 1.48
+Saving...
+Training loss at epoch 100: mse=597.8582, rmse=24.4511, time elapsed: 1.46
+lr:  0.05
+Training loss at epoch 101: mse=588.6139, rmse=24.2614, time elapsed: 1.43
+Training loss at epoch 102: mse=628.0532, rmse=25.0610, time elapsed: 1.52
+Training loss at epoch 103: mse=633.5880, rmse=25.1712, time elapsed: 1.52
+Training loss at epoch 104: mse=603.7272, rmse=24.5709, time elapsed: 1.54
+Training loss at epoch 105: mse=589.1329, rmse=24.2721, time elapsed: 1.44
+Training loss at epoch 106: mse=594.0554, rmse=24.3733, time elapsed: 1.48
+Training loss at epoch 107: mse=623.2946, rmse=24.9659, time elapsed: 1.47
+Training loss at epoch 108: mse=572.2343, rmse=23.9214, time elapsed: 1.43
+Saving...
+Training loss at epoch 109: mse=599.6812, rmse=24.4884, time elapsed: 1.56
+Training loss at epoch 110: mse=703.7852, rmse=26.5290, time elapsed: 1.48
+lr:  0.05
+Training loss at epoch 111: mse=627.1586, rmse=25.0431, time elapsed: 1.45
+Training loss at epoch 112: mse=609.7025, rmse=24.6922, time elapsed: 1.37
+Training loss at epoch 113: mse=610.9042, rmse=24.7165, time elapsed: 1.47
+Training loss at epoch 114: mse=594.8133, rmse=24.3888, time elapsed: 1.42
+Training loss at epoch 115: mse=597.3281, rmse=24.4403, time elapsed: 1.47
+Training loss at epoch 116: mse=607.7778, rmse=24.6532, time elapsed: 1.49
+Saving...
+Training loss at epoch 117: mse=598.9202, rmse=24.4728, time elapsed: 1.66
+Training loss at epoch 118: mse=608.5351, rmse=24.6685, time elapsed: 1.57
+Training loss at epoch 119: mse=579.2110, rmse=24.0668, time elapsed: 1.45
+Saving...
+Training loss at epoch 120: mse=593.0310, rmse=24.3522, time elapsed: 1.44
+lr:  0.05
+Training loss at epoch 121: mse=618.9946, rmse=24.8796, time elapsed: 1.45
+Training loss at epoch 122: mse=598.4062, rmse=24.4623, time elapsed: 1.52
+Training loss at epoch 123: mse=700.4724, rmse=26.4664, time elapsed: 1.42
+Training loss at epoch 124: mse=692.5602, rmse=26.3165, time elapsed: 1.46
+Training loss at epoch 125: mse=611.2322, rmse=24.7231, time elapsed: 1.43
+Training loss at epoch 126: mse=649.0981, rmse=25.4774, time elapsed: 1.46
+Training loss at epoch 127: mse=608.2414, rmse=24.6625, time elapsed: 1.55
+Training loss at epoch 128: mse=591.1504, rmse=24.3136, time elapsed: 1.62
+Training loss at epoch 129: mse=604.9363, rmse=24.5955, time elapsed: 1.43
+Training loss at epoch 130: mse=614.6726, rmse=24.7926, time elapsed: 1.47
+lr:  0.05
+Training loss at epoch 131: mse=630.8765, rmse=25.1173, time elapsed: 1.45
+Training loss at epoch 132: mse=600.4155, rmse=24.5034, time elapsed: 1.42
+Training loss at epoch 133: mse=602.8387, rmse=24.5528, time elapsed: 1.55
+Training loss at epoch 134: mse=581.5721, rmse=24.1158, time elapsed: 1.45
+Training loss at epoch 135: mse=637.2983, rmse=25.2448, time elapsed: 1.54
+Training loss at epoch 136: mse=600.9175, rmse=24.5136, time elapsed: 1.44
+Training loss at epoch 137: mse=593.2151, rmse=24.3560, time elapsed: 1.45
+Training loss at epoch 138: mse=609.8428, rmse=24.6950, time elapsed: 1.46
+Saving...
+Training loss at epoch 139: mse=600.1078, rmse=24.4971, time elapsed: 1.43
+Training loss at epoch 140: mse=593.8552, rmse=24.3691, time elapsed: 1.47
+lr:  0.05
+Training loss at epoch 141: mse=591.4500, rmse=24.3197, time elapsed: 1.52
+Training loss at epoch 142: mse=607.0519, rmse=24.6384, time elapsed: 1.40
+Training loss at epoch 143: mse=597.0201, rmse=24.4340, time elapsed: 1.48
+Training loss at epoch 144: mse=610.8322, rmse=24.7150, time elapsed: 1.45
+Training loss at epoch 145: mse=595.3572, rmse=24.3999, time elapsed: 1.47
+Training loss at epoch 146: mse=598.2453, rmse=24.4591, time elapsed: 1.44
+Training loss at epoch 147: mse=620.0810, rmse=24.9014, time elapsed: 1.43
+Training loss at epoch 148: mse=581.8579, rmse=24.1217, time elapsed: 1.57
+Saving...
+Training loss at epoch 149: mse=580.0617, rmse=24.0845, time elapsed: 1.43
+Training loss at epoch 150: mse=631.4323, rmse=25.1283, time elapsed: 1.46
+lr:  0.05
+Training loss at epoch 151: mse=584.5109, rmse=24.1767, time elapsed: 1.46
+Training loss at epoch 152: mse=614.2981, rmse=24.7850, time elapsed: 1.45
+Training loss at epoch 153: mse=616.1716, rmse=24.8228, time elapsed: 1.51
+Training loss at epoch 154: mse=625.2859, rmse=25.0057, time elapsed: 1.45
+Training loss at epoch 155: mse=618.9359, rmse=24.8784, time elapsed: 1.41
+Training loss at epoch 156: mse=608.0018, rmse=24.6577, time elapsed: 1.42
+Training loss at epoch 157: mse=626.6174, rmse=25.0323, time elapsed: 1.46
+Training loss at epoch 158: mse=621.4198, rmse=24.9283, time elapsed: 1.47
+Training loss at epoch 159: mse=648.7627, rmse=25.4708, time elapsed: 1.43
+Training loss at epoch 160: mse=589.4389, rmse=24.2784, time elapsed: 1.42
+lr:  0.05
+Training loss at epoch 161: mse=596.1711, rmse=24.4166, time elapsed: 1.68
+Training loss at epoch 162: mse=604.0077, rmse=24.5766, time elapsed: 1.44
+Training loss at epoch 163: mse=600.6331, rmse=24.5078, time elapsed: 1.48
+Training loss at epoch 164: mse=612.7366, rmse=24.7535, time elapsed: 1.45
+Training loss at epoch 165: mse=655.0134, rmse=25.5932, time elapsed: 1.44
+Training loss at epoch 166: mse=595.9647, rmse=24.4124, time elapsed: 1.51
+Training loss at epoch 167: mse=585.8578, rmse=24.2045, time elapsed: 1.62
+Training loss at epoch 168: mse=612.4372, rmse=24.7475, time elapsed: 1.49
+Training loss at epoch 169: mse=624.2140, rmse=24.9843, time elapsed: 1.48
+Training loss at epoch 170: mse=556.8180, rmse=23.5970, time elapsed: 1.48
+lr:  0.025
+Training loss at epoch 171: mse=566.3114, rmse=23.7973, time elapsed: 1.43
+Training loss at epoch 172: mse=572.2183, rmse=23.9211, time elapsed: 1.44
+Training loss at epoch 173: mse=571.6773, rmse=23.9098, time elapsed: 1.45
+Saving...
+Training loss at epoch 174: mse=545.8866, rmse=23.3642, time elapsed: 1.54
+Training loss at epoch 175: mse=566.8330, rmse=23.8083, time elapsed: 1.40
+Training loss at epoch 176: mse=510.2467, rmse=22.5886, time elapsed: 1.46
+Training loss at epoch 177: mse=575.4106, rmse=23.9877, time elapsed: 1.44
+Training loss at epoch 178: mse=573.1801, rmse=23.9412, time elapsed: 1.44
+Training loss at epoch 179: mse=577.6532, rmse=24.0344, time elapsed: 1.44
+Saving...
+Training loss at epoch 180: mse=544.2958, rmse=23.3301, time elapsed: 1.53
+lr:  0.025
+Training loss at epoch 181: mse=568.3585, rmse=23.8403, time elapsed: 1.48
+Training loss at epoch 182: mse=568.3244, rmse=23.8396, time elapsed: 1.46
+Training loss at epoch 183: mse=558.2317, rmse=23.6269, time elapsed: 1.46
+Training loss at epoch 184: mse=571.6591, rmse=23.9094, time elapsed: 1.50
+Training loss at epoch 185: mse=559.4750, rmse=23.6532, time elapsed: 1.46
+Training loss at epoch 186: mse=559.3897, rmse=23.6514, time elapsed: 1.48
+Training loss at epoch 187: mse=556.7693, rmse=23.5960, time elapsed: 1.48
+Training loss at epoch 188: mse=578.0575, rmse=24.0428, time elapsed: 1.45
+Training loss at epoch 189: mse=567.7544, rmse=23.8276, time elapsed: 1.49
+Training loss at epoch 190: mse=561.8512, rmse=23.7034, time elapsed: 1.43
+lr:  0.025
+Training loss at epoch 191: mse=577.8820, rmse=24.0392, time elapsed: 1.47
+Training loss at epoch 192: mse=599.4260, rmse=24.4832, time elapsed: 1.41
+Training loss at epoch 193: mse=566.5747, rmse=23.8028, time elapsed: 1.46
+Training loss at epoch 194: mse=569.3180, rmse=23.8604, time elapsed: 1.44
+Training loss at epoch 195: mse=560.4737, rmse=23.6743, time elapsed: 1.46
+Training loss at epoch 196: mse=560.1897, rmse=23.6683, time elapsed: 1.41
+Training loss at epoch 197: mse=573.9253, rmse=23.9567, time elapsed: 1.43
+Training loss at epoch 198: mse=558.7686, rmse=23.6383, time elapsed: 1.44
+Training loss at epoch 199: mse=551.1341, rmse=23.4762, time elapsed: 1.43
+Training loss at epoch 200: mse=562.9402, rmse=23.7264, time elapsed: 1.48
+lr:  0.025
+Training loss at epoch 201: mse=551.2001, rmse=23.4777, time elapsed: 1.53
+Training loss at epoch 202: mse=540.4118, rmse=23.2468, time elapsed: 1.41
+Training loss at epoch 203: mse=536.9757, rmse=23.1727, time elapsed: 1.47
+Training loss at epoch 204: mse=539.2894, rmse=23.2226, time elapsed: 1.52
+Training loss at epoch 205: mse=534.1090, rmse=23.1108, time elapsed: 1.43
+Training loss at epoch 206: mse=538.6065, rmse=23.2079, time elapsed: 1.42
+Training loss at epoch 207: mse=537.8810, rmse=23.1923, time elapsed: 1.54
+Training loss at epoch 208: mse=541.1932, rmse=23.2636, time elapsed: 1.46
+Training loss at epoch 209: mse=540.3328, rmse=23.2451, time elapsed: 1.44
+Training loss at epoch 210: mse=547.9998, rmse=23.4094, time elapsed: 1.53
+lr:  0.0125
+Training loss at epoch 211: mse=549.0938, rmse=23.4327, time elapsed: 1.45
+Training loss at epoch 212: mse=534.4930, rmse=23.1191, time elapsed: 1.44
+Training loss at epoch 213: mse=533.9364, rmse=23.1071, time elapsed: 1.54
+Training loss at epoch 214: mse=535.0700, rmse=23.1316, time elapsed: 1.49
+Training loss at epoch 215: mse=561.2998, rmse=23.6918, time elapsed: 1.46
+Training loss at epoch 216: mse=536.4440, rmse=23.1613, time elapsed: 1.44
+Training loss at epoch 217: mse=539.2059, rmse=23.2208, time elapsed: 1.48
+Training loss at epoch 218: mse=551.0874, rmse=23.4752, time elapsed: 1.41
+Training loss at epoch 219: mse=541.7019, rmse=23.2745, time elapsed: 1.71
+Training loss at epoch 220: mse=538.1268, rmse=23.1976, time elapsed: 1.43
+lr:  0.0125
+Training loss at epoch 221: mse=541.7328, rmse=23.2752, time elapsed: 1.42
+Training loss at epoch 222: mse=528.4697, rmse=22.9885, time elapsed: 1.50
+Training loss at epoch 223: mse=522.4259, rmse=22.8566, time elapsed: 1.49
+Training loss at epoch 224: mse=526.1215, rmse=22.9373, time elapsed: 1.79
+Training loss at epoch 225: mse=511.9839, rmse=22.6271, time elapsed: 1.44
+Training loss at epoch 226: mse=522.1220, rmse=22.8500, time elapsed: 1.59
+Training loss at epoch 227: mse=523.7980, rmse=22.8866, time elapsed: 1.43
+Training loss at epoch 228: mse=529.5842, rmse=23.0127, time elapsed: 1.48
+Training loss at epoch 229: mse=522.1894, rmse=22.8515, time elapsed: 1.44
+Training loss at epoch 230: mse=530.9467, rmse=23.0423, time elapsed: 1.42
+lr:  0.00625
+Training loss at epoch 231: mse=487.8182, rmse=22.0866, time elapsed: 1.49
+Training loss at epoch 232: mse=518.5674, rmse=22.7721, time elapsed: 1.53
+Training loss at epoch 233: mse=521.8176, rmse=22.8433, time elapsed: 1.61
+Training loss at epoch 234: mse=517.5337, rmse=22.7494, time elapsed: 1.43
+Training loss at epoch 235: mse=510.5080, rmse=22.5944, time elapsed: 1.43
+Training loss at epoch 236: mse=527.9874, rmse=22.9780, time elapsed: 1.45
+Training loss at epoch 237: mse=516.5490, rmse=22.7277, time elapsed: 1.46
+Training loss at epoch 238: mse=528.1970, rmse=22.9825, time elapsed: 1.47
+Training loss at epoch 239: mse=521.9493, rmse=22.8462, time elapsed: 1.55
+Training loss at epoch 240: mse=518.7601, rmse=22.7763, time elapsed: 1.44
+lr:  0.00625
+Training loss at epoch 241: mse=520.9814, rmse=22.8250, time elapsed: 1.45
+Training loss at epoch 242: mse=517.0539, rmse=22.7388, time elapsed: 1.44
+Training loss at epoch 243: mse=515.1780, rmse=22.6975, time elapsed: 1.43
+Training loss at epoch 244: mse=510.0106, rmse=22.5834, time elapsed: 1.41
+Training loss at epoch 245: mse=513.4118, rmse=22.6586, time elapsed: 1.40
+Training loss at epoch 246: mse=503.9412, rmse=22.4486, time elapsed: 1.60
+Training loss at epoch 247: mse=508.4033, rmse=22.5478, time elapsed: 1.68
+Training loss at epoch 248: mse=505.3624, rmse=22.4803, time elapsed: 1.46
+Training loss at epoch 249: mse=502.9791, rmse=22.4272, time elapsed: 1.42
+Training loss at epoch 250: mse=511.1813, rmse=22.6093, time elapsed: 1.49
+lr:  0.003125
+Training loss at epoch 251: mse=507.2904, rmse=22.5231, time elapsed: 1.42
+Training loss at epoch 252: mse=506.7152, rmse=22.5103, time elapsed: 1.52
+Training loss at epoch 253: mse=503.3693, rmse=22.4359, time elapsed: 1.46
+Training loss at epoch 254: mse=510.6586, rmse=22.5978, time elapsed: 1.43
+Training loss at epoch 255: mse=508.9707, rmse=22.5604, time elapsed: 1.49
+Training loss at epoch 256: mse=508.8248, rmse=22.5571, time elapsed: 1.38
+Training loss at epoch 257: mse=508.5492, rmse=22.5510, time elapsed: 1.42
+Training loss at epoch 258: mse=504.6485, rmse=22.4644, time elapsed: 1.46
+Training loss at epoch 259: mse=496.7055, rmse=22.2869, time elapsed: 1.47
+Training loss at epoch 260: mse=509.1525, rmse=22.5644, time elapsed: 1.44
+lr:  0.003125
+Training loss at epoch 261: mse=502.9842, rmse=22.4273, time elapsed: 1.42
+Training loss at epoch 262: mse=508.5228, rmse=22.5505, time elapsed: 1.53
+Training loss at epoch 263: mse=507.2641, rmse=22.5225, time elapsed: 1.43
+Training loss at epoch 264: mse=502.1762, rmse=22.4093, time elapsed: 1.44
+Training loss at epoch 265: mse=503.2302, rmse=22.4328, time elapsed: 1.58
+Training loss at epoch 266: mse=500.2701, rmse=22.3667, time elapsed: 1.67
+Training loss at epoch 267: mse=487.5805, rmse=22.0812, time elapsed: 1.41
+Training loss at epoch 268: mse=501.4595, rmse=22.3933, time elapsed: 1.45
+Training loss at epoch 269: mse=499.3070, rmse=22.3452, time elapsed: 1.43
+Training loss at epoch 270: mse=503.2542, rmse=22.4333, time elapsed: 1.40
+lr:  0.0015625
+Training loss at epoch 271: mse=497.2295, rmse=22.2986, time elapsed: 1.41
+Training loss at epoch 272: mse=498.4610, rmse=22.3262, time elapsed: 1.52
+Training loss at epoch 273: mse=496.3719, rmse=22.2794, time elapsed: 1.45
+Training loss at epoch 274: mse=497.1336, rmse=22.2965, time elapsed: 1.42
+Training loss at epoch 275: mse=496.8428, rmse=22.2900, time elapsed: 1.43
+Training loss at epoch 276: mse=490.5537, rmse=22.1484, time elapsed: 1.53
+Training loss at epoch 277: mse=499.9297, rmse=22.3591, time elapsed: 1.44
+Training loss at epoch 278: mse=501.7278, rmse=22.3993, time elapsed: 1.58
+Training loss at epoch 279: mse=496.6244, rmse=22.2851, time elapsed: 1.53
+Training loss at epoch 280: mse=496.2692, rmse=22.2771, time elapsed: 1.52
+lr:  0.0015625
+Training loss at epoch 281: mse=495.3717, rmse=22.2569, time elapsed: 1.42
+Training loss at epoch 282: mse=496.6017, rmse=22.2846, time elapsed: 1.38
+Training loss at epoch 283: mse=479.6391, rmse=21.9007, time elapsed: 1.45
+Training loss at epoch 284: mse=496.9642, rmse=22.2927, time elapsed: 1.42
+Training loss at epoch 285: mse=488.7374, rmse=22.1074, time elapsed: 1.48
+Training loss at epoch 286: mse=487.2648, rmse=22.0741, time elapsed: 1.42
+Training loss at epoch 287: mse=492.8212, rmse=22.1996, time elapsed: 1.52
+Training loss at epoch 288: mse=484.3534, rmse=22.0080, time elapsed: 1.60
+Training loss at epoch 289: mse=492.5492, rmse=22.1934, time elapsed: 1.45
+Training loss at epoch 290: mse=486.7592, rmse=22.0626, time elapsed: 1.42
+lr:  0.00078125
+Training loss at epoch 291: mse=453.5374, rmse=21.2964, time elapsed: 1.53
+Training loss at epoch 292: mse=488.1819, rmse=22.0948, time elapsed: 1.42
+Training loss at epoch 293: mse=479.9457, rmse=21.9077, time elapsed: 1.50
+Training loss at epoch 294: mse=482.0139, rmse=21.9548, time elapsed: 1.41
+Training loss at epoch 295: mse=489.7188, rmse=22.1296, time elapsed: 1.41
+Training loss at epoch 296: mse=485.4441, rmse=22.0328, time elapsed: 1.45
+Training loss at epoch 297: mse=489.1403, rmse=22.1165, time elapsed: 1.42
+Training loss at epoch 298: mse=487.3049, rmse=22.0750, time elapsed: 1.55
+Training loss at epoch 299: mse=489.6501, rmse=22.1280, time elapsed: 1.40
+Testing:
+mse, rmse, mae,mape 833.4251708984375 28.869104088946674 14.389615058898926 0.25827428698539734
+Training model Retain
+Num of trainable params: 54786
+Experiment: 0
+Training loss at epoch 0: mse=9497.9149, rmse=97.4572, time elapsed: 4.23
+Saving...
+lr:  0.05
+Training loss at epoch 1: mse=7031.9882, rmse=83.8570, time elapsed: 4.19
+Saving...
+Training loss at epoch 2: mse=3948.1082, rmse=62.8340, time elapsed: 4.12
+Saving...
+Training loss at epoch 3: mse=1183.8596, rmse=34.4073, time elapsed: 4.11
+Saving...
+Training loss at epoch 4: mse=629.3824, rmse=25.0875, time elapsed: 4.36
+Saving...
+Training loss at epoch 5: mse=572.5808, rmse=23.9287, time elapsed: 4.14
+Saving...
+Training loss at epoch 6: mse=551.1214, rmse=23.4760, time elapsed: 4.40
+Saving...
+Training loss at epoch 7: mse=545.8479, rmse=23.3634, time elapsed: 4.15
+Saving...
+Training loss at epoch 8: mse=535.9641, rmse=23.1509, time elapsed: 4.23
+Saving...
+Training loss at epoch 9: mse=535.9486, rmse=23.1506, time elapsed: 4.17
+Training loss at epoch 10: mse=527.5287, rmse=22.9680, time elapsed: 4.26
+Saving...
+lr:  0.05
+Training loss at epoch 11: mse=530.7798, rmse=23.0387, time elapsed: 4.21
+Training loss at epoch 12: mse=525.6743, rmse=22.9276, time elapsed: 4.10
+Training loss at epoch 13: mse=515.4551, rmse=22.7036, time elapsed: 4.20
+Training loss at epoch 14: mse=511.5314, rmse=22.6171, time elapsed: 4.11
+Training loss at epoch 15: mse=531.8650, rmse=23.0622, time elapsed: 4.19
+Training loss at epoch 16: mse=538.3761, rmse=23.2029, time elapsed: 4.15
+Training loss at epoch 17: mse=531.0023, rmse=23.0435, time elapsed: 4.34
+Training loss at epoch 18: mse=535.2343, rmse=23.1351, time elapsed: 4.20
+Training loss at epoch 19: mse=540.6565, rmse=23.2520, time elapsed: 4.31
+Training loss at epoch 20: mse=532.8758, rmse=23.0841, time elapsed: 4.12
+lr:  0.05
+Training loss at epoch 21: mse=514.9012, rmse=22.6914, time elapsed: 4.14
+Training loss at epoch 22: mse=518.4766, rmse=22.7701, time elapsed: 4.31
+Saving...
+Training loss at epoch 23: mse=532.1711, rmse=23.0688, time elapsed: 4.27
+Training loss at epoch 24: mse=530.0237, rmse=23.0222, time elapsed: 4.35
+Training loss at epoch 25: mse=528.3782, rmse=22.9865, time elapsed: 4.14
+Saving...
+Training loss at epoch 26: mse=538.8768, rmse=23.2137, time elapsed: 4.31
+Training loss at epoch 27: mse=530.8409, rmse=23.0400, time elapsed: 4.13
+Training loss at epoch 28: mse=521.0855, rmse=22.8273, time elapsed: 4.34
+Saving...
+Training loss at epoch 29: mse=518.2549, rmse=22.7652, time elapsed: 4.25
+Training loss at epoch 30: mse=516.3413, rmse=22.7231, time elapsed: 4.30
+lr:  0.05
+Training loss at epoch 31: mse=524.9642, rmse=22.9121, time elapsed: 4.24
+Training loss at epoch 32: mse=522.3914, rmse=22.8559, time elapsed: 4.20
+Training loss at epoch 33: mse=532.6510, rmse=23.0792, time elapsed: 4.29
+Saving...
+Training loss at epoch 34: mse=521.3536, rmse=22.8332, time elapsed: 4.25
+Training loss at epoch 35: mse=523.4587, rmse=22.8792, time elapsed: 4.30
+Training loss at epoch 36: mse=554.0385, rmse=23.5380, time elapsed: 4.22
+Training loss at epoch 37: mse=535.1356, rmse=23.1330, time elapsed: 4.25
+Training loss at epoch 38: mse=537.7728, rmse=23.1899, time elapsed: 4.20
+Training loss at epoch 39: mse=528.3797, rmse=22.9865, time elapsed: 4.25
+Training loss at epoch 40: mse=520.3222, rmse=22.8106, time elapsed: 4.36
+lr:  0.05
+Training loss at epoch 41: mse=516.3888, rmse=22.7242, time elapsed: 4.33
+Training loss at epoch 42: mse=521.6490, rmse=22.8396, time elapsed: 4.56
+Training loss at epoch 43: mse=529.7012, rmse=23.0152, time elapsed: 4.14
+Saving...
+Training loss at epoch 44: mse=524.2696, rmse=22.8969, time elapsed: 4.30
+Training loss at epoch 45: mse=513.1297, rmse=22.6524, time elapsed: 4.19
+Saving...
+Training loss at epoch 46: mse=515.5834, rmse=22.7065, time elapsed: 4.36
+Training loss at epoch 47: mse=535.3973, rmse=23.1387, time elapsed: 4.13
+Training loss at epoch 48: mse=609.4002, rmse=24.6860, time elapsed: 4.10
+Training loss at epoch 49: mse=646.7968, rmse=25.4322, time elapsed: 4.32
+Training loss at epoch 50: mse=542.4688, rmse=23.2910, time elapsed: 4.19
+lr:  0.05
+Training loss at epoch 51: mse=541.2105, rmse=23.2639, time elapsed: 4.27
+Training loss at epoch 52: mse=541.2957, rmse=23.2658, time elapsed: 4.14
+Training loss at epoch 53: mse=532.2451, rmse=23.0704, time elapsed: 5.34
+Training loss at epoch 54: mse=525.5703, rmse=22.9253, time elapsed: 4.37
+Training loss at epoch 55: mse=527.9364, rmse=22.9769, time elapsed: 4.40
+Training loss at epoch 56: mse=525.2626, rmse=22.9186, time elapsed: 4.52
+Training loss at epoch 57: mse=520.5970, rmse=22.8166, time elapsed: 4.61
+Training loss at epoch 58: mse=520.7567, rmse=22.8201, time elapsed: 4.29
+Training loss at epoch 59: mse=526.8206, rmse=22.9526, time elapsed: 4.76
+Training loss at epoch 60: mse=518.6096, rmse=22.7730, time elapsed: 4.46
+lr:  0.05
+Training loss at epoch 61: mse=529.3880, rmse=23.0084, time elapsed: 4.77
+Training loss at epoch 62: mse=525.1036, rmse=22.9151, time elapsed: 4.96
+Training loss at epoch 63: mse=518.4459, rmse=22.7694, time elapsed: 4.88
+Training loss at epoch 64: mse=515.6958, rmse=22.7089, time elapsed: 4.59
+Training loss at epoch 65: mse=514.6547, rmse=22.6860, time elapsed: 4.53
+Training loss at epoch 66: mse=520.7866, rmse=22.8207, time elapsed: 4.65
+Training loss at epoch 67: mse=519.8581, rmse=22.8004, time elapsed: 4.39
+Training loss at epoch 68: mse=514.7755, rmse=22.6887, time elapsed: 4.71
+Training loss at epoch 69: mse=519.7552, rmse=22.7981, time elapsed: 4.34
+Training loss at epoch 70: mse=517.0988, rmse=22.7398, time elapsed: 4.57
+lr:  0.025
+Training loss at epoch 71: mse=513.9053, rmse=22.6695, time elapsed: 4.54
+Training loss at epoch 72: mse=518.2207, rmse=22.7645, time elapsed: 4.63
+Training loss at epoch 73: mse=514.1199, rmse=22.6742, time elapsed: 4.26
+Training loss at epoch 74: mse=509.5979, rmse=22.5743, time elapsed: 4.79
+Training loss at epoch 75: mse=515.2404, rmse=22.6989, time elapsed: 4.51
+Training loss at epoch 76: mse=509.1546, rmse=22.5645, time elapsed: 4.77
+Training loss at epoch 77: mse=517.4851, rmse=22.7483, time elapsed: 4.24
+Training loss at epoch 78: mse=517.8403, rmse=22.7561, time elapsed: 4.75
+Training loss at epoch 79: mse=514.0873, rmse=22.6735, time elapsed: 4.45
+Training loss at epoch 80: mse=514.9541, rmse=22.6926, time elapsed: 4.62
+lr:  0.025
+Training loss at epoch 81: mse=507.1476, rmse=22.5199, time elapsed: 4.38
+Training loss at epoch 82: mse=522.5977, rmse=22.8604, time elapsed: 4.61
+Training loss at epoch 83: mse=512.1167, rmse=22.6300, time elapsed: 4.31
+Training loss at epoch 84: mse=514.1868, rmse=22.6757, time elapsed: 4.78
+Saving...
+Training loss at epoch 85: mse=515.4298, rmse=22.7031, time elapsed: 4.53
+Training loss at epoch 86: mse=525.1841, rmse=22.9169, time elapsed: 4.44
+Training loss at epoch 87: mse=512.3448, rmse=22.6350, time elapsed: 4.67
+Training loss at epoch 88: mse=501.6747, rmse=22.3981, time elapsed: 4.45
+Training loss at epoch 89: mse=520.4658, rmse=22.8137, time elapsed: 4.90
+Training loss at epoch 90: mse=517.6340, rmse=22.7516, time elapsed: 4.88
+Saving...
+lr:  0.025
+Training loss at epoch 91: mse=510.5655, rmse=22.5957, time elapsed: 4.39
+Training loss at epoch 92: mse=515.2746, rmse=22.6997, time elapsed: 4.56
+Saving...
+Training loss at epoch 93: mse=513.5609, rmse=22.6619, time elapsed: 4.66
+Training loss at epoch 94: mse=516.0479, rmse=22.7167, time elapsed: 4.30
+Training loss at epoch 95: mse=512.1350, rmse=22.6304, time elapsed: 4.61
+Training loss at epoch 96: mse=515.1453, rmse=22.6968, time elapsed: 4.37
+Saving...
+Training loss at epoch 97: mse=510.1397, rmse=22.5863, time elapsed: 4.53
+Training loss at epoch 98: mse=513.9984, rmse=22.6715, time elapsed: 4.18
+Training loss at epoch 99: mse=516.5895, rmse=22.7286, time elapsed: 4.53
+Training loss at epoch 100: mse=521.0486, rmse=22.8265, time elapsed: 4.43
+lr:  0.025
+Training loss at epoch 101: mse=512.6193, rmse=22.6411, time elapsed: 4.56
+Training loss at epoch 102: mse=510.5039, rmse=22.5943, time elapsed: 4.39
+Training loss at epoch 103: mse=516.7221, rmse=22.7315, time elapsed: 4.27
+Training loss at epoch 104: mse=513.4367, rmse=22.6591, time elapsed: 4.62
+Training loss at epoch 105: mse=515.3055, rmse=22.7003, time elapsed: 4.40
+Training loss at epoch 106: mse=516.7356, rmse=22.7318, time elapsed: 4.70
+Training loss at epoch 107: mse=516.3922, rmse=22.7243, time elapsed: 4.39
+Training loss at epoch 108: mse=514.4241, rmse=22.6809, time elapsed: 4.80
+Training loss at epoch 109: mse=505.8844, rmse=22.4919, time elapsed: 4.97
+Training loss at epoch 110: mse=514.2874, rmse=22.6779, time elapsed: 4.80
+lr:  0.025
+Training loss at epoch 111: mse=513.2826, rmse=22.6557, time elapsed: 4.30
+Training loss at epoch 112: mse=510.2483, rmse=22.5887, time elapsed: 4.37
+Saving...
+Training loss at epoch 113: mse=510.4975, rmse=22.5942, time elapsed: 4.31
+Training loss at epoch 114: mse=510.8418, rmse=22.6018, time elapsed: 4.36
+Training loss at epoch 115: mse=513.9763, rmse=22.6710, time elapsed: 4.11
+Saving...
+Training loss at epoch 116: mse=513.5616, rmse=22.6619, time elapsed: 4.62
+Training loss at epoch 117: mse=513.8134, rmse=22.6675, time elapsed: 4.51
+Training loss at epoch 118: mse=522.3200, rmse=22.8543, time elapsed: 4.61
+Training loss at epoch 119: mse=518.0348, rmse=22.7604, time elapsed: 4.60
+Training loss at epoch 120: mse=520.5054, rmse=22.8146, time elapsed: 4.51
+lr:  0.025
+Training loss at epoch 121: mse=517.9140, rmse=22.7577, time elapsed: 4.42
+Training loss at epoch 122: mse=520.8056, rmse=22.8212, time elapsed: 4.45
+Training loss at epoch 123: mse=522.4958, rmse=22.8582, time elapsed: 4.41
+Training loss at epoch 124: mse=518.5202, rmse=22.7710, time elapsed: 4.44
+Training loss at epoch 125: mse=523.0835, rmse=22.8710, time elapsed: 4.47
+Training loss at epoch 126: mse=514.5715, rmse=22.6842, time elapsed: 4.24
+Training loss at epoch 127: mse=512.6061, rmse=22.6408, time elapsed: 4.64
+Training loss at epoch 128: mse=517.8612, rmse=22.7566, time elapsed: 4.33
+Training loss at epoch 129: mse=517.3935, rmse=22.7463, time elapsed: 4.59
+Training loss at epoch 130: mse=525.8733, rmse=22.9319, time elapsed: 4.66
+lr:  0.025
+Training loss at epoch 131: mse=512.9892, rmse=22.6493, time elapsed: 4.77
+Training loss at epoch 132: mse=512.9515, rmse=22.6484, time elapsed: 4.79
+Saving...
+Training loss at epoch 133: mse=509.0030, rmse=22.5611, time elapsed: 4.69
+Saving...
+Training loss at epoch 134: mse=508.5809, rmse=22.5517, time elapsed: 4.64
+Training loss at epoch 135: mse=492.6469, rmse=22.1957, time elapsed: 4.79
+Training loss at epoch 136: mse=510.9834, rmse=22.6049, time elapsed: 4.59
+Training loss at epoch 137: mse=512.3184, rmse=22.6345, time elapsed: 4.43
+Training loss at epoch 138: mse=513.8492, rmse=22.6682, time elapsed: 4.38
+Training loss at epoch 139: mse=516.5823, rmse=22.7284, time elapsed: 4.57
+Training loss at epoch 140: mse=511.2974, rmse=22.6119, time elapsed: 4.43
+lr:  0.025
+Training loss at epoch 141: mse=522.8423, rmse=22.8657, time elapsed: 4.77
+Training loss at epoch 142: mse=506.0830, rmse=22.4963, time elapsed: 4.61
+Training loss at epoch 143: mse=514.2868, rmse=22.6779, time elapsed: 4.46
+Training loss at epoch 144: mse=511.2345, rmse=22.6105, time elapsed: 4.91
+Training loss at epoch 145: mse=512.7845, rmse=22.6447, time elapsed: 4.45
+Training loss at epoch 146: mse=512.8070, rmse=22.6452, time elapsed: 4.43
+Training loss at epoch 147: mse=514.5709, rmse=22.6842, time elapsed: 4.47
+Training loss at epoch 148: mse=511.9385, rmse=22.6261, time elapsed: 4.85
+Training loss at epoch 149: mse=514.4344, rmse=22.6811, time elapsed: 4.77
+Training loss at epoch 150: mse=513.3554, rmse=22.6573, time elapsed: 4.78
+lr:  0.025
+Training loss at epoch 151: mse=516.0040, rmse=22.7157, time elapsed: 4.43
+Training loss at epoch 152: mse=511.7973, rmse=22.6229, time elapsed: 4.60
+Training loss at epoch 153: mse=509.3335, rmse=22.5684, time elapsed: 4.55
+Training loss at epoch 154: mse=512.0331, rmse=22.6281, time elapsed: 4.83
+Training loss at epoch 155: mse=508.9332, rmse=22.5595, time elapsed: 4.61
+Saving...
+Training loss at epoch 156: mse=507.2010, rmse=22.5211, time elapsed: 4.62
+Saving...
+Training loss at epoch 157: mse=507.4960, rmse=22.5277, time elapsed: 4.24
+Training loss at epoch 158: mse=513.5934, rmse=22.6626, time elapsed: 4.82
+Saving...
+Training loss at epoch 159: mse=509.7248, rmse=22.5771, time elapsed: 4.53
+Training loss at epoch 160: mse=512.4605, rmse=22.6376, time elapsed: 4.41
+lr:  0.0125
+Training loss at epoch 161: mse=504.7253, rmse=22.4661, time elapsed: 4.76
+Saving...
+Training loss at epoch 162: mse=504.5636, rmse=22.4625, time elapsed: 4.59
+Training loss at epoch 163: mse=504.5656, rmse=22.4625, time elapsed: 4.55
+Training loss at epoch 164: mse=506.0573, rmse=22.4957, time elapsed: 4.41
+Training loss at epoch 165: mse=496.2937, rmse=22.2777, time elapsed: 4.29
+Training loss at epoch 166: mse=503.7945, rmse=22.4454, time elapsed: 4.55
+Training loss at epoch 167: mse=509.8948, rmse=22.5808, time elapsed: 4.68
+Training loss at epoch 168: mse=509.5084, rmse=22.5723, time elapsed: 4.48
+Training loss at epoch 169: mse=502.1653, rmse=22.4090, time elapsed: 4.70
+Training loss at epoch 170: mse=508.1850, rmse=22.5430, time elapsed: 4.57
+lr:  0.0125
+Training loss at epoch 171: mse=512.0173, rmse=22.6278, time elapsed: 4.70
+Training loss at epoch 172: mse=510.2143, rmse=22.5879, time elapsed: 4.67
+Saving...
+Training loss at epoch 173: mse=508.0823, rmse=22.5407, time elapsed: 4.43
+Saving...
+Training loss at epoch 174: mse=510.6840, rmse=22.5983, time elapsed: 4.48
+Training loss at epoch 175: mse=510.1147, rmse=22.5857, time elapsed: 4.56
+Training loss at epoch 176: mse=508.7748, rmse=22.5560, time elapsed: 4.72
+Training loss at epoch 177: mse=506.9549, rmse=22.5157, time elapsed: 4.56
+Training loss at epoch 178: mse=502.5616, rmse=22.4179, time elapsed: 4.46
+Training loss at epoch 179: mse=511.1065, rmse=22.6077, time elapsed: 4.60
+Training loss at epoch 180: mse=508.8956, rmse=22.5587, time elapsed: 4.68
+lr:  0.0125
+Training loss at epoch 181: mse=511.4633, rmse=22.6156, time elapsed: 4.81
+Training loss at epoch 182: mse=505.3378, rmse=22.4797, time elapsed: 4.47
+Training loss at epoch 183: mse=504.4535, rmse=22.4600, time elapsed: 4.76
+Training loss at epoch 184: mse=489.3778, rmse=22.1219, time elapsed: 4.65
+Training loss at epoch 185: mse=513.9264, rmse=22.6699, time elapsed: 4.53
+Training loss at epoch 186: mse=506.5438, rmse=22.5065, time elapsed: 4.44
+Saving...
+Training loss at epoch 187: mse=508.8326, rmse=22.5573, time elapsed: 4.46
+Saving...
+Training loss at epoch 188: mse=511.0886, rmse=22.6073, time elapsed: 4.81
+Training loss at epoch 189: mse=512.5599, rmse=22.6398, time elapsed: 4.55
+Training loss at epoch 190: mse=505.7949, rmse=22.4899, time elapsed: 4.66
+lr:  0.0125
+Training loss at epoch 191: mse=503.0004, rmse=22.4277, time elapsed: 4.84
+Training loss at epoch 192: mse=513.1026, rmse=22.6518, time elapsed: 4.79
+Training loss at epoch 193: mse=511.3758, rmse=22.6136, time elapsed: 4.68
+Training loss at epoch 194: mse=511.2527, rmse=22.6109, time elapsed: 4.66
+Training loss at epoch 195: mse=504.1070, rmse=22.4523, time elapsed: 4.59
+Training loss at epoch 196: mse=504.5114, rmse=22.4613, time elapsed: 4.54
+Training loss at epoch 197: mse=501.8634, rmse=22.4023, time elapsed: 4.36
+Training loss at epoch 198: mse=498.0171, rmse=22.3163, time elapsed: 4.56
+Training loss at epoch 199: mse=507.6733, rmse=22.5316, time elapsed: 4.47
+Training loss at epoch 200: mse=478.5269, rmse=21.8753, time elapsed: 4.76
+lr:  0.0125
+Training loss at epoch 201: mse=512.2723, rmse=22.6334, time elapsed: 4.38
+Training loss at epoch 202: mse=510.8980, rmse=22.6031, time elapsed: 4.70
+Training loss at epoch 203: mse=507.8088, rmse=22.5346, time elapsed: 4.50
+Training loss at epoch 204: mse=494.4119, rmse=22.2354, time elapsed: 4.86
+Training loss at epoch 205: mse=505.7887, rmse=22.4897, time elapsed: 4.55
+Training loss at epoch 206: mse=506.8897, rmse=22.5142, time elapsed: 4.51
+Training loss at epoch 207: mse=507.2566, rmse=22.5224, time elapsed: 4.63
+Training loss at epoch 208: mse=506.5517, rmse=22.5067, time elapsed: 4.68
+Training loss at epoch 209: mse=510.4402, rmse=22.5929, time elapsed: 4.64
+Training loss at epoch 210: mse=500.2936, rmse=22.3672, time elapsed: 4.63
+lr:  0.00625
+Training loss at epoch 211: mse=502.8905, rmse=22.4252, time elapsed: 4.53
+Training loss at epoch 212: mse=504.7605, rmse=22.4669, time elapsed: 4.62
+Training loss at epoch 213: mse=500.7801, rmse=22.3781, time elapsed: 4.34
+Training loss at epoch 214: mse=505.8896, rmse=22.4920, time elapsed: 4.44
+Training loss at epoch 215: mse=504.6705, rmse=22.4649, time elapsed: 4.76
+Training loss at epoch 216: mse=504.7803, rmse=22.4673, time elapsed: 4.56
+Training loss at epoch 217: mse=507.1732, rmse=22.5205, time elapsed: 4.58
+Training loss at epoch 218: mse=503.2219, rmse=22.4326, time elapsed: 4.48
+Training loss at epoch 219: mse=495.8475, rmse=22.2676, time elapsed: 4.66
+Training loss at epoch 220: mse=502.9799, rmse=22.4272, time elapsed: 4.43
+lr:  0.00625
+Training loss at epoch 221: mse=487.5701, rmse=22.0810, time elapsed: 4.46
+Training loss at epoch 222: mse=505.4746, rmse=22.4828, time elapsed: 4.63
+Training loss at epoch 223: mse=503.5825, rmse=22.4406, time elapsed: 4.44
+Saving...
+Training loss at epoch 224: mse=506.1534, rmse=22.4979, time elapsed: 4.56
+Training loss at epoch 225: mse=501.2770, rmse=22.3892, time elapsed: 4.44
+Training loss at epoch 226: mse=502.6675, rmse=22.4202, time elapsed: 4.57
+Training loss at epoch 227: mse=503.8530, rmse=22.4467, time elapsed: 4.75
+Saving...
+Training loss at epoch 228: mse=491.2539, rmse=22.1642, time elapsed: 4.48
+Training loss at epoch 229: mse=502.6290, rmse=22.4194, time elapsed: 4.67
+Training loss at epoch 230: mse=505.5561, rmse=22.4846, time elapsed: 4.33
+lr:  0.00625
+Training loss at epoch 231: mse=505.8610, rmse=22.4914, time elapsed: 4.59
+Training loss at epoch 232: mse=505.2663, rmse=22.4781, time elapsed: 4.26
+Training loss at epoch 233: mse=481.3952, rmse=21.9407, time elapsed: 4.42
+Training loss at epoch 234: mse=494.7653, rmse=22.2433, time elapsed: 4.77
+Training loss at epoch 235: mse=502.4360, rmse=22.4151, time elapsed: 5.00
+Training loss at epoch 236: mse=508.7788, rmse=22.5561, time elapsed: 4.75
+Training loss at epoch 237: mse=511.0828, rmse=22.6071, time elapsed: 4.50
+Saving...
+Training loss at epoch 238: mse=505.5581, rmse=22.4846, time elapsed: 4.47
+Training loss at epoch 239: mse=504.2969, rmse=22.4566, time elapsed: 4.62
+Training loss at epoch 240: mse=503.5343, rmse=22.4396, time elapsed: 4.55
+lr:  0.00625
+Training loss at epoch 241: mse=506.8981, rmse=22.5144, time elapsed: 4.65
+Training loss at epoch 242: mse=508.1508, rmse=22.5422, time elapsed: 4.69
+Training loss at epoch 243: mse=501.6155, rmse=22.3968, time elapsed: 4.46
+Training loss at epoch 244: mse=506.2286, rmse=22.4995, time elapsed: 4.69
+Training loss at epoch 245: mse=501.0291, rmse=22.3837, time elapsed: 4.83
+Training loss at epoch 246: mse=504.9211, rmse=22.4705, time elapsed: 4.98
+Training loss at epoch 247: mse=507.5416, rmse=22.5287, time elapsed: 4.32
+Training loss at epoch 248: mse=504.3299, rmse=22.4573, time elapsed: 4.60
+Training loss at epoch 249: mse=507.2086, rmse=22.5213, time elapsed: 4.70
+Training loss at epoch 250: mse=505.3526, rmse=22.4800, time elapsed: 4.73
+lr:  0.00625
+Training loss at epoch 251: mse=503.6933, rmse=22.4431, time elapsed: 4.35
+Saving...
+Training loss at epoch 252: mse=502.5400, rmse=22.4174, time elapsed: 4.66
+Training loss at epoch 253: mse=506.0194, rmse=22.4949, time elapsed: 4.83
+Training loss at epoch 254: mse=503.0063, rmse=22.4278, time elapsed: 4.76
+Training loss at epoch 255: mse=504.4516, rmse=22.4600, time elapsed: 4.63
+Training loss at epoch 256: mse=507.9018, rmse=22.5367, time elapsed: 4.55
+Training loss at epoch 257: mse=501.5552, rmse=22.3954, time elapsed: 4.77
+Training loss at epoch 258: mse=506.2758, rmse=22.5006, time elapsed: 4.85
+Training loss at epoch 259: mse=498.2617, rmse=22.3218, time elapsed: 4.68
+Saving...
+Training loss at epoch 260: mse=498.4548, rmse=22.3261, time elapsed: 4.72
+lr:  0.003125
+Training loss at epoch 261: mse=485.4728, rmse=22.0334, time elapsed: 4.68
+Training loss at epoch 262: mse=505.2895, rmse=22.4786, time elapsed: 4.71
+Training loss at epoch 263: mse=503.0286, rmse=22.4283, time elapsed: 4.42
+Training loss at epoch 264: mse=513.8681, rmse=22.6687, time elapsed: 4.51
+Training loss at epoch 265: mse=500.5323, rmse=22.3726, time elapsed: 4.30
+Training loss at epoch 266: mse=498.9885, rmse=22.3381, time elapsed: 4.24
+Training loss at epoch 267: mse=503.5107, rmse=22.4390, time elapsed: 4.78
+Training loss at epoch 268: mse=503.1363, rmse=22.4307, time elapsed: 4.30
+Training loss at epoch 269: mse=499.0524, rmse=22.3395, time elapsed: 4.63
+Training loss at epoch 270: mse=502.5557, rmse=22.4178, time elapsed: 4.62
+lr:  0.003125
+Training loss at epoch 271: mse=502.7154, rmse=22.4213, time elapsed: 4.32
+Training loss at epoch 272: mse=501.9109, rmse=22.4034, time elapsed: 4.50
+Training loss at epoch 273: mse=493.2225, rmse=22.2086, time elapsed: 4.68
+Training loss at epoch 274: mse=498.4718, rmse=22.3265, time elapsed: 4.50
+Training loss at epoch 275: mse=501.9603, rmse=22.4045, time elapsed: 4.71
+Training loss at epoch 276: mse=499.7668, rmse=22.3555, time elapsed: 4.82
+Training loss at epoch 277: mse=505.5597, rmse=22.4847, time elapsed: 4.58
+Training loss at epoch 278: mse=501.9114, rmse=22.4034, time elapsed: 4.40
+Training loss at epoch 279: mse=500.6293, rmse=22.3747, time elapsed: 4.57
+Training loss at epoch 280: mse=504.4213, rmse=22.4593, time elapsed: 4.36
+lr:  0.003125
+Training loss at epoch 281: mse=504.2313, rmse=22.4551, time elapsed: 4.53
+Saving...
+Training loss at epoch 282: mse=501.8309, rmse=22.4016, time elapsed: 4.39
+Training loss at epoch 283: mse=501.9392, rmse=22.4040, time elapsed: 4.34
+Training loss at epoch 284: mse=502.4898, rmse=22.4163, time elapsed: 4.54
+Training loss at epoch 285: mse=503.3153, rmse=22.4347, time elapsed: 4.43
+Training loss at epoch 286: mse=498.5996, rmse=22.3293, time elapsed: 4.71
+Training loss at epoch 287: mse=501.0118, rmse=22.3833, time elapsed: 4.33
+Saving...
+Training loss at epoch 288: mse=504.6712, rmse=22.4649, time elapsed: 4.67
+Training loss at epoch 289: mse=487.2045, rmse=22.0727, time elapsed: 4.64
+Training loss at epoch 290: mse=501.9056, rmse=22.4032, time elapsed: 4.49
+lr:  0.0015625
+Training loss at epoch 291: mse=503.4453, rmse=22.4376, time elapsed: 4.39
+Training loss at epoch 292: mse=484.6718, rmse=22.0153, time elapsed: 4.63
+Training loss at epoch 293: mse=498.0720, rmse=22.3175, time elapsed: 4.34
+Training loss at epoch 294: mse=504.5899, rmse=22.4631, time elapsed: 4.15
+Training loss at epoch 295: mse=504.3653, rmse=22.4581, time elapsed: 4.34
+Training loss at epoch 296: mse=496.1129, rmse=22.2736, time elapsed: 4.32
+Saving...
+Training loss at epoch 297: mse=498.3079, rmse=22.3228, time elapsed: 4.52
+Training loss at epoch 298: mse=501.9682, rmse=22.4046, time elapsed: 4.23
+Training loss at epoch 299: mse=500.4129, rmse=22.3699, time elapsed: 4.34
+Testing:
+mse, rmse, mae,mape 624.2919311523438 24.98583460988133 13.362735748291016 0.2138373702764511
+Training model LSTM
+Num of trainable params: 5281
+Experiment: 0
+Training loss at epoch 0: mse=12993.7898, rmse=113.9903, time elapsed: 0.22
+Saving...
+lr:  0.05
+Training loss at epoch 1: mse=8601.9684, rmse=92.7468, time elapsed: 0.21
+Saving...
+Training loss at epoch 2: mse=8160.3824, rmse=90.3348, time elapsed: 0.21
+Saving...
+Training loss at epoch 3: mse=8075.6239, rmse=89.8645, time elapsed: 0.21
+Training loss at epoch 4: mse=7985.0150, rmse=89.3589, time elapsed: 0.21
+Saving...
+Training loss at epoch 5: mse=7350.6771, rmse=85.7361, time elapsed: 0.21
+Saving...
+Training loss at epoch 6: mse=6934.1547, rmse=83.2716, time elapsed: 0.21
+Saving...
+Training loss at epoch 7: mse=5920.5439, rmse=76.9451, time elapsed: 0.28
+Saving...
+Training loss at epoch 8: mse=4892.2163, rmse=69.9444, time elapsed: 0.24
+Saving...
+Training loss at epoch 9: mse=3908.9819, rmse=62.5219, time elapsed: 0.30
+Saving...
+Training loss at epoch 10: mse=2990.3561, rmse=54.6841, time elapsed: 0.26
+Saving...
+lr:  0.05
+Training loss at epoch 11: mse=2471.8048, rmse=49.7172, time elapsed: 0.23
+Saving...
+Training loss at epoch 12: mse=2152.3862, rmse=46.3938, time elapsed: 0.38
+Saving...
+Training loss at epoch 13: mse=1831.5712, rmse=42.7969, time elapsed: 0.24
+Saving...
+Training loss at epoch 14: mse=1625.1503, rmse=40.3132, time elapsed: 0.28
+Saving...
+Training loss at epoch 15: mse=1434.0655, rmse=37.8691, time elapsed: 0.22
+Saving...
+Training loss at epoch 16: mse=1278.5070, rmse=35.7562, time elapsed: 0.24
+Saving...
+Training loss at epoch 17: mse=1213.1264, rmse=34.8300, time elapsed: 0.34
+Saving...
+Training loss at epoch 18: mse=1075.4354, rmse=32.7938, time elapsed: 0.32
+Saving...
+Training loss at epoch 19: mse=1033.1708, rmse=32.1430, time elapsed: 0.24
+Saving...
+Training loss at epoch 20: mse=962.7052, rmse=31.0275, time elapsed: 0.21
+Saving...
+lr:  0.05
+Training loss at epoch 21: mse=906.6321, rmse=30.1103, time elapsed: 0.25
+Saving...
+Training loss at epoch 22: mse=824.2263, rmse=28.7093, time elapsed: 0.33
+Saving...
+Training loss at epoch 23: mse=812.8238, rmse=28.5101, time elapsed: 0.23
+Saving...
+Training loss at epoch 24: mse=743.4942, rmse=27.2671, time elapsed: 0.23
+Saving...
+Training loss at epoch 25: mse=768.3939, rmse=27.7199, time elapsed: 0.25
+Training loss at epoch 26: mse=726.7505, rmse=26.9583, time elapsed: 0.31
+Saving...
+Training loss at epoch 27: mse=697.5142, rmse=26.4105, time elapsed: 0.26
+Saving...
+Training loss at epoch 28: mse=675.3530, rmse=25.9876, time elapsed: 0.27
+Saving...
+Training loss at epoch 29: mse=675.3206, rmse=25.9869, time elapsed: 0.26
+Saving...
+Training loss at epoch 30: mse=645.3607, rmse=25.4040, time elapsed: 0.23
+lr:  0.05
+Training loss at epoch 31: mse=618.8934, rmse=24.8776, time elapsed: 0.24
+Saving...
+Training loss at epoch 32: mse=642.8996, rmse=25.3555, time elapsed: 0.28
+Saving...
+Training loss at epoch 33: mse=623.8405, rmse=24.9768, time elapsed: 0.25
+Saving...
+Training loss at epoch 34: mse=606.4213, rmse=24.6256, time elapsed: 0.32
+Saving...
+Training loss at epoch 35: mse=612.0332, rmse=24.7393, time elapsed: 0.32
+Training loss at epoch 36: mse=612.7856, rmse=24.7545, time elapsed: 0.29
+Saving...
+Training loss at epoch 37: mse=601.4902, rmse=24.5253, time elapsed: 0.24
+Training loss at epoch 38: mse=595.9463, rmse=24.4120, time elapsed: 0.23
+Training loss at epoch 39: mse=590.8213, rmse=24.3068, time elapsed: 0.22
+Saving...
+Training loss at epoch 40: mse=562.4442, rmse=23.7159, time elapsed: 0.21
+Saving...
+lr:  0.05
+Training loss at epoch 41: mse=588.3288, rmse=24.2555, time elapsed: 0.21
+Training loss at epoch 42: mse=563.6916, rmse=23.7422, time elapsed: 0.28
+Training loss at epoch 43: mse=579.9488, rmse=24.0821, time elapsed: 0.28
+Training loss at epoch 44: mse=553.9443, rmse=23.5360, time elapsed: 0.22
+Saving...
+Training loss at epoch 45: mse=568.3832, rmse=23.8408, time elapsed: 0.21
+Training loss at epoch 46: mse=585.0767, rmse=24.1884, time elapsed: 0.21
+Training loss at epoch 47: mse=574.9838, rmse=23.9788, time elapsed: 0.21
+Saving...
+Training loss at epoch 48: mse=574.2348, rmse=23.9632, time elapsed: 0.21
+Training loss at epoch 49: mse=565.7274, rmse=23.7850, time elapsed: 0.31
+Training loss at epoch 50: mse=561.9725, rmse=23.7060, time elapsed: 0.27
+lr:  0.05
+Training loss at epoch 51: mse=557.4344, rmse=23.6100, time elapsed: 0.27
+Training loss at epoch 52: mse=556.2858, rmse=23.5857, time elapsed: 0.26
+Training loss at epoch 53: mse=565.8412, rmse=23.7874, time elapsed: 0.26
+Saving...
+Training loss at epoch 54: mse=537.5047, rmse=23.1841, time elapsed: 0.24
+Saving...
+Training loss at epoch 55: mse=543.9332, rmse=23.3224, time elapsed: 0.25
+Training loss at epoch 56: mse=532.6560, rmse=23.0793, time elapsed: 0.34
+Training loss at epoch 57: mse=528.2434, rmse=22.9835, time elapsed: 0.28
+Training loss at epoch 58: mse=546.4672, rmse=23.3766, time elapsed: 0.27
+Training loss at epoch 59: mse=546.3542, rmse=23.3742, time elapsed: 0.30
+Training loss at epoch 60: mse=543.0060, rmse=23.3025, time elapsed: 0.32
+lr:  0.05
+Training loss at epoch 61: mse=528.8071, rmse=22.9958, time elapsed: 0.26
+Saving...
+Training loss at epoch 62: mse=527.2717, rmse=22.9624, time elapsed: 0.32
+Training loss at epoch 63: mse=558.4621, rmse=23.6318, time elapsed: 0.34
+Training loss at epoch 64: mse=539.8716, rmse=23.2351, time elapsed: 0.28
+Training loss at epoch 65: mse=534.3264, rmse=23.1155, time elapsed: 0.25
+Training loss at epoch 66: mse=539.2631, rmse=23.2220, time elapsed: 0.25
+Training loss at epoch 67: mse=525.5719, rmse=22.9254, time elapsed: 0.23
+Training loss at epoch 68: mse=514.8296, rmse=22.6899, time elapsed: 0.32
+Training loss at epoch 69: mse=533.8141, rmse=23.1044, time elapsed: 0.25
+Training loss at epoch 70: mse=528.7822, rmse=22.9953, time elapsed: 0.29
+Saving...
+lr:  0.05
+Training loss at epoch 71: mse=537.0295, rmse=23.1739, time elapsed: 0.36
+Training loss at epoch 72: mse=533.8287, rmse=23.1047, time elapsed: 0.27
+Training loss at epoch 73: mse=523.9894, rmse=22.8908, time elapsed: 0.21
+Training loss at epoch 74: mse=519.7717, rmse=22.7985, time elapsed: 0.22
+Training loss at epoch 75: mse=534.0274, rmse=23.1090, time elapsed: 0.27
+Saving...
+Training loss at epoch 76: mse=520.8956, rmse=22.8231, time elapsed: 0.27
+Training loss at epoch 77: mse=523.2290, rmse=22.8742, time elapsed: 0.26
+Training loss at epoch 78: mse=529.3102, rmse=23.0067, time elapsed: 0.28
+Training loss at epoch 79: mse=531.9662, rmse=23.0644, time elapsed: 0.24
+Training loss at epoch 80: mse=534.7870, rmse=23.1255, time elapsed: 0.26
+lr:  0.05
+Training loss at epoch 81: mse=518.7684, rmse=22.7765, time elapsed: 0.22
+Training loss at epoch 82: mse=518.7372, rmse=22.7758, time elapsed: 0.25
+Training loss at epoch 83: mse=520.9132, rmse=22.8235, time elapsed: 0.23
+Training loss at epoch 84: mse=523.8412, rmse=22.8876, time elapsed: 0.23
+Saving...
+Training loss at epoch 85: mse=511.6849, rmse=22.6205, time elapsed: 0.31
+Training loss at epoch 86: mse=515.7021, rmse=22.7091, time elapsed: 0.29
+Training loss at epoch 87: mse=520.2085, rmse=22.8081, time elapsed: 0.23
+Saving...
+Training loss at epoch 88: mse=519.8398, rmse=22.8000, time elapsed: 0.30
+Saving...
+Training loss at epoch 89: mse=514.7089, rmse=22.6872, time elapsed: 0.28
+Training loss at epoch 90: mse=508.2863, rmse=22.5452, time elapsed: 0.26
+Saving...
+lr:  0.05
+Training loss at epoch 91: mse=522.2726, rmse=22.8533, time elapsed: 0.23
+Training loss at epoch 92: mse=520.9928, rmse=22.8253, time elapsed: 0.32
+Training loss at epoch 93: mse=523.0250, rmse=22.8697, time elapsed: 0.26
+Training loss at epoch 94: mse=521.1713, rmse=22.8292, time elapsed: 0.26
+Training loss at epoch 95: mse=541.6449, rmse=23.2733, time elapsed: 0.36
+Training loss at epoch 96: mse=520.7463, rmse=22.8199, time elapsed: 0.25
+Saving...
+Training loss at epoch 97: mse=511.7862, rmse=22.6227, time elapsed: 0.23
+Training loss at epoch 98: mse=552.8572, rmse=23.5129, time elapsed: 0.23
+Training loss at epoch 99: mse=521.2605, rmse=22.8311, time elapsed: 0.27
+Training loss at epoch 100: mse=507.7758, rmse=22.5339, time elapsed: 0.24
+lr:  0.05
+Training loss at epoch 101: mse=512.2439, rmse=22.6328, time elapsed: 0.26
+Training loss at epoch 102: mse=517.6164, rmse=22.7512, time elapsed: 0.27
+Training loss at epoch 103: mse=515.9134, rmse=22.7137, time elapsed: 0.24
+Training loss at epoch 104: mse=519.1207, rmse=22.7842, time elapsed: 0.29
+Training loss at epoch 105: mse=520.1510, rmse=22.8068, time elapsed: 0.21
+Training loss at epoch 106: mse=500.6403, rmse=22.3750, time elapsed: 0.20
+Training loss at epoch 107: mse=512.0510, rmse=22.6285, time elapsed: 0.20
+Training loss at epoch 108: mse=526.6877, rmse=22.9497, time elapsed: 0.21
+Training loss at epoch 109: mse=513.2492, rmse=22.6550, time elapsed: 0.21
+Training loss at epoch 110: mse=523.9273, rmse=22.8895, time elapsed: 0.22
+lr:  0.05
+Training loss at epoch 111: mse=506.1907, rmse=22.4987, time elapsed: 0.27
+Training loss at epoch 112: mse=529.9003, rmse=23.0196, time elapsed: 0.25
+Training loss at epoch 113: mse=514.3859, rmse=22.6801, time elapsed: 0.21
+Training loss at epoch 114: mse=511.8571, rmse=22.6243, time elapsed: 0.32
+Training loss at epoch 115: mse=504.4791, rmse=22.4606, time elapsed: 0.24
+Training loss at epoch 116: mse=522.2154, rmse=22.8520, time elapsed: 0.32
+Training loss at epoch 117: mse=518.3818, rmse=22.7680, time elapsed: 0.31
+Training loss at epoch 118: mse=504.1683, rmse=22.4537, time elapsed: 0.30
+Saving...
+Training loss at epoch 119: mse=493.5481, rmse=22.2159, time elapsed: 0.21
+Training loss at epoch 120: mse=490.1416, rmse=22.1391, time elapsed: 0.21
+lr:  0.025
+Training loss at epoch 121: mse=489.6027, rmse=22.1270, time elapsed: 0.21
+Saving...
+Training loss at epoch 122: mse=497.4541, rmse=22.3037, time elapsed: 0.21
+Training loss at epoch 123: mse=492.5206, rmse=22.1928, time elapsed: 0.23
+Training loss at epoch 124: mse=493.3462, rmse=22.2114, time elapsed: 0.25
+Training loss at epoch 125: mse=490.8861, rmse=22.1559, time elapsed: 0.24
+Training loss at epoch 126: mse=491.0783, rmse=22.1603, time elapsed: 0.22
+Training loss at epoch 127: mse=489.3063, rmse=22.1203, time elapsed: 0.28
+Training loss at epoch 128: mse=492.2215, rmse=22.1861, time elapsed: 0.29
+Training loss at epoch 129: mse=490.7245, rmse=22.1523, time elapsed: 0.23
+Training loss at epoch 130: mse=481.1030, rmse=21.9341, time elapsed: 0.25
+lr:  0.025
+Training loss at epoch 131: mse=489.8431, rmse=22.1324, time elapsed: 0.23
+Training loss at epoch 132: mse=493.1642, rmse=22.2073, time elapsed: 0.27
+Training loss at epoch 133: mse=457.2028, rmse=21.3823, time elapsed: 0.28
+Training loss at epoch 134: mse=494.3320, rmse=22.2336, time elapsed: 0.32
+Training loss at epoch 135: mse=498.0920, rmse=22.3180, time elapsed: 0.26
+Training loss at epoch 136: mse=489.8930, rmse=22.1335, time elapsed: 0.24
+Training loss at epoch 137: mse=487.7102, rmse=22.0842, time elapsed: 0.26
+Training loss at epoch 138: mse=496.8400, rmse=22.2899, time elapsed: 0.25
+Training loss at epoch 139: mse=494.9131, rmse=22.2466, time elapsed: 0.26
+Training loss at epoch 140: mse=490.0673, rmse=22.1375, time elapsed: 0.26
+lr:  0.025
+Training loss at epoch 141: mse=491.0846, rmse=22.1604, time elapsed: 0.27
+Training loss at epoch 142: mse=477.3203, rmse=21.8477, time elapsed: 0.22
+Training loss at epoch 143: mse=479.4150, rmse=21.8955, time elapsed: 0.21
+Training loss at epoch 144: mse=480.5229, rmse=21.9208, time elapsed: 0.21
+Training loss at epoch 145: mse=473.2331, rmse=21.7539, time elapsed: 0.25
+Training loss at epoch 146: mse=479.3309, rmse=21.8936, time elapsed: 0.29
+Training loss at epoch 147: mse=475.5564, rmse=21.8073, time elapsed: 0.25
+Training loss at epoch 148: mse=472.3594, rmse=21.7338, time elapsed: 0.23
+Training loss at epoch 149: mse=476.9428, rmse=21.8390, time elapsed: 0.27
+Training loss at epoch 150: mse=476.8048, rmse=21.8359, time elapsed: 0.28
+lr:  0.0125
+Training loss at epoch 151: mse=476.0773, rmse=21.8192, time elapsed: 0.26
+Training loss at epoch 152: mse=472.9174, rmse=21.7467, time elapsed: 0.21
+Training loss at epoch 153: mse=472.7898, rmse=21.7437, time elapsed: 0.24
+Training loss at epoch 154: mse=471.8796, rmse=21.7228, time elapsed: 0.24
+Training loss at epoch 155: mse=471.7688, rmse=21.7202, time elapsed: 0.30
+Training loss at epoch 156: mse=472.7513, rmse=21.7428, time elapsed: 0.24
+Training loss at epoch 157: mse=470.3965, rmse=21.6886, time elapsed: 0.25
+Training loss at epoch 158: mse=472.1827, rmse=21.7298, time elapsed: 0.32
+Training loss at epoch 159: mse=470.1230, rmse=21.6823, time elapsed: 0.21
+Training loss at epoch 160: mse=456.9744, rmse=21.3770, time elapsed: 0.21
+lr:  0.0125
+Training loss at epoch 161: mse=470.3306, rmse=21.6871, time elapsed: 0.27
+Training loss at epoch 162: mse=468.4356, rmse=21.6434, time elapsed: 0.21
+Training loss at epoch 163: mse=471.3287, rmse=21.7101, time elapsed: 0.26
+Training loss at epoch 164: mse=465.9157, rmse=21.5851, time elapsed: 0.24
+Training loss at epoch 165: mse=459.3780, rmse=21.4331, time elapsed: 0.23
+Training loss at epoch 166: mse=463.8707, rmse=21.5377, time elapsed: 0.21
+Training loss at epoch 167: mse=455.5770, rmse=21.3442, time elapsed: 0.30
+Training loss at epoch 168: mse=462.8471, rmse=21.5139, time elapsed: 0.24
+Training loss at epoch 169: mse=459.1375, rmse=21.4275, time elapsed: 0.22
+Training loss at epoch 170: mse=461.8213, rmse=21.4900, time elapsed: 0.24
+lr:  0.00625
+Training loss at epoch 171: mse=458.8504, rmse=21.4208, time elapsed: 0.24
+Training loss at epoch 172: mse=457.3770, rmse=21.3864, time elapsed: 0.43
+Training loss at epoch 173: mse=462.8130, rmse=21.5131, time elapsed: 0.23
+Training loss at epoch 174: mse=453.3001, rmse=21.2908, time elapsed: 0.27
+Training loss at epoch 175: mse=458.9700, rmse=21.4236, time elapsed: 0.26
+Training loss at epoch 176: mse=445.7220, rmse=21.1121, time elapsed: 0.24
+Training loss at epoch 177: mse=459.1889, rmse=21.4287, time elapsed: 0.21
+Training loss at epoch 178: mse=444.0982, rmse=21.0736, time elapsed: 0.21
+Training loss at epoch 179: mse=453.0339, rmse=21.2846, time elapsed: 0.34
+Training loss at epoch 180: mse=460.1606, rmse=21.4514, time elapsed: 0.26
+lr:  0.00625
+Training loss at epoch 181: mse=457.3978, rmse=21.3869, time elapsed: 0.25
+Training loss at epoch 182: mse=456.1751, rmse=21.3583, time elapsed: 0.21
+Training loss at epoch 183: mse=458.8213, rmse=21.4201, time elapsed: 0.27
+Training loss at epoch 184: mse=457.9696, rmse=21.4002, time elapsed: 0.26
+Training loss at epoch 185: mse=450.1424, rmse=21.2166, time elapsed: 0.22
+Training loss at epoch 186: mse=447.8784, rmse=21.1631, time elapsed: 0.21
+Training loss at epoch 187: mse=450.4574, rmse=21.2240, time elapsed: 0.27
+Training loss at epoch 188: mse=450.5802, rmse=21.2269, time elapsed: 0.24
+Training loss at epoch 189: mse=451.0674, rmse=21.2383, time elapsed: 0.21
+Training loss at epoch 190: mse=447.8259, rmse=21.1619, time elapsed: 0.22
+lr:  0.003125
+Training loss at epoch 191: mse=449.1677, rmse=21.1936, time elapsed: 0.33
+Training loss at epoch 192: mse=450.4717, rmse=21.2243, time elapsed: 0.27
+Training loss at epoch 193: mse=412.2979, rmse=20.3051, time elapsed: 0.28
+Training loss at epoch 194: mse=446.4032, rmse=21.1283, time elapsed: 0.24
+Training loss at epoch 195: mse=450.0267, rmse=21.2138, time elapsed: 0.39
+Training loss at epoch 196: mse=450.5021, rmse=21.2250, time elapsed: 0.35
+Training loss at epoch 197: mse=451.1308, rmse=21.2398, time elapsed: 0.24
+Training loss at epoch 198: mse=446.4710, rmse=21.1299, time elapsed: 0.25
+Training loss at epoch 199: mse=445.3406, rmse=21.1031, time elapsed: 0.28
+Training loss at epoch 200: mse=449.0675, rmse=21.1912, time elapsed: 0.25
+lr:  0.003125
+Training loss at epoch 201: mse=445.2559, rmse=21.1011, time elapsed: 0.23
+Training loss at epoch 202: mse=448.4394, rmse=21.1764, time elapsed: 0.23
+Training loss at epoch 203: mse=446.7407, rmse=21.1362, time elapsed: 0.26
+Training loss at epoch 204: mse=443.1956, rmse=21.0522, time elapsed: 0.25
+Training loss at epoch 205: mse=447.6645, rmse=21.1581, time elapsed: 0.24
+Training loss at epoch 206: mse=445.1591, rmse=21.0988, time elapsed: 0.21
+Training loss at epoch 207: mse=408.5315, rmse=20.2122, time elapsed: 0.22
+Training loss at epoch 208: mse=437.9233, rmse=20.9266, time elapsed: 0.24
+Training loss at epoch 209: mse=440.0809, rmse=20.9781, time elapsed: 0.33
+Training loss at epoch 210: mse=439.9782, rmse=20.9757, time elapsed: 0.31
+lr:  0.0015625
+Training loss at epoch 211: mse=439.5490, rmse=20.9654, time elapsed: 0.27
+Training loss at epoch 212: mse=442.3540, rmse=21.0322, time elapsed: 0.22
+Training loss at epoch 213: mse=441.8735, rmse=21.0208, time elapsed: 0.31
+Training loss at epoch 214: mse=440.3892, rmse=20.9855, time elapsed: 0.25
+Training loss at epoch 215: mse=438.1352, rmse=20.9317, time elapsed: 0.30
+Training loss at epoch 216: mse=440.8707, rmse=20.9969, time elapsed: 0.21
+Training loss at epoch 217: mse=437.1400, rmse=20.9079, time elapsed: 0.21
+Training loss at epoch 218: mse=431.5645, rmse=20.7741, time elapsed: 0.28
+Training loss at epoch 219: mse=438.0582, rmse=20.9298, time elapsed: 0.26
+Training loss at epoch 220: mse=441.1528, rmse=21.0036, time elapsed: 0.27
+lr:  0.0015625
+Training loss at epoch 221: mse=430.2509, rmse=20.7425, time elapsed: 0.25
+Training loss at epoch 222: mse=437.6525, rmse=20.9201, time elapsed: 0.23
+Training loss at epoch 223: mse=440.4130, rmse=20.9860, time elapsed: 0.23
+Training loss at epoch 224: mse=438.4127, rmse=20.9383, time elapsed: 0.24
+Training loss at epoch 225: mse=439.3446, rmse=20.9605, time elapsed: 0.25
+Training loss at epoch 226: mse=437.1466, rmse=20.9081, time elapsed: 0.22
+Training loss at epoch 227: mse=433.6631, rmse=20.8246, time elapsed: 0.24
+Training loss at epoch 228: mse=403.1871, rmse=20.0795, time elapsed: 0.25
+Training loss at epoch 229: mse=435.6772, rmse=20.8729, time elapsed: 0.22
+Training loss at epoch 230: mse=434.3540, rmse=20.8412, time elapsed: 0.26
+lr:  0.00078125
+Training loss at epoch 231: mse=435.5236, rmse=20.8692, time elapsed: 0.30
+Training loss at epoch 232: mse=435.0896, rmse=20.8588, time elapsed: 0.21
+Training loss at epoch 233: mse=435.3295, rmse=20.8646, time elapsed: 0.23
+Training loss at epoch 234: mse=431.8227, rmse=20.7803, time elapsed: 0.24
+Training loss at epoch 235: mse=431.5132, rmse=20.7729, time elapsed: 0.24
+Training loss at epoch 236: mse=432.2374, rmse=20.7903, time elapsed: 0.34
+Training loss at epoch 237: mse=423.5163, rmse=20.5795, time elapsed: 0.29
+Training loss at epoch 238: mse=429.4263, rmse=20.7226, time elapsed: 0.22
+Training loss at epoch 239: mse=394.6933, rmse=19.8669, time elapsed: 0.23
+Training loss at epoch 240: mse=436.2340, rmse=20.8862, time elapsed: 0.21
+lr:  0.00078125
+Training loss at epoch 241: mse=434.1541, rmse=20.8364, time elapsed: 0.21
+Training loss at epoch 242: mse=431.8704, rmse=20.7815, time elapsed: 0.21
+Training loss at epoch 243: mse=429.0282, rmse=20.7130, time elapsed: 0.21
+Training loss at epoch 244: mse=433.0055, rmse=20.8088, time elapsed: 0.21
+Training loss at epoch 245: mse=431.9823, rmse=20.7842, time elapsed: 0.22
+Training loss at epoch 246: mse=430.5230, rmse=20.7490, time elapsed: 0.26
+Training loss at epoch 247: mse=430.4133, rmse=20.7464, time elapsed: 0.25
+Training loss at epoch 248: mse=429.7491, rmse=20.7304, time elapsed: 0.35
+Training loss at epoch 249: mse=422.5317, rmse=20.5556, time elapsed: 0.36
+Training loss at epoch 250: mse=430.7276, rmse=20.7540, time elapsed: 0.25
+lr:  0.000390625
+Training loss at epoch 251: mse=430.6612, rmse=20.7524, time elapsed: 0.24
+Training loss at epoch 252: mse=410.0380, rmse=20.2494, time elapsed: 0.23
+Training loss at epoch 253: mse=430.2801, rmse=20.7432, time elapsed: 0.25
+Training loss at epoch 254: mse=428.9753, rmse=20.7117, time elapsed: 0.24
+Training loss at epoch 255: mse=427.8657, rmse=20.6849, time elapsed: 0.25
+Training loss at epoch 256: mse=426.4065, rmse=20.6496, time elapsed: 0.25
+Training loss at epoch 257: mse=425.5934, rmse=20.6299, time elapsed: 0.28
+Training loss at epoch 258: mse=429.2702, rmse=20.7188, time elapsed: 0.25
+Training loss at epoch 259: mse=428.1044, rmse=20.6907, time elapsed: 0.25
+Training loss at epoch 260: mse=424.6447, rmse=20.6069, time elapsed: 0.33
+lr:  0.000390625
+Training loss at epoch 261: mse=430.7001, rmse=20.7533, time elapsed: 0.24
+Training loss at epoch 262: mse=428.3698, rmse=20.6971, time elapsed: 0.26
+Training loss at epoch 263: mse=429.8992, rmse=20.7340, time elapsed: 0.26
+Training loss at epoch 264: mse=426.8085, rmse=20.6593, time elapsed: 0.28
+Training loss at epoch 265: mse=426.8659, rmse=20.6607, time elapsed: 0.30
+Training loss at epoch 266: mse=428.6298, rmse=20.7034, time elapsed: 0.29
+Training loss at epoch 267: mse=412.3011, rmse=20.3052, time elapsed: 0.38
+Training loss at epoch 268: mse=427.8258, rmse=20.6840, time elapsed: 0.26
+Training loss at epoch 269: mse=423.7386, rmse=20.5849, time elapsed: 0.27
+Training loss at epoch 270: mse=428.3577, rmse=20.6968, time elapsed: 0.32
+lr:  0.0001953125
+Training loss at epoch 271: mse=425.9482, rmse=20.6385, time elapsed: 0.27
+Training loss at epoch 272: mse=410.2454, rmse=20.2545, time elapsed: 0.27
+Training loss at epoch 273: mse=423.2393, rmse=20.5728, time elapsed: 0.24
+Training loss at epoch 274: mse=424.9542, rmse=20.6144, time elapsed: 0.23
+Training loss at epoch 275: mse=426.5966, rmse=20.6542, time elapsed: 0.34
+Training loss at epoch 276: mse=427.4362, rmse=20.6745, time elapsed: 0.29
+Training loss at epoch 277: mse=427.3263, rmse=20.6719, time elapsed: 0.25
+Training loss at epoch 278: mse=427.6419, rmse=20.6795, time elapsed: 0.29
+Training loss at epoch 279: mse=425.0550, rmse=20.6169, time elapsed: 0.21
+Training loss at epoch 280: mse=423.5259, rmse=20.5797, time elapsed: 0.21
+lr:  0.0001953125
+Training loss at epoch 281: mse=427.0279, rmse=20.6647, time elapsed: 0.24
+Training loss at epoch 282: mse=423.1007, rmse=20.5694, time elapsed: 0.25
+Training loss at epoch 283: mse=428.6892, rmse=20.7048, time elapsed: 0.27
+Training loss at epoch 284: mse=420.9416, rmse=20.5169, time elapsed: 0.28
+Training loss at epoch 285: mse=426.4979, rmse=20.6518, time elapsed: 0.25
+Training loss at epoch 286: mse=426.9671, rmse=20.6632, time elapsed: 0.24
+Training loss at epoch 287: mse=391.0940, rmse=19.7761, time elapsed: 0.26
+Training loss at epoch 288: mse=420.6111, rmse=20.5088, time elapsed: 0.22
+Training loss at epoch 289: mse=426.9247, rmse=20.6622, time elapsed: 0.22
+Training loss at epoch 290: mse=426.7313, rmse=20.6575, time elapsed: 0.26
+lr:  0.0001
+Training loss at epoch 291: mse=422.9348, rmse=20.5654, time elapsed: 0.24
+Training loss at epoch 292: mse=426.9956, rmse=20.6639, time elapsed: 0.26
+Training loss at epoch 293: mse=423.1592, rmse=20.5708, time elapsed: 0.24
+Training loss at epoch 294: mse=418.3125, rmse=20.4527, time elapsed: 0.22
+Training loss at epoch 295: mse=425.7241, rmse=20.6331, time elapsed: 0.32
+Training loss at epoch 296: mse=426.4028, rmse=20.6495, time elapsed: 0.26
+Training loss at epoch 297: mse=423.9121, rmse=20.5891, time elapsed: 0.33
+Training loss at epoch 298: mse=424.2412, rmse=20.5971, time elapsed: 0.25
+Training loss at epoch 299: mse=425.4960, rmse=20.6276, time elapsed: 0.25
+Testing:
+mse, rmse, mae,mape 700.8237915039062 26.47307672908282 13.485047340393066 0.22233366966247559

@@ -1,0 +1,11 @@
+{
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.7",
+  "torch": "2.10.0",
+  "numpy": "2.4.0",
+  "pandas": "3.0.1",
+  "sklearn": "1.8.0",
+  "torchmetrics": "1.9.0",
+  "device": "cpu",
+  "threads_per_process": 1
+}

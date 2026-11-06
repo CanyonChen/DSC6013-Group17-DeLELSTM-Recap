@@ -1,0 +1,175 @@
+[info] dataset=PM2.5  mode=FIXED-SPLIT (5 次共用一份划分)  num_exp=5
+[prepare] seed=555  train=1369  val=273  test=184
+Training model Delelstm
+Num of trainable params: 40097
+Experiment: 0
+Training loss at epoch 0: mse=12656.5205, rmse=112.5012, time elapsed: 1.58
+Saving...
+lr:  0.05
+Training loss at epoch 1: mse=8363.5793, rmse=91.4526, time elapsed: 1.55
+Saving...
+Training loss at epoch 2: mse=7141.4422, rmse=84.5071, time elapsed: 1.87
+Saving...
+Training loss at epoch 3: mse=4651.6966, rmse=68.2033, time elapsed: 1.55
+Saving...
+Training loss at epoch 4: mse=3170.0725, rmse=56.3034, time elapsed: 1.54
+Saving...
+Training loss at epoch 5: mse=2437.8845, rmse=49.3749, time elapsed: 1.60
+Saving...
+Training loss at epoch 6: mse=1998.4316, rmse=44.7038, time elapsed: 1.58
+Saving...
+Training loss at epoch 7: mse=1710.8728, rmse=41.3627, time elapsed: 1.56
+Saving...
+Training loss at epoch 8: mse=1492.3993, rmse=38.6316, time elapsed: 1.56
+Saving...
+Training loss at epoch 9: mse=1349.5444, rmse=36.7361, time elapsed: 1.53
+Saving...
+Training loss at epoch 10: mse=1190.7376, rmse=34.5071, time elapsed: 1.53
+lr:  0.05
+Training loss at epoch 11: mse=1092.5656, rmse=33.0540, time elapsed: 1.53
+Saving...
+Training loss at epoch 12: mse=1014.2053, rmse=31.8466, time elapsed: 1.53
+Saving...
+Training loss at epoch 13: mse=945.0347, rmse=30.7414, time elapsed: 1.56
+Saving...
+Training loss at epoch 14: mse=909.6251, rmse=30.1600, time elapsed: 1.53
+Saving...
+Training loss at epoch 15: mse=837.1409, rmse=28.9334, time elapsed: 1.53
+Saving...
+Training loss at epoch 16: mse=805.2323, rmse=28.3766, time elapsed: 1.63
+Training loss at epoch 17: mse=810.3507, rmse=28.4667, time elapsed: 1.54
+Saving...
+Training loss at epoch 18: mse=765.1080, rmse=27.6606, time elapsed: 1.54
+Training loss at epoch 19: mse=731.1684, rmse=27.0401, time elapsed: 1.55
+Saving...
+Training loss at epoch 20: mse=759.4983, rmse=27.5590, time elapsed: 1.54
+Saving...
+lr:  0.05
+Training loss at epoch 21: mse=719.2495, rmse=26.8188, time elapsed: 1.54
+Saving...
+Training loss at epoch 22: mse=672.6828, rmse=25.9361, time elapsed: 1.54
+Saving...
+Training loss at epoch 23: mse=665.2691, rmse=25.7928, time elapsed: 1.54
+Training loss at epoch 24: mse=637.4393, rmse=25.2476, time elapsed: 1.54
+Saving...
+Training loss at epoch 25: mse=652.8722, rmse=25.5514, time elapsed: 1.55
+Training loss at epoch 26: mse=657.3966, rmse=25.6397, time elapsed: 1.82
+Training loss at epoch 27: mse=637.2102, rmse=25.2430, time elapsed: 1.55
+Training loss at epoch 28: mse=624.6091, rmse=24.9922, time elapsed: 1.53
+Training loss at epoch 29: mse=638.6128, rmse=25.2708, time elapsed: 1.53
+Training loss at epoch 30: mse=623.0030, rmse=24.9600, time elapsed: 1.52
+Saving...
+lr:  0.05
+Training loss at epoch 31: mse=597.6512, rmse=24.4469, time elapsed: 1.57
+Training loss at epoch 32: mse=617.8920, rmse=24.8574, time elapsed: 1.53
+Training loss at epoch 33: mse=592.1024, rmse=24.3332, time elapsed: 1.59
+Saving...
+Training loss at epoch 34: mse=564.2595, rmse=23.7541, time elapsed: 1.53
+Training loss at epoch 35: mse=587.7202, rmse=24.2429, time elapsed: 1.52
+Training loss at epoch 36: mse=625.0105, rmse=25.0002, time elapsed: 1.53
+Training loss at epoch 37: mse=576.6491, rmse=24.0135, time elapsed: 1.54
+Training loss at epoch 38: mse=577.4107, rmse=24.0294, time elapsed: 1.53
+Training loss at epoch 39: mse=582.4325, rmse=24.1336, time elapsed: 1.54
+Training loss at epoch 40: mse=587.0257, rmse=24.2286, time elapsed: 1.54
+lr:  0.05
+Training loss at epoch 41: mse=580.3135, rmse=24.0897, time elapsed: 1.53
+Training loss at epoch 42: mse=562.5580, rmse=23.7183, time elapsed: 1.53
+Training loss at epoch 43: mse=586.8989, rmse=24.2260, time elapsed: 1.56
+Training loss at epoch 44: mse=576.8435, rmse=24.0176, time elapsed: 1.53
+Training loss at epoch 45: mse=590.8190, rmse=24.3068, time elapsed: 1.53
+Training loss at epoch 46: mse=561.1666, rmse=23.6890, time elapsed: 1.54
+Training loss at epoch 47: mse=552.6857, rmse=23.5093, time elapsed: 1.53
+Training loss at epoch 48: mse=548.3902, rmse=23.4177, time elapsed: 1.54
+Training loss at epoch 49: mse=564.6398, rmse=23.7621, time elapsed: 1.53
+Training loss at epoch 50: mse=543.3046, rmse=23.3089, time elapsed: 1.54
+lr:  0.05
+Training loss at epoch 51: mse=543.0644, rmse=23.3037, time elapsed: 1.53
+Training loss at epoch 52: mse=550.5930, rmse=23.4647, time elapsed: 1.52
+Training loss at epoch 53: mse=543.7388, rmse=23.3182, time elapsed: 1.53
+Saving...
+Training loss at epoch 54: mse=549.4160, rmse=23.4396, time elapsed: 1.54
+Training loss at epoch 55: mse=537.1856, rmse=23.1773, time elapsed: 1.52
+Saving...
+Training loss at epoch 56: mse=548.2066, rmse=23.4138, time elapsed: 1.55
+Training loss at epoch 57: mse=541.2019, rmse=23.2637, time elapsed: 1.55
+Training loss at epoch 58: mse=543.6168, rmse=23.3156, time elapsed: 1.53
+Training loss at epoch 59: mse=549.5661, rmse=23.4428, time elapsed: 1.54
+Training loss at epoch 60: mse=542.6993, rmse=23.2959, time elapsed: 1.54
+lr:  0.05
+Training loss at epoch 61: mse=561.2021, rmse=23.6897, time elapsed: 1.53
+Training loss at epoch 62: mse=559.0994, rmse=23.6453, time elapsed: 1.55
+Training loss at epoch 63: mse=532.3532, rmse=23.0728, time elapsed: 1.54
+Training loss at epoch 64: mse=546.7304, rmse=23.3823, time elapsed: 1.54
+Training loss at epoch 65: mse=544.2802, rmse=23.3298, time elapsed: 1.53
+Training loss at epoch 66: mse=526.8466, rmse=22.9531, time elapsed: 1.53
+Training loss at epoch 67: mse=542.5425, rmse=23.2925, time elapsed: 1.61
+Training loss at epoch 68: mse=529.6336, rmse=23.0138, time elapsed: 1.55
+Training loss at epoch 69: mse=716.0832, rmse=26.7597, time elapsed: 1.62
+Training loss at epoch 70: mse=685.0334, rmse=26.1731, time elapsed: 1.52
+lr:  0.05
+Training loss at epoch 71: mse=599.5357, rmse=24.4854, time elapsed: 1.54
+Training loss at epoch 72: mse=569.1594, rmse=23.8571, time elapsed: 1.52
+Training loss at epoch 73: mse=590.7730, rmse=24.3058, time elapsed: 1.53
+Training loss at epoch 74: mse=555.6420, rmse=23.5721, time elapsed: 1.53
+Training loss at epoch 75: mse=549.0546, rmse=23.4319, time elapsed: 1.54
+Saving...
+Training loss at epoch 76: mse=533.1721, rmse=23.0905, time elapsed: 1.54
+Training loss at epoch 77: mse=539.9707, rmse=23.2373, time elapsed: 1.53
+Training loss at epoch 78: mse=512.1853, rmse=22.6315, time elapsed: 1.53
+Saving...
+Training loss at epoch 79: mse=503.1859, rmse=22.4318, time elapsed: 1.54
+Training loss at epoch 80: mse=527.9782, rmse=22.9778, time elapsed: 1.52
+lr:  0.05
+Training loss at epoch 81: mse=528.0474, rmse=22.9793, time elapsed: 1.55
+Training loss at epoch 82: mse=533.4267, rmse=23.0960, time elapsed: 1.54
+Saving...
+Training loss at epoch 83: mse=527.6290, rmse=22.9702, time elapsed: 1.52
+Training loss at epoch 84: mse=534.0077, rmse=23.1086, time elapsed: 1.55
+Training loss at epoch 85: mse=nan, rmse=nan, time elapsed: 1.53
+Traceback (most recent call last):
+  File "/Users/edz/Desktop/6013 project/DS6013DeLELSTM复现_改进版/repro/DeLELSTM-main/PM.py", line 143, in <module>
+    PM_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/edz/Desktop/6013 project/DS6013DeLELSTM复现_改进版/repro/DeLELSTM-main/model_training.py", line 518, in PM_training
+    mse_val = mean_squared_error(true, preds)
+  File "/Users/edz/Library/Python/3.13/lib/python/site-packages/sklearn/utils/_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/edz/Library/Python/3.13/lib/python/site-packages/sklearn/metrics/_regression.py", line 579, in mean_squared_error
+    _check_reg_targets_with_floating_dtype(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        y_true, y_pred, sample_weight, multioutput, xp=xp
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/edz/Library/Python/3.13/lib/python/site-packages/sklearn/metrics/_regression.py", line 208, in _check_reg_targets_with_floating_dtype
+    y_type, y_true, y_pred, sample_weight, multioutput = _check_reg_targets(
+                                                         ~~~~~~~~~~~~~~~~~~^
+        y_true, y_pred, sample_weight, multioutput, dtype=dtype_name, xp=xp
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/edz/Library/Python/3.13/lib/python/site-packages/sklearn/metrics/_regression.py", line 115, in _check_reg_targets
+    y_pred = check_array(y_pred, ensure_2d=False, dtype=dtype)
+  File "/Users/edz/Library/Python/3.13/lib/python/site-packages/sklearn/utils/validation.py", line 1074, in check_array
+    _assert_all_finite(
+    ~~~~~~~~~~~~~~~~~~^
+        array,
+        ^^^^^^
+    ...<2 lines>...
+        allow_nan=ensure_all_finite == "allow-nan",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/edz/Library/Python/3.13/lib/python/site-packages/sklearn/utils/validation.py", line 133, in _assert_all_finite
+    _assert_all_finite_element_wise(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        X,
+        ^^
+    ...<4 lines>...
+        input_name=input_name,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/edz/Library/Python/3.13/lib/python/site-packages/sklearn/utils/validation.py", line 182, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input contains NaN.

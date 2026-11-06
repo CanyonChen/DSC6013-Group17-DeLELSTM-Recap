@@ -1,0 +1,48 @@
+# Python caches, test output and build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Virtual environments and local configuration
+.venv/
+venv/
+env/
+.conda/
+.env
+.env.*
+!.env.example
+
+# Downloaded third-party materials (restored by scripts/setup_upstream.py)
+/vendor/DeLELSTM/
+/local_archive/original/
+/local_archive/references/
+
+# Temporary verification, publishing and environment-installation files
+/outputs/verification/
+/outputs/.validation/
+/outputs/.conda-cache/
+/outputs/.conda-envs/
+
+# Training checkpoints, experiment outputs and logs are shared with the group.
+# Do not ignore outputs/, local_archive/logs/, *.pt, *.pth, *.ckpt or *.log.
+
+# Editors, notebooks and operating systems
+.idea/
+.vscode/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+~$*
+*.tmp
+*.bak

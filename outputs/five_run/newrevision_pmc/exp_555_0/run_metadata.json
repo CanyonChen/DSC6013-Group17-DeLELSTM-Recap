@@ -1,0 +1,7 @@
+{
+  "dataset": "PM",
+  "run": 0,
+  "attempt": 0,
+  "torch_seed": 556,
+  "split_seed": 555
+}

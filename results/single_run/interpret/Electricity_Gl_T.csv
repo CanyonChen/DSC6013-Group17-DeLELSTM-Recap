@@ -1,0 +1,17 @@
+rank,variable,Gl_T
+1,Consumption,0.339197
+2,Visibility,0.149951
+3,PrecipMM,0.145397
+4,MaxtempC,0.123870
+5,TempC,0.118933
+6,WindChillC,0.089587
+7,DewPointC,0.083020
+8,MintempC,0.080394
+9,FeelsLikeC,0.072715
+10,HeatIndexC,0.067020
+11,Cloudcover,0.064115
+12,Pressure,0.054738
+13,Humidity,0.049291
+14,WindspeedKmph,0.044564
+15,WinddirDegree,0.043247
+16,WindGustKmph,0.040935

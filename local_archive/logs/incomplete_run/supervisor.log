@@ -1,0 +1,16 @@
+COMPLETE Electricity run=0 seed=555
+COMPLETE Electricity run=1 seed=556
+COMPLETE PM run=0 seed=556
+COMPLETE PM run=1 seed=557
+COMPLETE PM run=2 seed=558
+COMPLETE Electricity run=2 seed=557
+COMPLETE Electricity run=3 seed=558
+COMPLETE PM run=3 seed=559
+COMPLETE Exchange run=0 seed=555
+COMPLETE Exchange run=1 seed=556
+COMPLETE PM run=4 seed=560
+COMPLETE Exchange run=2 seed=557
+COMPLETE Electricity run=4 seed=559
+COMPLETE Exchange run=3 seed=558
+COMPLETE Exchange run=4 seed=559
+FINISHED 15/15

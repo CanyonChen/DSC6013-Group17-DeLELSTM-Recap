@@ -1,0 +1,148 @@
+--- _pristine/Electricity.py
++++ DeLELSTM-main/Electricity.py
+@@ -31,9 +31,9 @@
+     torch.cuda.manual_seed(args.seed)
+     torch.cuda.manual_seed_all(args.seed)
+ 
+-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
++    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+ 
+-    data_path = r'C:\clean\Explain_time_series\Code\DATA\Processed\elec'
++    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA', 'Electricity')
+     data = pd.read_csv(os.path.join(data_path, 'newX_train.csv'))
+ 
+     y = pd.read_csv(os.path.join(data_path, 'second_y.csv'))
+@@ -46,9 +46,9 @@
+                 np.max(data[(col)]) - np.min(data[col]))
+ 
+     train_idx = np.random.choice(data_idx, int(0.75 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, train_idx)]
++    data_idx = data_idx[~np.isin(data_idx, train_idx)]
+     val_idx = np.random.choice(data_idx, int(0.15 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, val_idx)]
++    data_idx = data_idx[~np.isin(data_idx, val_idx)]
+     test_idx = data_idx
+ 
+     train_X = data.loc[data['idx'].isin(train_idx), :]
+@@ -89,6 +89,8 @@
+     #model_list = ['LSTM']
+     # split the training set and test set and construct the data loader
+ 
++    model_list = os.environ.get('DELE_MODELS', 'Delelstm,IMV_full,IMV_tensor,Retain,LSTM').split(',')
++
+     for exp_id in range(args.num_exp):
+         for model_name in model_list:
+             if model_name == 'Delelstm':
+--- _pristine/Exchange.py
++++ DeLELSTM-main/Exchange.py
+@@ -33,10 +33,10 @@
+     torch.cuda.manual_seed(args.seed)
+     torch.cuda.manual_seed_all(args.seed)
+ 
+-    device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
++    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+     #PersonActivity('data', download=True, device=device)
+ 
+-    data_path = r'C:\clean\Explain_time_series\Code\DATA\Processed\exchange'
++    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA', 'Exchange')
+     data = pd.read_csv(os.path.join(data_path, 'newX_train.csv'))
+ 
+     y = pd.read_csv(os.path.join(data_path, 'second_y.csv'))
+@@ -49,9 +49,9 @@
+                 np.max(data[(col)]) - np.min(data[col]))
+ 
+     train_idx = np.random.choice(data_idx, int(0.75 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, train_idx)]
++    data_idx = data_idx[~np.isin(data_idx, train_idx)]
+     val_idx = np.random.choice(data_idx, int(0.15 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, val_idx)]
++    data_idx = data_idx[~np.isin(data_idx, val_idx)]
+     test_idx = data_idx
+ 
+     train_X = data.loc[data['idx'].isin(train_idx), :]
+@@ -92,6 +92,8 @@
+     #model_list=['LSTM']
+     # split the training set and test set and construct the data loader
+ 
++    model_list = os.environ.get('DELE_MODELS', 'Delelstm,IMV_full,IMV_tensor,Retain,LSTM').split(',')
++
+     for exp_id in range(args.num_exp):
+         for model_name in model_list:
+             if model_name == 'Delelstm':
+--- _pristine/model_training.py
++++ DeLELSTM-main/model_training.py
+@@ -11,9 +11,9 @@
+ 
+ def elec_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id):
+     opt = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=0.001)
+-    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, verbose=True, min_lr=0.0001)
+-
+-    epochs = 350
++    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, min_lr=0.0001)
++
++    epochs = int(os.environ.get("DELE_EPOCHS", 350))
+     min_val_loss = 1000000
+     loss=nn.MSELoss()
+ 
+@@ -218,9 +218,9 @@
+ def exchange_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id):
+     #opt = torch.optim.Adam(model.parameters(), lr=0.005, weight_decay=0.001)
+     opt = torch.optim.Adam(model.parameters(), lr=0.01)
+-    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, verbose=True, min_lr=0.0001)
+-
+-    epochs = 300
++    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, min_lr=0.0001)
++
++    epochs = int(os.environ.get("DELE_EPOCHS", 300))
+     min_val_loss = 1000000
+     loss=nn.MSELoss()
+ 
+@@ -424,10 +424,10 @@
+ def PM_training(model, model_name, train_loader, val_loader, test_loader, args, device, exp_id):
+     #opt = torch.optim.Adam(model.parameters(), lr=0.05, weight_decay=0.03)
+     opt = torch.optim.Adam(model.parameters(), lr=0.05,weight_decay=0.03)
+-    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, verbose=True, min_lr=0.0001)
++    epoch_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, 'min', factor=0.5, patience=20, min_lr=0.0001)
+ 
+     #epoch_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=32)
+-    epochs =300
++    epochs = int(os.environ.get("DELE_EPOCHS", 300))
+     min_val_loss = 1000000
+     loss=nn.MSELoss()
+ 
+--- _pristine/PM.py
++++ DeLELSTM-main/PM.py
+@@ -33,10 +33,10 @@
+     torch.cuda.manual_seed(args.seed)
+     torch.cuda.manual_seed_all(args.seed)
+ 
+-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
++    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+     #PersonActivity('data', download=True, device=device)
+ 
+-    data_path = r'C:\clean\Explain_time_series\Code\DATA\Processed\pm'
++    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA', 'PM2.5')
+     data = pd.read_csv(os.path.join(data_path, 'newX_train.csv'))
+ 
+     y = pd.read_csv(os.path.join(data_path, 'second_y.csv'))
+@@ -49,9 +49,9 @@
+                 np.max(data[(col)]) - np.min(data[col]))
+ 
+     train_idx = np.random.choice(data_idx, int(0.75 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, train_idx)]
++    data_idx = data_idx[~np.isin(data_idx, train_idx)]
+     val_idx = np.random.choice(data_idx, int(0.15 * N), replace=False)
+-    data_idx = data_idx[~np.in1d(data_idx, val_idx)]
++    data_idx = data_idx[~np.isin(data_idx, val_idx)]
+     test_idx = data_idx
+ 
+     train_X = data.loc[data['idx'].isin(train_idx), :]
+@@ -92,6 +92,8 @@
+     model_list= [   'Retain']
+     # split the training set and test set and construct the data loader
+ 
++    model_list = os.environ.get('DELE_MODELS', 'Delelstm,IMV_full,IMV_tensor,Retain,LSTM').split(',')
++
+     for exp_id in range(args.num_exp):
+         for model_name in model_list:
+             if model_name == 'Delelstm':

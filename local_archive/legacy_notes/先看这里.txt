@@ -1,0 +1,10 @@
+项目文件说明
+
+1. 04_DeLELSTM_Five_Run_Course_Paper.docx：修改后的英文课程论文。第 2.2 节修正了逆矩阵指数；附录 C 补充了五次实验的 MAE 和 MAPE 均值及样本标准差。
+2. 05_DeLELSTM_论文中文说明.md：五次实验论文的中文说明。
+3. 06_代码核查与实验进展.md：代码核查、实验结果与局限。
+4. DeLELSTM ... Time Series.pdf：教授给的原论文。
+5. DS6013DeLELSTM复现_改进版/：改进版完整代码、数据、实验结果、检查点、日志、原始材料和脚本。其中 repro/results_five_independent/verified_detail.csv 是 75 次实验明细，verified_summary.csv 为统计汇总。
+6. 历史版本备份/：本次整理前的早期版本、草稿及原始工作目录；这些文件不是当前英文论文的最终稿。
+
+本次按要求只修改了上次建议的第 1、2 项。封面信息、环境及运行说明、原论文 top-50% 充分性实验未作本轮修改。

@@ -1,0 +1,79 @@
+﻿DS6013 — DeLELSTM 复现材料
+整理日期：2026-10-31
+
+一、完成范围
+IJCAI 2023 论文 DeLELSTM 的三个数据集 × 五个模型，共15组训练和测试已完成。
+每组只运行一次，seed=555；尚未完成论文的五次重复实验和解释性图形复现。
+这是预测实验的单次复现材料，不是已完成全部论文实验的声明。
+
+二、材料索引
+papers/0478.pdf：论文原文（页码4299–4307，共9页）。
+original/DeLELSTM-main.zip：用户提供的原始代码压缩包，原样保留；内有补充材料。
+repro/DeLELSTM-main/：经过本机兼容修正的代码、原始/处理后数据、补充材料。
+repro/results/summary.csv：15组模型测试指标与验证指标汇总。
+repro/results/summary.md：与论文Table 1的对照表。
+repro/results/各数据集/exp_0/各模型/：最佳模型权重、训练记录、预测结果和解释权重。
+注意：PM2.5结果目录沿用作者代码名newrevision_pmc。
+repro/logs/：原始训练日志，部分为UTF-16编码。
+repro/port.patch：相对于作者代码的兼容修改。
+repro/port_patch.py：生成兼容修改的脚本；当前代码已修改，不需重复执行。
+repro/summarize.py：重新生成结果汇总。
+environment/requirements-gpu.txt：最终环境的依赖快照。
+MANIFEST_SHA256.json：压缩包中各文件的SHA-256校验值。
+
+三、关键结果（测试RMSE）
+Electricity：DeLELSTM 1.673888；论文均值1.7247。
+PM2.5：DeLELSTM 27.191918；论文均值26.612。
+Exchange：DeLELSTM 0.00234277；论文均值0.0023。
+DeLELSTM在本次Electricity和Exchange实验中优于四个基线；PM2.5中RETAIN最佳。
+单次结果不能据此认定统计显著优于论文。
+
+四、环境与运行方法（PowerShell）
+本次正式GPU实验：Python 3.13，PyTorch 2.14.1+cu126，RTX 3070 Ti Laptop GPU。
+不随包提供虚拟环境。请在自己的独立环境中安装依赖，不要修改其他项目共用环境。
+依赖快照只记录本次版本，不保证其他Python、系统或硬件下可直接安装。
+CUDA版torch需使用匹配的PyTorch官方安装源；可按本次配置先安装：
+python -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu126
+python -m pip install -r environment/requirements-gpu.txt
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
+
+进入解压目录的repro/DeLELSTM-main，然后运行：
+python Electricity.py --num_exp 1 --save_dirs ../rerun_results
+python PM.py --num_exp 1 --save_dirs ../rerun_results
+python Exchange.py --num_exp 1 --save_dirs ../rerun_results
+这会依次训练各数据集的五个模型。请根据设备资源安排运行，不必同时启动。
+使用新输出目录rerun_results，避免覆盖交付结果。
+只跑核心模型可先设置：$env:DELE_MODELS='Delelstm'
+轮数可通过DELE_EPOCHS覆盖；不设置时Electricity=350，PM和Exchange=300。
+作者README中的--model_name不适用于这里的repro入口，以上命令优先。
+重新汇总既有结果：进入repro目录后运行 python summarize.py。
+
+五、实验设置与局限
+保留作者网络结构、最小二乘求逆、损失和默认超参数。
+修改仅涉及数据路径、显卡编号、移除失效API，以及模型/轮数环境变量开关。
+随机按样本划分75%/15%/10%，全体数据做min-max；验证/测试使用drop_last=True。
+这些原始设置存在数据泄漏或评估样本不完整的局限，未当作改进方案。
+Exchange窗口重叠，随机划分也可能增加泄漏风险。
+Electricity数据实际915日，补充材料写914日。
+Electricity作者代码350轮，补充材料写最多300轮，本次沿用代码350轮。
+结果是五次重复前的单次结果，不含标准差。
+此前CPU试跑使用不同PyTorch版本、部分采用不同轮数和优化器续训。
+CPU与GPU结果差异不能仅归因于硬件；未做控制版本和初始化的严格对照。
+不能据此断言“CPU无法复现”或“GPU数值路径才正确”。
+关于可解释性优化、平滑正则、预测贡献分解，目前属于待验证研究想法，未计入正式结果。
+
+===== 五、改进版说明（2026-11-01 追加）=====
+本版是「第三节结果不变」的前提下，对代码做的 9 处改动，目的是补上“5 次重复 + mean±std”与“汇总聚合”。
+1. 改动清单（逐条含前后对比）：repro/README_改动说明.md
+2. 完整 unified diff：repro/changes.patch（456 行，可 diff 回放验证）
+3. 一键跑：repro/run_all.ps1（方案 A 固定划分 / 方案 B 每次重新划分）
+4. 新增命令行开关 --resample_split：不加时行为与作者原代码等价（固定划分、5 次 exp 初始化不同）
+5. summarize.py 现在按 数据集×模型 聚合输出 mean±std；明细另存 summary_detail.csv；
+   汇总输出写在 repro/ 下（原交付的 results/summary.csv 未变）
+6. 已修的三个坑：
+   - PM.py 残留 model_list=['Retain']（不注意到只跑一个基线）
+   - 结果目录名改为 exp_{seed}_{exp_id}，避免多次独立运行互相覆盖
+   - RETAIN 的 nn.Dropout(keep_prob) 语义反转（keep_prob=1.0 时不影响结果）
+7. 重要：本版【没有】重新训练，repro/results/ 下仍是原来的单次结果（seed=555, exp_0）。
+   要得到 mean±std 必须自己跑：见 repro/README_改动说明.md 的“怎么跑”一节。
+8. 本版未改：模型结构、损失、优化器、超参数、75/15/10 划分比例、DATA/。
