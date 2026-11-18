@@ -26,6 +26,7 @@ Usage: bash scripts/eval_and_ablation.sh [options]
   --models Delelstm IMV_full IMV_tensor Retain LSTM
   --seeds 555 556 557 558 559               PM adds 1, as in the course campaign
   --temporal-folds 1|2|3                   Default: 3 expanding temporal partitions
+  --forecast-only                         Run only chronological forecasting models
   --ridge-values 1e-6 1e-4 1e-2            Default ridge grid
   --cpu-control-runs 1                     Matched CPU training seeds per dataset; 0 disables
   --cpu-threads 4                         Threads per experiment process

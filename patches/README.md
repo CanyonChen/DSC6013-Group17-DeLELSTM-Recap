@@ -12,9 +12,11 @@ directories, and RETAIN dropout semantics. The model architecture, loss, and
 default epoch counts are retained.
 
 Run `python scripts/setup_upstream.py` from the repository root. The script
-downloads that exact upstream revision, applies the patch with Git, and checks
-the six core Python files against `upstream.json` (SHA-256 after LF
-normalization). `config.py` is unchanged but included in the verification.
+exports the recorded commit from the [Git submodule](../vendor/upstream), applies
+the patch and checks the six core Python files (SHA-256 after LF normalization)
+and all nine raw and processed dataset CSVs (byte-level SHA-256). The digests
+are in [upstream.json](upstream.json). If a clone omitted submodules, preparation
+initializes the pinned checkout using Git.
 
 To use the locally retained original archive without downloading:
 

@@ -9,17 +9,24 @@
 首次获取仓库：
 
 ```bash
-git clone https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap.git
+git clone --recurse-submodules https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap.git
 cd DSC6013-Group17-DeLELSTM-Recap
 ```
 
 已有仓库时，在该仓库中获取更新：
 
 ```bash
-git pull --ff-only origin main
+git pull --ff-only --recurse-submodules origin main
 ```
 
-查看计划后启动全流程：
+本轮先运行未来时段预测。Git 子模块 `vendor/upstream` 含作者固定版本的代码、三个数据集的原始 CSV 及处理后 CSV。首次运行会从这份本地副本应用补丁、检验 6 个源码文件和 9 份数据。已有普通克隆会自动初始化子模块。递归克隆完成后，准备训练数据可在离线状态下进行。[版本和校验值](../patches/upstream.json)
+
+```bash
+bash scripts/eval_and_ablation.sh --stage plan --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
+bash scripts/eval_and_ablation.sh --stage all --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
+```
+
+以上依次执行 15 次短测试及 225 次正式时间回测。结果保存在 `outputs/forecast_chronological/report/`。下列命令则启动含历史对照和求解器等消融的完整套件。
 
 ```bash
 bash scripts/eval_and_ablation.sh --stage plan
@@ -84,7 +91,9 @@ bash scripts/eval_and_ablation.sh --stage report
 | 1 | 0–65% | 65–80% | 80–90% |
 | 2 | 0–75% | 75–90% | 90–100% |
 
-边界按窗口数量取整。Exchange 每个窗口覆盖 30 个原始时点，因此每个边界从后一分区剔除共享原始时点的 29 个窗口。每折只在训练集拟合 min–max，不裁剪超出训练范围的值。发布的 CSV 已经过上游缺失值处理；本流程修复窗口划分和缩放的泄漏，不重新从原始数据构建全部预处理。
+边界先按原始窗口数量取整。Exchange 每个窗口覆盖 30 个原始时点，每处边界从后一分区剔除前 29 个窗口。每折只在保留的训练窗口拟合逐变量 min–max，验证与测试复用相同参数，超出训练范围的值不裁剪。目标始终保留原单位。
+
+PM2.5 的时间协议读取原始 PRSA 小时记录，按时间前向填补输入，剔除起始无历史可用的一天。训练损失、验证选模与测试评分只使用有原始观测的目标。各集合的时间范围、候选目标数与有效目标数保存在 `split.json`，测试预测同时保存 `target_observed` 掩码。原随机协议沿用发布数据以复核历史成绩。[九折核查结果](../results/audits/temporal_protocol.csv)
 
 `--temporal-folds 1` 只保留最后的 75/15/10 时间划分；`2` 保留后两折。不同时间折测试集合不同，不与随机划分分数进行配对显著性检验。
 
@@ -92,7 +101,7 @@ bash scripts/eval_and_ablation.sh --stage report
 
 - DeLELSTM 导出逐样本、逐位置的两组系数、窗口 ID、变量名、输入时间和预测时间。系数位置对应输入位置 `1..T−2`，预测对应 `2..T−1`。Electricity/PM2.5 用实际输入时钟时间聚合，Exchange 只有源行号。
 - 对两组系数分别取绝对值并做变量方向 L1 归一化，得到瞬时占比和欧氏范数重要性；同时比较原始幅度、先按样本归一化再聚合、先平均系数再归一化的排名。多种子之间计算 Spearman 和 Top-50% Jaccard。
-- 充分性仅在 Electricity **训练集**上提取排名，选 8/16 个变量，重新训练相同配置的 LSTM，并比较全变量 LSTM。DeLELSTM 使用上述重要性，IMV 使用变量注意力 beta，RETAIN 使用绝对贡献；按样本和时间求均值。原论文没有完全说明这些聚合细节，因此这是明确定义的补充协议。
+- 充分性在 Electricity 最后一个时间折的训练集上提取排名，选 8/16 个变量，重新训练同配置 LSTM。随机 8 个变量、全部 16 个变量的 LSTM 均使用同一时间折、种子和测试窗口。DeLELSTM 使用上述重要性，IMV 使用变量注意力 beta，RETAIN 使用绝对贡献，按样本和时间求均值。
 - 原求解器保留上游实现；`pinv` 直接对设计矩阵 A 求伪逆；`ridge` 求解 `(AᵀA + λI)c = AᵀH`，默认 λ 为 `1e-6, 1e-4, 1e-2`。它们参与整个训练与前向过程。所有 λ 都报告，不根据测试集挑选后只展示最优项。
 - 每个 DeLELSTM 检查点默认均匀抽样 64 个测试窗口，在 float64 下诊断 cond(A)、cond(A)²、重建相对误差和系数幅度；模型和求解器仍为 FP32。
 - 训练损失或梯度非有限时保存模型、输入批次和失败位置；其他异常保留 traceback。CPU/GPU 同检查点前向比较与重新训练对照单独记录。当前 seed 555 未失败不能否定历史 NaN，数值相关性也不能直接证明原因。
@@ -109,7 +118,7 @@ bash scripts/eval_and_ablation.sh --gpus 0 \
 
 `--cpu-control-runs 0` 同时关闭 CPU 训练对照和历史 PM 种子 555 探测。`--diagnostic-windows` 控制矩阵诊断抽样量。完整选项见 `--help`。
 
-`--stage smoke` 每个选定数据集/模型跑一个种子、一轮训练，每个分区最多 16 个窗口，额外覆盖所选求解器与充分性实验。它不运行历史审计和时间回测；这些路径另外由协议测试及本地集成测试检查。传入 `--epochs` 或 `--max-windows` 的结果都会标记为短测试/自定义运行，不能冒充正式结果。
+`--forecast-only` 单独运行时间回测的主预测实验。完整套件的 `--stage smoke` 在最后一个时间折对每个数据集、模型跑一个种子和一轮训练，每个分区最多 16 个窗口，同时覆盖求解器和变量充分性。使用 `--epochs` 或 `--max-windows` 的结果标记为短测试或自定义运行。
 
 ## 恢复、报告和交付
 
@@ -143,7 +152,7 @@ bash scripts/eval_and_ablation.sh --stage report
 
 ## 本地验证范围
 
-在 Windows CPU 隔离环境中通过了 9 项协议与报告测试、32 项短测试以及 11 项包含历史检查点和时间划分的集成任务，并验证已完成任务可跳过续跑。测试覆盖原预处理对齐、时间边界去重、训练集归一化、目标/时间对齐、求解器梯度、统计计算和失败记录；报告由这些真实短测试生成。
+2026-11-18 的 Windows CPU 验证通过了 12 项协议与报告测试和 32 项时间划分端到端短测试。另有早期版本完成的 11 项集成任务。当前测试覆盖九折时间边界、训练集缩放、PM2.5 前向填补、缺失位置的损失与梯度、验证和测试评分，以及末折训练集排名与重训依赖。
 
 ```bash
 python -m unittest discover -s tests -v

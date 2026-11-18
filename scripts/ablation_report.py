@@ -219,6 +219,11 @@ def build_report(root):
     csv_write(report / "device_comparisons.csv", devices)
 
     pictures = []
+    observed_pm = settings.get("pm_chronological_targets") == "observed_only"
+    profile_protocol = "chronological" if observed_pm else "full_eval"
+    profile_fold = settings["temporal_folds"] - 1 if observed_pm else 0
+    pm_method = ("PM2.5 输入按原始观测前向填充，起始无历史的窗口已剔除，损失、选模与测试仅计真实目标。"
+                 if observed_pm else "此版本沿用上游已填补的 PM2.5 数据。")
     if success:
         os.environ.setdefault("MPLCONFIGDIR", str(Path(__file__).resolve().parents[1] / ".conda" / "matplotlib-cache"))
         import matplotlib
@@ -236,7 +241,8 @@ def build_report(root):
                 fig.tight_layout(); path = report / f"rmse_{dataset}.png"; fig.savefig(path, dpi=160); plt.close(fig)
                 pictures.append(path.name)
         for dataset in settings["datasets"]:
-            rows = [r for r in explained if r["dataset"]==dataset and r["kind"]=="train" and r["protocol"]=="full_eval"]
+            rows = [r for r in explained if r["dataset"]==dataset and r["kind"]=="train"
+                    and r["protocol"]==profile_protocol and r["fold"]==profile_fold]
             if rows:
                 first = sorted(rows, key=lambda r:r["seed"])[0]
                 folder = root / first["artifact_dir"]
@@ -263,8 +269,8 @@ def build_report(root):
              "本报告由实际文件生成。成功均值只描述完成的运行；失败不会更换种子后从统计中消失。原课程报告的历史结果保持不变。", "",
              "## 实验协议", "",
              "released：原固定随机划分、全数据归一化、验证丢弃尾批。full_eval：相同数据划分与初始化，验证使用全部窗口。两者均额外保存完整测试预测，便于在同一测试集合上比较选模差异。", "",
-             "chronological：扩展时间回测、仅在训练集拟合归一化、完整验证/测试。Exchange 在边界剔除共享原始日期的窗口。不同时间折的测试集合不同，不与随机划分分数做配对显著性检验。处理后数据沿用上游的缺失值填充等预处理。", "",
-             "Top-50%：仅在 Electricity 训练集上计算各解释模型的排名，选择一半变量，训练同架构 LSTM；提供随机一半和全变量 LSTM 对照。论文没有完全指定特征聚合及归一化细节，本实验采用明确记录的规则，不能声称与原表完全同协议。", "",
+             "chronological 按时间扩展训练区间，每折用训练集拟合缩放参数，完整验证集选模，随后测试。Exchange 每处边界剔除共享时点的窗口。" + pm_method, "",
+             f"Top-50% 使用 Electricity 的 {profile_protocol} 第 {profile_fold + 1} 折。各模型在训练集上排名并选取一半变量，再重训 LSTM，与同折同种子的随机一半及全变量 LSTM 对照。", "",
              "求解器：original 为原实现；pinv 直接对设计矩阵 A 求伪逆；ridge 求解 (AᵀA+λI)c=AᵀH，λ为绝对值。保留架构、损失和默认优化参数，禁用 TF32/混合精度。新训练按模型独立设种子，不等同于旧脚本多模型连续使用 RNG 的逐位复现。", "",
              "## 预测结果", "",
              "released 主指标使用原保留测试窗口；其余协议使用完整测试。历史审计按 single_run/five_run 分开。各运行两种测试口径均保存在 runs.csv。", "",
@@ -284,7 +290,8 @@ def build_report(root):
              "仅对相同数据集、模型、种子及同一测试集合的已完成配对进行双侧符号翻转检验；n≤16穷举，大于16使用固定种子的10000次抽样。表中差值为实验减对照，负值表示实验RMSE较低；Holm校正覆盖本报告所有可检验对照。训练种子不是独立时间样本，统计不能推导未来部署表现。", "",
              "[配对比较及校正 p 值](paired_comparisons.csv)。五个配对的双侧穷举检验最小 p 值为 0.0625，不自动宣称显著改善。", "",
              "## 解释与数值诊断", "",
-             "逐样本系数、输入/预测时间及变量名保存于每个 DeLELSTM 任务的 sample_explanations.npz。输入位置1..T−2对应预测位置2..T−1；按输入时钟时间聚合，Exchange仅有源行号，不伪造日期。示例曲线取最小训练种子的 full_eval 运行，多种子统计见下表文件。", "",
+             "逐样本系数、输入/预测时间及变量名保存于每个 DeLELSTM 任务的 sample_explanations.npz。输入位置1..T−2对应预测位置2..T−1。按输入时钟时间聚合，Exchange 仅有源行号。"
+             f"示例曲线取 {profile_protocol} 第 {profile_fold + 1} 折的最小训练种子。", "",
              "[排名相关与 Top-50% Jaccard](ranking_stability.csv)；[条件数、重建相对误差及系数幅度](numerical_diagnostics.csv)。条件数只检查配置中指定数量的均匀抽样测试窗口，AtA条件数由cond(A)²估计。诊断与误差变化是关联证据，不单独证明NaN原因或解释因果性。", "",
              "## CPU/GPU 与失败分析", "",
              "[同检查点前向对照](device_comparisons.csv)使用同输入和FP32设置，仅比较设备数值差异。cpu_control 为另外执行的匹配种子训练，默认每数据集一个种子，不能据此归因全部硬件差异。nan_probe 尝试原 PM 种子555；如当前环境未失败，不表示历史失败不存在。", "",

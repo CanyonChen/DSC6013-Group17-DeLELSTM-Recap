@@ -1,4 +1,4 @@
-"""Fetch the pinned upstream code/data and apply the course-project patch."""
+"""Prepare the pinned model code and data from the project's Git checkout."""
 
 import argparse
 import hashlib
@@ -7,12 +7,12 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
-import urllib.request
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "patches" / "upstream.json"
 PATCH = ROOT / "patches" / "reproduction.patch"
+UPSTREAM = ROOT / "vendor" / "upstream"
 
 
 def verify(directory, manifest):
@@ -23,10 +23,12 @@ def verify(directory, manifest):
         actual = hashlib.sha256(path.read_text(encoding="utf-8").encode("utf-8")).hexdigest()
         if actual != expected:
             raise RuntimeError(f"Source differs from the recorded patched version: {path}")
-    for dataset in ("Electricity", "PM2.5", "Exchange"):
-        for name in ("newX_train.csv", "second_y.csv"):
-            if not (directory / "DATA" / dataset / name).is_file():
-                raise RuntimeError(f"Missing processed data: {dataset}/{name}")
+    for name, expected in manifest["data_sha256"].items():
+        path = directory / name
+        if not path.is_file():
+            raise RuntimeError(f"Missing dataset file: {path}")
+        if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            raise RuntimeError(f"Data differs from the pinned upstream revision: {path}")
 
 
 def main():
@@ -47,10 +49,13 @@ def main():
         temporary = Path(temporary)
         archive = args.archive.resolve() if args.archive else temporary / "upstream.zip"
         if not args.archive:
-            url = f"https://codeload.github.com/wangcq01/DeLELSTM/zip/{manifest['commit']}"
-            print(f"Downloading {url}", flush=True)
-            with urllib.request.urlopen(url, timeout=60) as response, archive.open("wb") as output:
-                shutil.copyfileobj(response, output)
+            if not (UPSTREAM / ".git").exists():
+                subprocess.run(["git", "submodule", "update", "--init", "--", "vendor/upstream"],
+                               cwd=ROOT, check=True)
+            # Export committed bytes even if the local Git checkout uses platform-specific line endings.
+            subprocess.run(["git", "-c", "core.autocrlf=false", "archive", "--format=zip",
+                            "--prefix=DeLELSTM/", f"--output={archive}", manifest["commit"]],
+                           cwd=UPSTREAM, check=True)
         source = temporary / "source"
         source.mkdir()
         with zipfile.ZipFile(archive) as zipped:

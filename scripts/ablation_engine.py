@@ -102,11 +102,25 @@ def make_model(dataset, model, dimension, device):
 
 
 def metrics(prediction, target):
-    error = prediction.astype(np.float64) - target.astype(np.float64)
+    observed = ~np.isnan(target)
+    if not observed.any():
+        raise ValueError("No observed targets to score")
+    target = target[observed].astype(np.float64)
+    error = prediction[observed].astype(np.float64) - target
     if not np.isfinite(error).all():
         raise FloatingPointError("Non-finite predictions")
     return dict(rmse=float(np.sqrt(np.mean(error**2))), mae=float(np.mean(np.abs(error))),
                 mape_percent=float(np.mean(np.abs(error) / np.maximum(np.abs(target), 1.17e-6)) * 100))
+
+
+def observed_mse(prediction, target):
+    observed = ~target.isnan()
+    count = int(observed.sum())
+    if not count:
+        return None, 0
+    loss = torch.nn.functional.mse_loss(prediction[observed.to(prediction.device)],
+                                        target[observed].to(prediction.device))
+    return loss, count
 
 
 def loader(x, y, indices, batch, shuffle=False, drop_last=False):
@@ -196,7 +210,7 @@ def worker(job, settings, out, dependency=None):
     seed_everything(job["seed"])
     torch.set_num_threads(settings["cpu_threads"])
     device = torch.device(job["device"])
-    windows = load_windows(job["dataset"])
+    windows = load_windows(job["dataset"], protocol=job["protocol"])
     x, parts, split = prepare_data(windows, job["protocol"], job.get("fold", 0),
                                   settings["temporal_folds"], settings["max_windows"])
     train, val, test = parts
@@ -229,10 +243,13 @@ def worker(job, settings, out, dependency=None):
             for epoch in range(epochs):
                 model.train()
                 total_loss, count = 0., 0
-                for batch_id, (bx, by) in enumerate(loader(x, windows.y, train, batch, shuffle=True, drop_last=True)):
+                for batch_id, (bx, by) in enumerate(loader(x, windows.y, train, batch, shuffle=True,
+                                                           drop_last=job["protocol"] != "chronological")):
                     optimizer.zero_grad(set_to_none=True)
                     pred = model(bx.to(device), device)[0].squeeze(-1)
-                    loss = torch.nn.functional.mse_loss(pred, by.to(device))
+                    loss, n_targets = observed_mse(pred, by)
+                    if not n_targets:
+                        continue
                     if not torch.isfinite(loss):
                         torch.save(model.state_dict(), out / "failed_model.pt")
                         np.savez_compressed(out / "failed_batch.npz", x=bx.numpy(), y=by.numpy())
@@ -245,10 +262,10 @@ def worker(job, settings, out, dependency=None):
                         save_json(out / "failure_location.json", dict(epoch=epoch, batch=batch_id, phase="gradient"))
                         raise FloatingPointError(f"Non-finite gradient at epoch={epoch}, batch={batch_id}")
                     optimizer.step()
-                    total_loss += loss.item() * len(bx)
-                    count += len(bx)
+                    total_loss += loss.item() * n_targets
+                    count += n_targets
                 if not count:
-                    raise ValueError("No training batches")
+                    raise ValueError("No observed training targets in the available batches")
                 pv, yv, _ = evaluate(model, x, windows.y, val, batch, device, drop_last=drop)
                 val_metrics = metrics(pv, yv)
                 mse = val_metrics["rmse"]**2
@@ -257,7 +274,8 @@ def worker(job, settings, out, dependency=None):
                     torch.save(model.state_dict(), model_file)
                 scheduler.step(mse)
                 history.append(dict(epoch=epoch, train_mse=total_loss/count, val_rmse=val_metrics["rmse"],
-                                    lr=optimizer.param_groups[0]["lr"], val_windows=len(pv)))
+                                    lr=optimizer.param_groups[0]["lr"], val_windows=len(pv),
+                                    train_targets=count, val_targets=int(np.isfinite(yv).sum())))
                 write_csv(out / "training.csv", history)
                 print(f"epoch={epoch+1}/{epochs} train_mse={total_loss/count:.6g} val_rmse={val_metrics['rmse']:.6g}", flush=True)
             model.load_state_dict(torch.load(model_file, map_location=device, weights_only=True))
@@ -268,16 +286,22 @@ def worker(job, settings, out, dependency=None):
         result = dict(job, status="success", seconds=time.monotonic()-start,
                       best_epoch=best_epoch, best_val_mse=best_value, train_windows=len(train),
                       val_windows=len(val), test_windows=len(test), retained_windows=keep,
-                      metrics_all=metrics(pred, true), metrics_retained=metrics(pred[:keep], true[:keep]),
+                      train_valid_targets=split["partitions"]["train"]["valid_targets"],
+                      val_valid_targets=split["partitions"]["val"]["valid_targets"],
+                      test_valid_targets=int(np.isfinite(true).sum()), target_policy=split["target_policy"],
+                      metrics_all=metrics(pred, true),
+                      metrics_retained=metrics(pred[:keep], true[:keep]) if np.isfinite(true[:keep]).any() else {},
                       smoke=bool(settings["max_windows"] or settings["epochs"]))
-        np.savez_compressed(out / "predictions.npz", prediction=pred, target=true,
+        np.savez_compressed(out / "predictions.npz", prediction=pred, target=true, target_observed=np.isfinite(true),
                             window_ids=windows.ids[test], prediction_time=windows.times[test, 2:])
         if job["model"] == "Delelstm":
             export_explanations(out, windows, test, coeff, solver, model, x, batch, device, settings["diagnostic_windows"])
-        if job["kind"] == "train" and job["protocol"] == "full_eval" and job["dataset"] == "Electricity" and job["model"] != "LSTM":
+        if (job["kind"] == "train" and job["protocol"] == "chronological" and job["dataset"] == "Electricity"
+                and job["fold"] == settings["temporal_folds"] - 1 and job["model"] != "LSTM"):
             _, _, weights = evaluate(model, x, windows.y, train, batch, device, explanation=job["model"])
             save_json(out / "train_ranking.json", {"variables": windows.names,
-                      "scores": rank_features(job["model"], weights).tolist(), "split": "train"})
+                              "scores": rank_features(job["model"], weights).tolist(), "split": "train",
+                              "protocol": job["protocol"], "fold": job["fold"], "seed": job["seed"]})
         if job.get("device_compare") and device.type == "cuda":
             # Identical checkpoint and inputs, strict FP32 on both devices; no training claim.
             sample = test[:min(8, len(test))]

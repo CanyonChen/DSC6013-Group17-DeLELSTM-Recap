@@ -7,14 +7,16 @@ import tempfile
 import unittest
 
 import numpy as np
+import pandas as pd
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from ablation_data import load_windows, prepare_data, split_indices
-from ablation_engine import Solver, make_model, metrics, modules, normalized_components, seed_everything
+from ablation_data import load_windows, prepare_data, raw_pm_windows, split_indices
+from ablation_engine import Solver, make_model, metrics, modules, normalized_components, observed_mse, seed_everything
 from ablation_report import build_report, read_csv, sign_flip
 from ablation_suite import build_plan, configuration, parser
+from audit_temporal_protocol import audit_dataset
 
 
 class ProtocolTests(unittest.TestCase):
@@ -68,6 +70,57 @@ class ProtocolTests(unittest.TestCase):
             self.assertEqual(data.times.dtype.kind, "U")  # NPZ timestamps load without pickle.
         self.assertEqual(self.data["PM"].times[0, 2][11:13], "02")
 
+    def test_all_nine_temporal_splits_and_observed_target_counts(self):
+        for dataset in self.data:
+            with self.subTest(dataset=dataset):
+                folds = list(audit_dataset(dataset))
+                self.assertEqual(len(folds), 3)
+                self.assertTrue(all(row["train_scaling_invariant"] for row in folds))
+                if dataset == "PM":
+                    last = folds[-1]
+                    self.assertEqual((last["train_windows"], last["val_windows"], last["test_windows"]),
+                                     (1368, 274, 183))
+                    self.assertEqual((last["train_valid_targets"], last["val_valid_targets"],
+                                      last["test_valid_targets"], last["test_targets"]), (28338, 5975, 3964, 4026))
+                if dataset == "Exchange":
+                    self.assertEqual(folds[-1]["released_overlapping_test_windows"], 757)
+
+    def test_pm_raw_input_uses_only_prior_observations(self):
+        name = "PRSA_data_2010.1.1-2014.12.31.csv"
+        raw = pd.read_csv(ROOT / "vendor" / "DeLELSTM" / "DATA" / "PM2.5" / name, nrows=120)
+        raw.loc[29, "pm2.5"] = np.nan
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / name
+            raw.to_csv(path, index=False)
+            before = raw_pm_windows(path.parent)
+            raw.loc[48:, "pm2.5"] = 5000
+            raw.to_csv(path, index=False)
+            after = raw_pm_windows(path.parent)
+        self.assertFalse(before.usable_inputs[0])
+        self.assertTrue(np.isnan(before.x[0, :, 0]).all())
+        self.assertEqual(before.x[1, 0, 0], 129)
+        self.assertEqual(before.x[1, 5, 0], raw.loc[28, "pm2.5"])
+        self.assertTrue(np.isnan(before.y[1, 3]))
+        np.testing.assert_allclose(before.x[:2], after.x[:2], equal_nan=True)
+        self.assertNotEqual(before.x[2, 0, 0], after.x[2, 0, 0])
+        with self.assertRaisesRegex(ValueError, "Load PM windows"):
+            prepare_data(self.data["PM"], "chronological")
+
+    def test_missing_targets_do_not_change_loss_gradients_or_scores(self):
+        target = torch.tensor([3., float("nan"), 5.])
+        for missing_prediction in (0., 1.e8):
+            prediction = torch.tensor([1., missing_prediction, 6.], requires_grad=True)
+            loss, count = observed_mse(prediction, target)
+            self.assertEqual((loss.item(), count), (2.5, 2))
+            loss.backward()
+            torch.testing.assert_close(prediction.grad, torch.tensor([-2., 0., 1.]))
+            pred = prediction.detach().numpy()
+            self.assertEqual(metrics(pred, target.numpy()), metrics(pred[[0, 2]], target.numpy()[[0, 2]]))
+        missing = torch.full_like(target, float("nan"))
+        self.assertEqual(observed_mse(prediction, missing), (None, 0))
+        with self.assertRaisesRegex(ValueError, "No observed targets"):
+            metrics(pred, missing.numpy())
+
     def test_original_forward_preserved_and_ridge_differentiable(self):
         seed_everything(555)
         model = make_model("PM", "Delelstm", 8, torch.device("cpu"))
@@ -108,10 +161,22 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(sum(job["kind"] == "audit" for job in plan), 90)
         self.assertEqual(sum(job["kind"] == "sufficiency" for job in plan), 25)
         for job in plan:
+            if job["kind"] == "sufficiency":
+                self.assertEqual((job["protocol"], job["fold"]), ("chronological", 2))
+                if job["selector"] != "random":
+                    source = next(p for p in plan if p["id"] == job["dependency"])
+                    self.assertEqual((source["model"], source["protocol"], source["fold"], source["seed"]),
+                                     (job["selector"], "chronological", 2, job["seed"]))
             if job["kind"] == "audit" and job["source"] == "five_run":
                 metadata_path = (ROOT / job["checkpoint"]).parent.parent / "run_metadata.json"
                 metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
                 self.assertEqual(job["seed"], metadata["torch_seed"])
+        forecast = build_plan(configuration(parser().parse_args(["--forecast-only"])))
+        self.assertEqual(len(forecast), 225)
+        self.assertTrue(all(j["protocol"] == "chronological" and j["kind"] == "train" for j in forecast))
+        smoke = build_plan(configuration(parser().parse_args(["--stage", "smoke"])), smoke=True)
+        self.assertEqual(len(smoke), 32)
+        self.assertTrue(all(j["protocol"] == "chronological" for j in smoke))
 
     def test_failed_and_unstarted_tasks_remain_in_report(self):
         settings = configuration(parser().parse_args(["--datasets", "Exchange", "--models", "Delelstm"]))

@@ -8,5 +8,16 @@
     "model_training.py": "c28e5c662b6968d3a399ba7c5e4e99816caf627706ddb0a6053c80607b8803a9",
     "networks.py": "7c7355731a93ef446c47cf98925fa8f88822dfa8bf396fca7d0de779766624cf",
     "config.py": "9a446482dcd18872cf60713e9cb0841d4a9221e82551369269feda14a62c91c4"
+  },
+  "data_sha256": {
+    "DATA/Electricity/electric_consumption.csv": "e2896646f5ba4c8c23e886be6aa489ffce6e0e25b25002616ef11b55d52fbdca",
+    "DATA/Electricity/newX_train.csv": "3fbc9d3e39d694fea9fd65b2bc317587fadc9c6be2df8ef211473a44357362ed",
+    "DATA/Electricity/second_y.csv": "d6251d2b8c2f2a6c787e66641528fd4f1950dad2a03a24b709302bc7b5200275",
+    "DATA/Exchange/exchange_rate.csv": "572ed33d876553288dbec69adb57cb745ae48b9b72b7a85a25305464ce0ca643",
+    "DATA/Exchange/newX_train.csv": "c56090e745db7b67d304e195ccce24045d26e511320b139863159ac8829bafed",
+    "DATA/Exchange/second_y.csv": "21419737ba2f0a8b60dcbc3def007b2f0e8f4cbe7b03495cd06a2c2b6df62595",
+    "DATA/PM2.5/PRSA_data_2010.1.1-2014.12.31.csv": "4127f868775e31b3956522adc0ec75af8937dde6a3896e8beed3a376c6d27f1c",
+    "DATA/PM2.5/newX_train.csv": "21a8a98fba379a563448d38dabd5aacf4b9cd02446f624d33613cfa61bc4cac1",
+    "DATA/PM2.5/second_y.csv": "9f4a1e6f42a5b81458a26a3a24bcb50c5d7850b38999f2ea4a7b2674b25bdb5e"
   }
 }

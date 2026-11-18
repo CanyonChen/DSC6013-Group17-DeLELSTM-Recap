@@ -29,6 +29,7 @@ def task_id(job):
 def build_plan(settings, smoke=False):
     jobs = []
     seeds = settings["seeds"]
+    last_fold = settings["temporal_folds"] - 1
     if not smoke:
         for dataset in settings["datasets"]:
             folder = "newrevision_pmc" if dataset == "PM" else dataset
@@ -42,7 +43,7 @@ def build_plan(settings, smoke=False):
                                          seed_role="historical_training_seed" if source == "five_run" else "evaluation_only",
                                          checkpoint=f"outputs/{source}/{folder}/{exp}/{model}/0_{suffix}_predict.pt",
                                          device_compare=(model == "Delelstm" and run == 0)))
-    protocols = ["full_eval"] if smoke else ["released", "full_eval", "chronological"]
+    protocols = ["chronological"] if smoke else ["released", "full_eval", "chronological"]
     for protocol in protocols:
         folds = range(settings["temporal_folds"]) if protocol == "chronological" else [0]
         for fold in folds:
@@ -55,18 +56,18 @@ def build_plan(settings, smoke=False):
         for dataset in settings["datasets"]:
             for seed in seeds:
                 for solver, ridge in [("pinv", 0.)] + [("ridge", v) for v in settings["ridge_values"]]:
-                    jobs.append(dict(kind="solver", protocol="full_eval" if smoke else "chronological",
+                    jobs.append(dict(kind="solver", protocol="chronological",
                                      dataset=dataset, model="Delelstm", seed=seed+(dataset == "PM"),
-                                     fold=0 if smoke else settings["temporal_folds"]-1, solver=solver, ridge=ridge))
+                                     fold=last_fold, solver=solver, ridge=ridge))
     if "Electricity" in settings["datasets"] and "LSTM" in settings["models"]:
         selectors = [m for m in settings["models"] if m != "LSTM"] + ["random"]
         for seed in seeds:
             for selector in selectors:
-                job = dict(kind="sufficiency", protocol="full_eval", dataset="Electricity", model="LSTM",
-                           seed=seed, selector=selector, fold=0, solver="original", ridge=0.)
+                job = dict(kind="sufficiency", protocol="chronological", dataset="Electricity", model="LSTM",
+                           seed=seed, selector=selector, fold=last_fold, solver="original", ridge=0.)
                 if selector != "random":
-                    source = dict(kind="train", protocol="full_eval", dataset="Electricity", model=selector,
-                                  seed=seed, fold=0, solver="original", ridge=0.)
+                    source = dict(kind="train", protocol="chronological", dataset="Electricity", model=selector,
+                                  seed=seed, fold=last_fold, solver="original", ridge=0.)
                     job["dependency"] = task_id(source)
                 jobs.append(job)
     if not smoke and settings["devices"] != ["cpu"] and "Delelstm" in settings["models"]:
@@ -77,6 +78,8 @@ def build_plan(settings, smoke=False):
         if "PM" in settings["datasets"] and settings["cpu_control_runs"]:
             jobs.append(dict(kind="nan_probe", protocol="released", dataset="PM", model="Delelstm",
                              seed=555, fold=0, solver="original", ridge=0., fixed_device="cpu"))
+    if settings.get("forecast_only"):
+        jobs = [job for job in jobs if job["kind"] == "train" and job["protocol"] == "chronological"]
     for job in jobs:
         job["id"] = task_id(job)
     if len({job["id"] for job in jobs}) != len(jobs):
@@ -93,6 +96,7 @@ def parser():
     ap.add_argument("--models", nargs="+", choices=MODELS, default=MODELS)
     ap.add_argument("--seeds", nargs="+", type=int, default=[555, 556, 557, 558, 559])
     ap.add_argument("--temporal-folds", type=int, choices=[1, 2, 3], default=3)
+    ap.add_argument("--forecast-only", action="store_true", help="Train only the chronological forecasting models")
     ap.add_argument("--ridge-values", nargs="+", type=float, default=[1e-6, 1e-4, 1e-2])
     ap.add_argument("--cpu-control-runs", type=int, default=1)
     ap.add_argument("--cpu-threads", type=int, default=4)
@@ -118,7 +122,8 @@ def configuration(args):
     if any(value <= 0 for value in args.ridge_values) or not 0 <= args.cpu_control_runs <= len(args.seeds):
         raise ValueError("Invalid ridge values or CPU control count")
     settings = {key: getattr(args, key) for key in ("datasets", "models", "seeds", "temporal_folds", "ridge_values",
-                "cpu_control_runs", "cpu_threads", "diagnostic_windows", "epochs", "max_windows")}
+                "cpu_control_runs", "cpu_threads", "diagnostic_windows", "epochs", "max_windows", "forecast_only")}
+    settings["pm_chronological_targets"] = "observed_only"
     settings["devices"] = devices
     if args.stage == "smoke":
         settings.update(seeds=[args.seeds[0]], temporal_folds=1, cpu_control_runs=0,

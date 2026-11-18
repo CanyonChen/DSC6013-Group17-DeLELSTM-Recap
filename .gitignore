@@ -24,6 +24,10 @@ env/
 /local_archive/original/
 /local_archive/references/
 
+# Local signed course copy and the other group's reference handout
+/doc/6013_Paper.docx
+/doc/reference_other_group_project.html
+
 # Temporary verification, publishing and environment-installation files
 /outputs/verification/
 /outputs/.validation/

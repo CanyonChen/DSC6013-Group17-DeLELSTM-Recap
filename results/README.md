@@ -1,8 +1,8 @@
 # 报告实验结果与审计证据
 
-本目录保存课程报告所用的历史结果，供 GitHub 阅读与数值核验。目录整理没有重新训练模型，也没有用新的 GPU 环境替换历史实验记录。
+本目录保存课程报告所用的历史模型成绩、图表原图、逐次明细和时间协议核查。正式时间回测完成后，将在进度文档中登记对应的提交与结果目录。[当前 Word 报告](../doc/6013_Paper_public.docx) · [项目进度](../docs/project_process.md)
 
-报告见 [DeLELSTM_Five_Run_Course_Paper.docx](../doc/DeLELSTM_Five_Run_Course_Paper.docx)。旧交付包的说明标注了 **2026-10-31 整理、2026-11-01 追加改进说明**；这两个日期是交付说明的版本日期，不作为所有训练任务的执行日期。保存的环境与指标文件没有完整训练时间戳。
+旧交付包标注的 2026-10-31 和 2026-11-01 是整理日期。历史环境与指标文件没有完整训练时间戳。[历史 Word 稿](../doc/DeLELSTM_Five_Run_Course_Paper.docx)
 
 ## 五次独立训练
 
@@ -24,6 +24,16 @@
 
 原测试 CSV 的 `mape_test` 是比例，`verified_detail.csv` 和 `verified_summary.csv` 的 MAPE 已乘以 100，单位为百分比。整理时已逐项核对 75 份原始测试指标与明细，并由明细重算汇总表的 90 个均值/标准差；数值一致。旧 `progress_*.csv` 仅含 70 次训练，其中 Exchange 每个模型只有 4 次，不用于报告的最终结果。
 
+## 当前报告的三幅图
+
+| 图 | Word 稿内原图 | 复算输入或明细 |
+| --- | --- | --- |
+| 图 1，各模型五次 RMSE | [PNG](figures/figure_1_rmse_five_runs.png) | [75 次训练明细](five_run/verified_detail.csv) |
+| 图 2，PM2.5 瞬时占比 | [PNG](figures/figure_2_pm25_five_run.png) | [五次各 22 个位置](figures/pm25_instantaneous_share_five_runs.csv) |
+| 图 3，完整及保留窗口的 RMSE | [PNG](figures/figure_3_test_windows_five_run.png) | [三个数据集的 15 组配对](figures/audit_full_test_five_runs.csv) |
+
+准备好项目环境和数据后，执行 `python scripts/reproduce_paper_figures.py`。脚本从归档的检查点与系数重算两张明细表，逐次核对保留窗口 RMSE，并从原始数值重新绘图。输出在 `outputs/paper_figures/`。[复算脚本](../scripts/reproduce_paper_figures.py)
+
 ## 单次运行与解释结果
 
 `single_run/` 来自较早的 GPU 单次实验，与上述 CPU 五次实验分开保留：
@@ -33,7 +43,7 @@
 - 同目录的 `0_soft_testweight.csv`：原训练程序额外导出的系数文件，原样保留以供核对。
 - `interpret/`：由上述单次结果恢复的瞬时占比、全局重要性及系数诊断表。
 
-解释系数已经跨测试样本平均，不包含逐样本系数和原始时间戳，不能直接视为逐时钟时间的案例图。报告的解释分析和完整测试集敏感性检查使用这些早期单次检查点，不是五次实验的解释均值。
+早期单次检查点用于复核历史单次分析。当前报告图 2 和图 3 采用上节列出的五次实验产物。历史解释系数已跨测试样本平均，横轴表示窗口内的位置。
 
 ## 审计日志
 
@@ -41,6 +51,8 @@
 
 | 文件 | 内容 |
 |---|---|
+| [temporal_protocol.csv](audits/temporal_protocol.csv) | 三个数据集各三折的时间边界、跨集合重叠、训练集缩放和有效目标数 |
+| [temporal_smoke.csv](audits/temporal_smoke.csv) | 32 项小窗口短测试及 1 项全窗口 PM2.5 核验，每项训练一轮 |
 | [full_test.txt](audits/full_test.txt) | 相同单次检查点、相同划分下，保留尾批与丢弃尾批的比较；没有重训 |
 | [exchange_overlap.txt](audits/exchange_overlap.txt) | Exchange 随机划分中测试窗口与训练窗口的重叠计数 |
 | [pm_seed555_nan.txt](audits/pm_seed555_nan.txt) | 早期 PM2.5 种子 555 在 epoch 85 出现 NaN 的失败日志 |
