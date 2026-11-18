@@ -185,4 +185,6 @@ bash scripts/eval_and_ablation.sh --stage report
 python -m unittest discover -s tests -v
 ```
 
-上述结果证明本地流程可以运行，不代表 Linux 自动安装、H100 数值行为或正式 300/350 轮实验已经验证。服务器第一次运行仍会先执行环境检查与短测试。
+## H100 服务器验证
+
+组员在 Linux 上复用 `/usr/bin/python` 运行了 `--stage smoke --forecast-only`。提交 `6a0e3a6` 的服务器报告记录 15/15 项成功，环境为单张可见的 NVIDIA H100 80GB HBM3、PyTorch 2.7.1 和 CUDA 12.6。已有这份短测试结果的服务器可以直接执行 `--stage run`。正式 225 项的预测成绩待回传。[服务器运行摘要](../results/audits/h100_forecast_smoke.json) · [GPU 1 正式启动命令](../docs/project_process.md)

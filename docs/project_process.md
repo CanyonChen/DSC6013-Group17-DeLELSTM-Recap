@@ -1,26 +1,12 @@
 # DSC6013 第 17 组｜DeLELSTM 复现项目进度
 
-更新于 **2026-11-18**。原随机划分下的 75 次训练已完成。报告第 6.1、6.3 节及表 2 已写入未来信息泄漏的证据、每折归一化方法和有效目标数。修正后的九个时间划分已通过核查，**下一项是服务器上的 225 次正式时间回测**。当前报告的模型成绩来自原随机协议。[共享 Word 报告](../doc/6013_Paper_public.docx) · [九折数据核查](../results/audits/temporal_protocol.csv) · [逐项短测试记录](../results/audits/temporal_smoke.csv)
+更新于 **2026-11-18**。原随机划分下的 75 次训练已完成，报告第 6.1、6.3 节及表 2 已写入泄漏证据、每折归一化方法和有效目标数。修正后的九个时间划分已通过核查，H100 服务器上的 15 项预测短测试也已全部通过。**下一项是 225 次正式时间回测**。当前报告中的预测成绩仍来自原随机协议。[共享 Word 报告](../doc/6013_Paper_public.docx) · [九折数据核查](../results/audits/temporal_protocol.csv) · [H100 短测试记录](../results/audits/h100_forecast_smoke.json)
 
 ## 下一步：在服务器运行正式时间回测
 
-服务器已进入环境安装阶段。独立环境在连接 `pypi.nvidia.com` 下载 cuDNN 时超时。服务器终端已确认 `/usr/bin/python` 自带 PyTorch `2.7.1+cu126`、CUDA 12.6，可识别两张卡。本轮只使用物理 GPU 1。H100 短测试和正式预测成绩待回传。[环境安装与数据下载](../doc/ablation_workflow.md)
+组员回传的服务器摘要显示，计划 15 项，成功 15 项，失败、阻塞或未完成合计 0 项。运行代码为 `6a0e3a6`，使用 Python 3.13.13、PyTorch 2.7.1、CUDA 12.6。环境记录显示一张可见的 NVIDIA H100 80GB HBM3。此次 `--forecast-only` 在最后一个时间折上为三个数据集的五种模型各训练一轮，验证了数据读取、训练、评分和报告生成。正式轮数下的误差和模型排名待回传。[运行摘要与软件版本](../results/audits/h100_forecast_smoke.json) · [测试时的代码](https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap/commit/6a0e3a6b0515bc7532c70c75b574d890e75f331d)
 
-首次完整获取项目时，在 Linux 服务器执行以下两行。一次递归克隆会取回本组代码、既有权重，以及固定作者版本内三个数据集的原始 CSV 和处理后 CSV。已有小组仓库的成员在仓库根目录执行 `git pull --ff-only --recurse-submodules origin main` 即可。首次接收此更新时，准备脚本会自动初始化新增的数据子模块。
-
-```bash
-git clone --recurse-submodules https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap.git
-cd DSC6013-Group17-DeLELSTM-Recap
-```
-
-已有服务器副本可直接在仓库根目录运行短测试。先查物理 GPU 1 的 UUID，并把它设为子进程唯一可见的卡。CUDA 将这张卡编号为 0，所以脚本使用 `--gpus 0`。
-
-```bash
-gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
-CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage smoke --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
-```
-
-短测试报告 `outputs/h100_gpu1_torch271-smoke/report/report.md` 应为 15/15 成功。随后用同一解释器和 GPU 运行 225 项正式预测。Electricity 每次 350 轮，PM2.5 与 Exchange 各 300 轮。若正式训练中断，在这条命令中追加 `--resume`。
+在通过短测试的服务器仓库目录执行以下两行。按 UUID 只向训练进程暴露物理 GPU 1，脚本中的 `--gpus 0` 是这张卡的进程内编号。正式回测使用同一解释器，按 3 个数据集 × 5 种模型 × 5 个种子 × 3 个时间折从头训练。Electricity 每次 350 轮，PM2.5 与 Exchange 各 300 轮。正式任务中断后可用相同参数和目录追加 `--resume`。[首次获取代码和数据](../doc/ablation_workflow.md#在服务器运行)
 
 ```bash
 gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&

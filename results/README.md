@@ -52,7 +52,8 @@
 | 文件 | 内容 |
 |---|---|
 | [temporal_protocol.csv](audits/temporal_protocol.csv) | 三个数据集各三折的时间边界、跨集合重叠、训练集缩放和有效目标数 |
-| [temporal_smoke.csv](audits/temporal_smoke.csv) | 32 项小窗口测试、1 项全窗口 PM2.5 核验，以及全新 GitHub 副本上的 15 项预测流程测试。每项训练一轮，`validation_run` 区分三次执行 |
+| [temporal_smoke.csv](audits/temporal_smoke.csv) | 本地 CPU 共完成 32 项小窗口测试、1 项全窗口 PM2.5 核验和全新 GitHub 副本上的 15 项预测流程测试。每项训练一轮，`validation_run` 标记各次执行 |
+| [h100_forecast_smoke.json](audits/h100_forecast_smoke.json) | 组员回传的 H100 短测试摘要和软件版本。代码 `6a0e3a6`，15/15 成功，一张可见的 H100，CUDA 12.6 |
 | [full_test.txt](audits/full_test.txt) | 相同单次检查点、相同划分下，保留尾批与丢弃尾批的比较；没有重训 |
 | [exchange_overlap.txt](audits/exchange_overlap.txt) | Exchange 随机划分中测试窗口与训练窗口的重叠计数 |
 | [pm_seed555_nan.txt](audits/pm_seed555_nan.txt) | 早期 PM2.5 种子 555 在 epoch 85 出现 NaN 的失败日志 |

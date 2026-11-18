@@ -1,0 +1,28 @@
+{
+  "source": "Group member's terminal excerpt from report/report.md and environment.json",
+  "server_output_directory": "outputs/h100_gpu1_torch271-smoke",
+  "report": {
+    "run_type": "smoke",
+    "planned": 15,
+    "successful": 15,
+    "failed_blocked_or_incomplete": 0
+  },
+  "environment_excerpt": {
+    "git_commit": "6a0e3a6b0515bc7532c70c75b574d890e75f331d",
+    "python": "3.13.13 | packaged by conda-forge | (main, Apr  8 2026, 02:00:33) [GCC 14.3.0]",
+    "platform": "Linux-6.8.0-71-generic-x86_64-with-glibc2.39",
+    "cuda": "12.6",
+    "devices": [
+      {"device": "cuda:0", "name": "NVIDIA H100 80GB HBM3"}
+    ],
+    "packages": {
+      "torch": "2.7.1",
+      "numpy": "2.3.5",
+      "pandas": "2.3.3",
+      "matplotlib": "3.10.9",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.8.0",
+      "torchmetrics": null
+    }
+  }
+}
