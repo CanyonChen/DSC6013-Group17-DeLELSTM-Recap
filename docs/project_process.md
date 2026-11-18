@@ -1,19 +1,23 @@
 # DSC6013 第 17 组｜DeLELSTM 复现项目进度
 
-更新于 **2026-11-18**。原随机划分下的 75 次训练已完成，报告第 6.1、6.3 节及表 2 已写入泄漏证据、每折归一化方法和有效目标数。修正后的九个时间划分已通过核查，H100 服务器上的 15 项预测短测试也已全部通过。**下一项是 225 次正式时间回测**。当前报告中的预测成绩仍来自原随机协议。[共享 Word 报告](../doc/6013_Paper_public.docx) · [九折数据核查](../results/audits/temporal_protocol.csv) · [H100 短测试记录](../results/audits/h100_forecast_smoke.json)
+更新于 **2026-11-18**。本阶段只训练 DeLELSTM，观察修复时间划分和输入归一化后，它在三个未来时段的预测误差。45 项时间回测对应 3 个数据集 × 3 个时间折 × 5 个种子。旧协议下已完成的 15 次 DeLELSTM 训练提供历史参照。报告第 6.1、6.3 节及表 2 已记录泄漏证据、每折缩放方法和有效目标数。[共享 Word 报告](../doc/6013_Paper_public.docx) · [九个划分的核查记录](../results/audits/temporal_protocol.csv)
 
-## 下一步：在服务器运行正式时间回测
+## 当前进度与单卡续跑
 
-组员回传的服务器摘要显示，计划 15 项，成功 15 项，失败、阻塞或未完成合计 0 项。运行代码为 `6a0e3a6`，使用 Python 3.13.13、PyTorch 2.7.1、CUDA 12.6。环境记录显示一张可见的 NVIDIA H100 80GB HBM3。此次 `--forecast-only` 在最后一个时间折上为三个数据集的五种模型各训练一轮，验证了数据读取、训练、评分和报告生成。正式轮数下的误差和模型排名待回传。[运行摘要与软件版本](../results/audits/h100_forecast_smoke.json) · [测试时的代码](https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap/commit/6a0e3a6b0515bc7532c70c75b574d890e75f331d)
+H100 上的 15 项短测试全部通过。随后组员从五模型正式队列回传了 6 条完成记录。其中可计入本阶段的两项是 Electricity 第一折的 DeLELSTM，种子 555 和 556 分别用时 387.4 和 469.6 秒。回传内容只有任务名和耗时，误差值仍在服务器。按这份记录，45 项中已有 2 项可复用，另有 43 项待确认或训练。与原定 225 项相比，本阶段少安排 180 项，计划训练次数减少 80%。[短测试环境](../results/audits/h100_forecast_smoke.json)
 
-在通过短测试的服务器仓库目录执行以下两行。按 UUID 只向训练进程暴露物理 GPU 1，脚本中的 `--gpus 0` 是这张卡的进程内编号。正式回测使用同一解释器，按 3 个数据集 × 5 种模型 × 5 个种子 × 3 个时间折从头训练。Electricity 每次 350 轮，PM2.5 与 Exchange 各 300 轮。正式任务中断后可用相同参数和目录追加 `--resume`。[首次获取代码和数据](../doc/ablation_workflow.md#在服务器运行)
+如果原 225 项队列仍在前台运行，在原训练终端按一次 Ctrl+C，等命令提示符返回。保留 `outputs/h100_gpu1_torch271`，在同一仓库根目录执行下面的命令。入口使用 `/usr/bin/python` 和物理 GPU 1 的 UUID，按正式设置复用已完成任务的权重、预测和日志，将剩余任务放入独立目录。再次执行相同命令会跳过已完成项。[单模型入口](../scripts/run_delelstm_gpu1.py) · [首次获取代码和数据](../doc/ablation_workflow.md#在服务器运行)
+
+若 Ctrl+C 后旧队列仍显示新的 `START`，在原 Bash 终端按 Ctrl+Z，再用 `jobs -l` 核对暂停的旧训练作业。假如该作业显示为 `[1]`，执行 `kill -TERM %1`。若它仍显示 `Stopped`，对同一作业执行 `kill -CONT %1` 以送达终止信号。作业号以当前终端显示为准。
 
 ```bash
-gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
-CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage run --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
+git -c http.version=HTTP/1.1 pull --ff-only origin main &&
+/usr/bin/python scripts/run_delelstm_gpu1.py --reuse-from outputs/h100_gpu1_torch271
 ```
 
-训练结束后，检查 `outputs/h100_gpu1_torch271/report/report.md` 的成功数和计划数，逐个核对 `runs.csv` 的种子、状态与有效测试目标数。用 `summary.csv` 填写 45 个“数据集 × 模型 × 时间折”组合的 RMSE、MAE、MAPE、成功数、均值与样本标准差。保留失败日志，并从 `environment.json` 抄录实际 PyTorch 版本及 GPU 标识。组内原定的 `2.10.0+cu126` 固定环境有单独的安装入口和输出目录。划分、归一化和 PM2.5 目标处理同时变化，原随机成绩与新成绩的差额也包含测试时段差异。[固定环境恢复说明](../doc/ablation_workflow.md#cudnn-下载超时)
+训练结束后回传 `outputs/h100_gpu1_delelstm45/report/summary.csv` 和同目录的 `runs.csv`。先核对 45 项的状态，再按数据集分别列出三折的 RMSE 均值、样本标准差、成功种子数及有效测试目标数，MAE 和 MAPE 作补充。将下表的原测试 RMSE 标明为历史参照。新旧测试窗口、可用观测和评估设置不同，差异只能描述趋势。即使某折的 RMSE 更低，单凭该差异也无法把改善归因于修复。
+
+本地已通过 15 项测试。单模型续跑另用 CPU 在 Electricity 和 PM2.5 的末折做了一轮小规模验证，每个分区取 16 个窗口。Electricity 种子 555 的预测文件复用前后逐字节相同，两个 PM2.5 任务成功续跑。Electricity 种子 556 在首个批次出现非有限梯度，单独从头运行也复现了该异常，失败按原种子记录。此处的四项均为流程验证，H100 正式成绩单独统计。[单模型续跑测试](../tests/test_delelstm_forecast.py)
 
 ## 报告中已有的结果
 
@@ -43,7 +47,7 @@ CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage run 
 
 **已验证。** 三个数据集各三折，训练、验证、测试时间严格有序，任意两集合共享的原始时点均为零。Exchange 每处边界剔除后一集合的前 29 个窗口。扰动验证及测试输入后，九折的训练极值和缩放后的训练输入均保持一致。原随机划分下，PM2.5 训练窗口的污染物输入范围是 1–886，全数据缩放却用了 0–994。九折时间范围、有效目标数量和原协议缩放范围均已归档。[九折核查表](../results/audits/temporal_protocol.csv) · [复算脚本](../scripts/audit_temporal_protocol.py)
 
-**现有运行范围。** 2026-11-18 修订后在本地 CPU 通过 13/13 项协议、环境与报告测试，以及 32/32 项一轮端到端短测试，覆盖三个数据集、五种模型、求解器及同折变量筛选。旧版另有 11 项小规模集成任务和 1 项全测试集 Exchange 权重审计。`--forecast-only` 默认只运行 225 项正式时间回测。完整计划仍为 554 项，含历史对照、60 项求解器消融和 25 项末折变量充分性训练。正式时间回测未在本轮运行。[测试代码](../tests/test_ablation.py) · [任务定义](../scripts/ablation_suite.py) · [运行说明](../doc/ablation_workflow.md)
+**验证与可选实验。** 此前在本地 CPU 通过 13 项协议、环境与报告测试，以及 32 项一轮端到端短测试。通用脚本支持五模型预测比较和求解器、变量充分性消融。本阶段通过 `--forecast-only --models Delelstm` 选择其中的 45 项。[测试代码](../tests/test_ablation.py) · [任务定义](../scripts/ablation_suite.py) · [运行说明](../doc/ablation_workflow.md)
 
 ## 后续任务
 
@@ -59,7 +63,7 @@ CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage run 
 1. [x] **PM2.5 输入与评分已修正，2026-11-18。** 按原始 PRSA 小时记录前向填补输入，剔除无历史可用的首日。训练损失、验证选模及测试 RMSE/MAE/MAPE 均使用原始观测目标。末折训练、验证、测试分别有 28,338、5,975、3,964 个有效目标，测试时剔除了 4,026 个候选位置中的 62 个。[数据读取](../scripts/ablation_data.py) · [训练与评分](../scripts/ablation_engine.py)
 2. [x] **Electricity 变量充分性流程已切换到最后一个时间折，2026-11-18。** 四种解释模型在同一末折训练集导出排名。前 8 个变量、随机 8 个和全部 16 个变量的 LSTM 共用种子、划分及测试窗口。排名依赖、重训、配对汇总均通过短测试。[任务定义](../scripts/ablation_suite.py) · [配对汇总](../scripts/ablation_report.py)
 3. [x] **数据与训练路径已验证，2026-11-18。** 改动未来原始 PM2.5 观测不影响此前填补输入。只改动缺失目标处的预测，训练损失、有效位置梯度和评分保持一致。9 个完整时间划分均已核对，32 项短测试全部完成。另用 PM2.5 末折的全部窗口训练 DeLELSTM 一轮，从保存的 183 × 22 个预测位置中取出 3,964 个真实目标，独立重算的 RMSE、MAE 与运行记录一致。[协议测试](../tests/test_ablation.py) · [各折明细](../results/audits/temporal_protocol.csv)
-4. [ ] **完成 225 次正式时间回测。** 归档逐次与汇总结果，更新报告第 6、7 节，保留各折日期或源行号、有效目标数和失败记录。
-5. [ ] **补充分模型解释实验。** 在末折完成 25 项 Top-50% 变量充分性和 60 项求解器消融，连同对应的全变量基线、条件数、重建误差和解释稳定性归档。[正式实验配置](../doc/ablation_workflow.md)
+4. [ ] **完成 DeLELSTM 的 45 项正式时间回测。** 归档九组逐折汇总和逐种子记录，在报告第 6、7 节呈现与历史成绩的描述性对照，注明测试区间、有效目标数和失败记录。
+5. 同一未来测试段上的修复前后配对、其他模型的预测排名、Top-50% 和求解器消融均列为后续可选实验。[扩展实验配置](../doc/ablation_workflow.md)
 
 后续更新时，在对应任务旁补上完成日期、实际完成数量和结果链接。

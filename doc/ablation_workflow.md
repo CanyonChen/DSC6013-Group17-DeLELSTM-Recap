@@ -22,16 +22,16 @@ git pull --ff-only --recurse-submodules origin main
 本轮先运行未来时段预测。Git 子模块 `vendor/upstream` 含作者固定版本的代码、三个数据集的原始 CSV 及处理后 CSV。首次运行会从这份本地副本应用补丁、检验 6 个源码文件和 9 份数据。已有普通克隆会自动初始化子模块。递归克隆完成后，准备训练数据可在离线状态下进行。[版本和校验值](../patches/upstream.json)
 
 ```bash
-gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
-CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage all --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
+/usr/bin/python scripts/run_delelstm_gpu1.py
 ```
 
-该命令复用服务器现有环境，依次执行 15 次短测试及 225 次正式时间回测，结果保存在 `outputs/h100_gpu1_torch271/report/`。进程中的 `cuda:0` 对应唯一可见的物理 GPU 1。`environment.json` 会保存传入的 UUID 和实际 PyTorch 版本。单独做短测试可使用 `--stage smoke`，通过后使用 `--stage run`。[分阶段命令](../docs/project_process.md) · [CUDA 设备编号说明](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/environment-variables.html)
+本阶段仅运行 DeLELSTM 的 45 项正式时间回测，结果保存在 `outputs/h100_gpu1_delelstm45/report/`。已有五模型训练结果时，先停止旧队列，再在命令末尾追加 `--reuse-from outputs/h100_gpu1_torch271`。入口按 UUID 选择物理 GPU 1，进程内编号为 `cuda:0`。`environment.json` 保存实际设备和 PyTorch 版本。[切换与验收](../docs/project_process.md) · [CUDA 设备编号说明](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/environment-variables.html)
 
-以下完整套件还包括历史检查点和求解器消融。每次打开新终端，先用上方 `nvidia-smi` 命令设置 `gpu1_uuid`。
+以下命令用于另行启动完整套件，包括历史检查点和求解器消融。
 
 ```bash
 bash scripts/eval_and_ablation.sh --stage plan --gpus 0
+gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
 CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --gpus 0
 ```
 
@@ -56,7 +56,7 @@ git -c http.version=HTTP/1.1 sparse-checkout set scripts environment patches tes
 git -c http.version=HTTP/1.1 submodule update --init --depth 1 -- vendor/upstream
 ```
 
-最后一行成功时会显示子模块已检出 `b9f29dbe48bd2204e5ce7edcdbbfd55f031d30a9`。如果这一行中断，在 `DSC6013-forecast` 中重新执行该行即可。接着执行本页的 `--forecast-only` 命令。日后需要复评已有权重或编辑 Word 报告时，在同一目录执行 `git sparse-checkout disable` 即可补齐当前版本的其他文件。[Git 按需克隆说明](https://git-scm.com/docs/git-clone)
+最后一行成功时会显示子模块已检出 `b9f29dbe48bd2204e5ce7edcdbbfd55f031d30a9`。如果这一行中断，在 `DSC6013-forecast` 中重新执行该行即可。接着执行本页的 `run_delelstm_gpu1.py` 命令。日后需要复评已有权重或编辑 Word 报告时，在同一目录执行 `git sparse-checkout disable` 即可补齐当前版本的其他文件。[Git 按需克隆说明](https://git-scm.com/docs/git-clone)
 
 ### cuDNN 下载超时
 
@@ -65,7 +65,7 @@ git -c http.version=HTTP/1.1 submodule update --init --depth 1 -- vendor/upstrea
 ```bash
 git -c http.version=HTTP/1.1 pull --ff-only origin main &&
 gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
-env -u PIP_EXTRA_INDEX_URL PIP_CONFIG_FILE=/dev/null PIP_INDEX_URL=https://pypi.org/simple PIP_RETRIES=2 PIP_TIMEOUT=30 CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage all --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch210
+env -u PIP_EXTRA_INDEX_URL PIP_CONFIG_FILE=/dev/null PIP_INDEX_URL=https://pypi.org/simple PIP_RETRIES=2 PIP_TIMEOUT=30 CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage all --forecast-only --models Delelstm --gpus 0 --output-dir outputs/h100_gpu1_torch210_delelstm45
 ```
 
 此路径复用已创建的项目 Conda 环境，在验证依赖和 GPU 后开始短测试。使用 `/usr/bin/python` 的运行保存在独立的 `torch271` 目录。两种环境的实际版本分别记入对应的实验记录。
@@ -187,4 +187,4 @@ python -m unittest discover -s tests -v
 
 ## H100 服务器验证
 
-组员在 Linux 上复用 `/usr/bin/python` 运行了 `--stage smoke --forecast-only`。提交 `6a0e3a6` 的服务器报告记录 15/15 项成功，环境为单张可见的 NVIDIA H100 80GB HBM3、PyTorch 2.7.1 和 CUDA 12.6。已有这份短测试结果的服务器可以直接执行 `--stage run`。正式 225 项的预测成绩待回传。[服务器运行摘要](../results/audits/h100_forecast_smoke.json) · [GPU 1 正式启动命令](../docs/project_process.md)
+组员在 Linux 上复用 `/usr/bin/python` 运行了 `--stage smoke --forecast-only`。提交 `6a0e3a6` 的服务器报告记录 15/15 项成功，环境为单张可见的 NVIDIA H100 80GB HBM3、PyTorch 2.7.1 和 CUDA 12.6。后续回传的正式运行中，已有两个 Electricity 第一折的 DeLELSTM 种子完成，45 项单模型汇总待回传。[服务器短测试摘要](../results/audits/h100_forecast_smoke.json) · [GPU 1 正式启动命令](../docs/project_process.md)

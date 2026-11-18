@@ -74,14 +74,13 @@ python scripts/setup_upstream.py
 
 ## 服务器补充实验
 
-预测未来时段时，使用以下入口。三个扩展时间折分别用训练数据拟合输入缩放参数，验证集选模，测试集在更晚的时段。Exchange 清除跨集合重叠窗口，PM2.5 只使用过去已知的输入并在原始观测上评分。
+本阶段只训练 DeLELSTM，在 3 个数据集上分别做 3 折、5 种子的未来时段预测，共 45 项。各折只用训练数据拟合输入缩放参数，验证集选模，未来测试集评分。旧随机划分的 DeLELSTM 成绩作历史参照。
 
 ```bash
-gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
-CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage all --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
+/usr/bin/python scripts/run_delelstm_gpu1.py
 ```
 
-本组 H100 的现有解释器使用 PyTorch `2.7.1+cu126`。上方命令只向进程暴露物理 GPU 1，它在进程中编号为 0。先跑 15 项短测试，再运行 225 项正式时间回测。完成后查看 `outputs/h100_gpu1_torch271/report/report.md`。各折的窗口数、测试区间和有效目标数见[时间协议核查表](results/audits/temporal_protocol.csv)。[分阶段命令与验收方法](docs/project_process.md) · [原定 PyTorch 2.10.0 的安装方法](doc/ablation_workflow.md#cudnn-下载超时)
+入口复用 H100 现有的 PyTorch `2.7.1+cu126`，用 UUID 选择物理 GPU 1。已运行五模型队列的组员应先停止旧队列，在上方命令末尾追加 `--reuse-from outputs/h100_gpu1_torch271`。新结果写入 `outputs/h100_gpu1_delelstm45/report/`。[切换命令与验收方法](docs/project_process.md) · [各折测试区间和有效目标数](results/audits/temporal_protocol.csv)
 
 完整套件另含历史随机协议对照和消融。在当前服务器上也可以单卡执行。
 
