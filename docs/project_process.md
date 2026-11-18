@@ -62,6 +62,7 @@ bash scripts/eval_and_ablation.sh --stage run --resume --forecast-only --gpus 0,
 
 - [x] 仓库首页与结果索引指向可共同编辑的 Word 稿。共享稿保留六位组员署名、报告正文和小组编写的附录程序。含学号的课程提交稿在本地 `doc/6013_Paper.docx`。报告图 1–3 的原图、逐次数据及复算脚本均已归档。[共享稿](../doc/6013_Paper_public.docx) · [图表与明细](../results/figures/) · [结果索引](../results/README.md)
 - [x] 固定上游模型和输入数据已接入小组 Git 仓库。服务器准备时校验 6 个核心源码文件和 9 份 CSV，含 PM2.5 的原始小时观测。[固定版本](../vendor/upstream) · [校验清单](../patches/upstream.json)
+- [x] 2026-11-18 从 GitHub 递归克隆新副本，取得 9 份 CSV 和 75 个历史训练权重。在该副本用 Windows CPU 和现有 Python 环境运行服务器入口，三个数据集、五种模型的 15 项一轮测试全部成功。重新生成的九折核查表与仓库版本逐字节一致，正式计划显示 225 次训练。明细表的 `github_recursive_clone` 行记录了这次试跑。[验证过的代码版本](https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap/commit/c9d92f5aa1781e308ce7a31ea972b4d436665c6b) · [短测试明细](../results/audits/temporal_smoke.csv)
 - [x] Word 参考文献第 2 条已按出版社记录修订为 ICML 2019，PMLR 97，第 2494–2504 页。[出版社记录](https://proceedings.mlr.press/v97/guo19b.html)
 
 **未来时段预测与变量充分性**的完成记录如下。
