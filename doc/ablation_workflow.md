@@ -2,7 +2,7 @@
 
 入口是 [`scripts/eval_and_ablation.sh`](../scripts/eval_and_ablation.sh)。它完成独立 Conda 环境安装、上游代码与数据校验、GPU 检查、短测试、正式实验和中文 Markdown/HTML 报告生成。默认使用两张可见 GPU，每张卡运行一个独立实验；额外的 CPU 对照使用一个 CPU 进程。模型直接来自固定版本的上游代码，求解器消融通过运行时替换实现。
 
-目标环境为 Linux x86_64、Bash、Git、NVIDIA GPU。按此前服务器的双 H100、SSH 使用方式设计；当前没有连接服务器，也未验证其驱动或运行速度。脚本不依赖桌面或浏览器。
+目标环境为 Linux x86_64、Bash、Git 和 NVIDIA GPU。当前 H100 任务只使用 `nvidia-smi` 编号为 1 的物理 GPU。服务器已确认 `/usr/bin/python` 可识别两张 GPU，PyTorch 为 `2.7.1+cu126`。
 
 ## 在服务器运行
 
@@ -22,22 +22,24 @@ git pull --ff-only --recurse-submodules origin main
 本轮先运行未来时段预测。Git 子模块 `vendor/upstream` 含作者固定版本的代码、三个数据集的原始 CSV 及处理后 CSV。首次运行会从这份本地副本应用补丁、检验 6 个源码文件和 9 份数据。已有普通克隆会自动初始化子模块。递归克隆完成后，准备训练数据可在离线状态下进行。[版本和校验值](../patches/upstream.json)
 
 ```bash
-bash scripts/eval_and_ablation.sh --stage plan --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
-bash scripts/eval_and_ablation.sh --stage all --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
+gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage all --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
 ```
 
-以上依次执行 15 次短测试及 225 次正式时间回测。结果保存在 `outputs/forecast_chronological/report/`。下列命令则启动含历史对照和求解器等消融的完整套件。
+该命令复用服务器现有环境，依次执行 15 次短测试及 225 次正式时间回测，结果保存在 `outputs/h100_gpu1_torch271/report/`。进程中的 `cuda:0` 对应唯一可见的物理 GPU 1。`environment.json` 会保存传入的 UUID 和实际 PyTorch 版本。单独做短测试可使用 `--stage smoke`，通过后使用 `--stage run`。[分阶段命令](../docs/project_process.md) · [CUDA 设备编号说明](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/environment-variables.html)
+
+以下完整套件还包括历史检查点和求解器消融。每次打开新终端，先用上方 `nvidia-smi` 命令设置 `gpu1_uuid`。
 
 ```bash
-bash scripts/eval_and_ablation.sh --stage plan
-bash scripts/eval_and_ablation.sh --gpus 0,1
+bash scripts/eval_and_ablation.sh --stage plan --gpus 0
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --gpus 0
 ```
 
 正式训练持续时间取决于服务器实测。SSH 运行可使用现有的 tmux 会话；也可以用以下命令后台启动，日志仍保留在仓库中：
 
 ```bash
 mkdir -p outputs/launch_logs
-nohup bash scripts/eval_and_ablation.sh --gpus 0,1 > outputs/launch_logs/ablation.log 2>&1 &
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" nohup bash scripts/eval_and_ablation.sh --gpus 0 > outputs/launch_logs/ablation.log 2>&1 &
 tail -f outputs/launch_logs/ablation.log
 ```
 
@@ -56,6 +58,18 @@ git -c http.version=HTTP/1.1 submodule update --init --depth 1 -- vendor/upstrea
 
 最后一行成功时会显示子模块已检出 `b9f29dbe48bd2204e5ce7edcdbbfd55f031d30a9`。如果这一行中断，在 `DSC6013-forecast` 中重新执行该行即可。接着执行本页的 `--forecast-only` 命令。日后需要复评已有权重或编辑 Word 报告时，在同一目录执行 `git sparse-checkout disable` 即可补齐当前版本的其他文件。[Git 按需克隆说明](https://git-scm.com/docs/git-clone)
 
+### cuDNN 下载超时
+
+项目固定环境使用 PyTorch `2.10.0+cu126`。当前安装清单从 PyTorch 的 torch 文件列表选择这个构建，cuDNN 和其他运行库从常规 Python 包索引下载。NVIDIA 在 PyPI 发布的 Linux x86-64 cuDNN `9.10.2.21` 与原下载链接的 SHA-256 一致。若旧安装反复显示 `pypi.nvidia.com` 连接超时，在安装终端按 `Ctrl+C`，然后从仓库根目录执行下列命令。以下设置只对这次安装生效。[cuDNN 发布文件及校验值](https://pypi.org/project/nvidia-cudnn-cu12/9.10.2.21/#files)
+
+```bash
+git -c http.version=HTTP/1.1 pull --ff-only origin main &&
+gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
+env -u PIP_EXTRA_INDEX_URL PIP_CONFIG_FILE=/dev/null PIP_INDEX_URL=https://pypi.org/simple PIP_RETRIES=2 PIP_TIMEOUT=30 CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage all --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch210
+```
+
+此路径复用已创建的项目 Conda 环境，在验证依赖和 GPU 后开始短测试。使用 `/usr/bin/python` 的运行保存在独立的 `torch271` 目录。两种环境的实际版本分别记入对应的实验记录。
+
 ## 环境与设备
 
 - 默认创建独立环境 `.conda/delelstm-ablation`，无需 `conda activate`，也不复用 SuperMimic 的环境。
@@ -68,9 +82,9 @@ git -c http.version=HTTP/1.1 submodule update --init --depth 1 -- vendor/upstrea
 可以分阶段执行：
 
 ```bash
-bash scripts/eval_and_ablation.sh --stage setup --gpus 0,1
-bash scripts/eval_and_ablation.sh --stage smoke --gpus 0,1
-bash scripts/eval_and_ablation.sh --stage run --gpus 0,1
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage setup --gpus 0
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage smoke --gpus 0
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage run --gpus 0
 bash scripts/eval_and_ablation.sh --stage report
 ```
 
@@ -124,7 +138,7 @@ PM2.5 的时间协议读取原始 PRSA 小时记录，按时间前向填补输�
 以下是只做 Electricity、两个模型、一个种子、一个时间折的**部分实验**，仍使用正式训练轮数：
 
 ```bash
-bash scripts/eval_and_ablation.sh --gpus 0 \
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --gpus 0 \
   --datasets Electricity --models Delelstm LSTM --seeds 555 \
   --temporal-folds 1 --cpu-control-runs 0 --output-dir outputs/ablation_electricity
 ```
@@ -139,7 +153,7 @@ bash scripts/eval_and_ablation.sh --gpus 0 \
 
 ```bash
 # 与原运行使用同一输出目录及实验参数
-bash scripts/eval_and_ablation.sh --stage run --gpus 0,1 --resume
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage run --gpus 0 --resume
 
 # 随时根据已有文件重新生成报告，无需 GPU
 bash scripts/eval_and_ablation.sh --stage report
@@ -165,7 +179,7 @@ bash scripts/eval_and_ablation.sh --stage report
 
 ## 本地验证范围
 
-2026-11-18 的 Windows CPU 验证通过了 12 项协议与报告测试和 32 项时间划分端到端短测试。另有早期版本完成的 11 项集成任务。当前测试覆盖九折时间边界、训练集缩放、PM2.5 前向填补、缺失位置的损失与梯度、验证和测试评分，以及末折训练集排名与重训依赖。
+2026-11-18 的 Windows CPU 验证通过了 13 项协议、环境与报告测试和 32 项时间划分端到端短测试。另有早期版本完成的 11 项集成任务。当前测试覆盖九折时间边界、训练集缩放、PM2.5 前向填补、缺失位置的损失与梯度、验证和测试评分，以及末折训练集排名与重训依赖。
 
 ```bash
 python -m unittest discover -s tests -v

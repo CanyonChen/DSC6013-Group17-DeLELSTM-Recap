@@ -1,6 +1,6 @@
 # 运行环境
 
-服务器补充实验可直接执行 `bash scripts/eval_and_ablation.sh --gpus 0,1`，自动创建独立 Conda 环境并安装 `requirements-ablation.txt`，其中包含报告绘图所需的 Matplotlib。分阶段操作及设备说明见 [补充实验全流程](../doc/ablation_workflow.md)。下面保留原报告复跑的手动安装方式。
+本组 H100 时间回测只用物理 GPU 1。可复用服务器已有的 `/usr/bin/python`，也可创建下列固定版本的环境。两条路径的命令、实际版本记录和输出目录见[补充实验全流程](../doc/ablation_workflow.md)。
 
 在仓库根目录执行：
 
@@ -13,6 +13,8 @@ python -c "import torch; print(torch.__version__); print(torch.version.cuda); pr
 Conda 管理 Python 和环境隔离，环境内的 pip 安装根目录 `requirements.txt`。该文件固定 Python 3.13 对应的 PyTorch 2.10.0 CUDA 12.6 构建，以及 NumPy 2.4.6、pandas 3.0.1、scikit-learn 1.8.0、TorchMetrics 1.9.0。配置面向 Windows/Linux x86-64 和 NVIDIA GPU；CUDA 检查应输出 `2.10.0+cu126`、`12.6`、`True`。
 
 PyTorch CUDA wheel 自带所需 CUDA 运行库，仍需要兼容的 NVIDIA 驱动。安装方案依据 [PyTorch 官方历史版本说明](https://pytorch.org/get-started/previous-versions/#v2100)；项目不需要 torchvision 或 torchaudio。
+
+`requirements.txt` 仅从 PyTorch 的专用文件列表选择 `torch`。其他依赖使用 pip 配置的常规包索引。若服务器配置了额外的 NVIDIA 源且连接超时，可在单次安装中指定官方 PyPI。[cuDNN 超时恢复命令](../doc/ablation_workflow.md#cudnn-下载超时)
 
 这是供后续复现实验使用的 GPU 环境。报告中的五次正式实验在 macOS CPU 上运行，原环境记录在 [`results/five_run/environment.json`](../results/five_run/environment.json)。PyTorch、pandas、scikit-learn 和 TorchMetrics 主包版本与该记录对齐；原记录中的 [NumPy 2.4.0 已因兼容性问题被 PyPI 撤回](https://pypi.org/project/numpy/2.4.0/)，当前配置使用同系列补丁版 2.4.6。操作系统、计算设备和 NumPy 补丁版本不同，不能把新 GPU 运行当作原报告的精确环境，也不保证结果逐位一致。此前单次 GPU 实验的旧依赖快照保留在本地归档，未用作当前安装清单。
 

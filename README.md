@@ -77,22 +77,23 @@ python scripts/setup_upstream.py
 预测未来时段时，使用以下入口。三个扩展时间折分别用训练数据拟合输入缩放参数，验证集选模，测试集在更晚的时段。Exchange 清除跨集合重叠窗口，PM2.5 只使用过去已知的输入并在原始观测上评分。
 
 ```bash
-bash scripts/eval_and_ablation.sh --stage plan --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
-bash scripts/eval_and_ablation.sh --stage all --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
+gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage all --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
 ```
 
-预测专用入口先跑 15 项短测试，再运行 225 项正式时间回测。完成后查看 `outputs/forecast_chronological/report/report.md`。分到一张可见 GPU 时使用 `--gpus 0`。各折窗口数、测试区间和有效目标数见[时间协议核查表](results/audits/temporal_protocol.csv)。下方完整套件另含历史随机协议对照和消融。[进度与验收方法](docs/project_process.md)
+本组 H100 的现有解释器使用 PyTorch `2.7.1+cu126`。上方命令只向进程暴露物理 GPU 1，它在进程中编号为 0。先跑 15 项短测试，再运行 225 项正式时间回测。完成后查看 `outputs/h100_gpu1_torch271/report/report.md`。各折的窗口数、测试区间和有效目标数见[时间协议核查表](results/audits/temporal_protocol.csv)。[分阶段命令与验收方法](docs/project_process.md) · [原定 PyTorch 2.10.0 的安装方法](doc/ablation_workflow.md#cudnn-下载超时)
 
-Linux 双 GPU 服务器可从环境配置一直运行到补充实验报告：
+完整套件另含历史随机协议对照和消融。在当前服务器上也可以单卡执行。
 
 ```bash
-bash scripts/eval_and_ablation.sh --stage plan
-bash scripts/eval_and_ablation.sh --gpus 0,1
+bash scripts/eval_and_ablation.sh --stage plan --gpus 0
+gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --gpus 0
 ```
 
 脚本创建独立 Conda 环境，先执行短测试，再完成完整测试审计、时间划分、Top-50% 变量充分性、求解器消融、解释稳定性及 CPU/GPU 对照。默认正式计划为 **554 项任务（90 次历史重评估、464 次新训练）**，每张 GPU 独立运行一个任务；另有 32 项短测试。
 
-报告保存至 `outputs/ablation/report/report.html` 和 `report.md`，权重、预测与日志保存在同一实验目录。使用 `--stage run --resume --gpus 0,1` 跳过已成功任务；`--stage report` 可单独重建报告。参数、实验协议和后台运行方法见 [全流程说明](doc/ablation_workflow.md)。目前已完成本地 CPU 短测试，服务器正式结果须运行后生成。
+完整套件的报告保存至 `outputs/ablation/report/`，权重、预测与日志保存在同一实验目录。续跑时沿用相同的 GPU、环境和目录，追加 `--stage run --resume`。服务器正式结果待运行。[全流程说明](doc/ablation_workflow.md)
 
 ## 复跑报告原实验
 

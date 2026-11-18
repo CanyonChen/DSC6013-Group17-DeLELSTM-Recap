@@ -152,6 +152,27 @@ class ProtocolTests(unittest.TestCase):
         np.testing.assert_array_equal(importance, 0.)
         self.assertEqual(sign_flip([1., 1., 1., 1., 1.]), .0625)
 
+    def test_forecast_preflight_without_legacy_packages(self):
+        from importlib.metadata import PackageNotFoundError, version
+        from unittest.mock import patch
+        from ablation_suite import preflight
+
+        optional = {"scipy", "scikit-learn", "torchmetrics"}
+
+        def installed_version(name):
+            if name in optional:
+                raise PackageNotFoundError(name)
+            return version(name)
+
+        with tempfile.TemporaryDirectory() as folder, patch("importlib.metadata.version", side_effect=installed_version):
+            out = Path(folder)
+            preflight(out, {"devices": ["cpu"], "forecast_only": True})
+            packages = json.loads((out / "environment.json").read_text(encoding="utf-8"))["packages"]
+            self.assertTrue(all(packages[name] is None for name in optional))
+            self.assertEqual(packages["torch"], version("torch"))
+            with self.assertRaises(PackageNotFoundError):
+                preflight(out, {"devices": ["cpu"], "forecast_only": False})
+
     def test_plan_has_all_protocols_and_sufficiency_dependencies(self):
         settings = configuration(parser().parse_args([]))
         plan = build_plan(settings)

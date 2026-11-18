@@ -149,10 +149,18 @@ def preflight(out, settings):
         torch.linalg.solve(a, torch.ones(8, 1, device=device))
         devices.append({"device": name, "name": torch.cuda.get_device_name(device) if device.type == "cuda" else platform.processor()})
     revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, capture_output=True)
+    packages = {}
+    for name in ("torch", "numpy", "pandas", "matplotlib", "scipy", "scikit-learn", "torchmetrics"):
+        try:
+            packages[name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            if not settings.get("forecast_only") or name not in ("scipy", "scikit-learn", "torchmetrics"):
+                raise
+            packages[name] = None
     env = dict(python=sys.version, platform=platform.platform(), cuda=torch.version.cuda, devices=devices,
                git_commit=revision.stdout.strip() if revision.returncode == 0 else None,
                cuda_visible_devices=os.environ.get("CUDA_VISIBLE_DEVICES"),
-               packages={p: importlib.metadata.version(p) for p in ["torch", "numpy", "pandas", "scipy", "scikit-learn", "torchmetrics", "matplotlib"]})
+               packages=packages)
     save(out / "environment.json", env)
     freeze = subprocess.check_output([sys.executable, "-m", "pip", "freeze"], text=True)
     (out / "requirements-installed.txt").write_text(freeze, encoding="utf-8")

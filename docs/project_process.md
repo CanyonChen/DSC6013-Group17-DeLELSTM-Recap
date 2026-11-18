@@ -4,7 +4,7 @@
 
 ## 下一步：在服务器运行正式时间回测
 
-服务器首次完整克隆在主仓库传输阶段出现 `early EOF`。已在本地从 GitHub 验证分开下载训练代码和数据的方式，校验了 9 份 CSV，并在 CPU 上为每个数据集跑通一项 DeLELSTM 一轮短测试。服务器可从这组命令继续，正式 GPU 结果待运行。[下载中断后重试](../doc/ablation_workflow.md#下载中断后重试)
+服务器已进入环境安装阶段。独立环境在连接 `pypi.nvidia.com` 下载 cuDNN 时超时。服务器终端已确认 `/usr/bin/python` 自带 PyTorch `2.7.1+cu126`、CUDA 12.6，可识别两张卡。本轮只使用物理 GPU 1。H100 短测试和正式预测成绩待回传。[环境安装与数据下载](../doc/ablation_workflow.md)
 
 首次完整获取项目时，在 Linux 服务器执行以下两行。一次递归克隆会取回本组代码、既有权重，以及固定作者版本内三个数据集的原始 CSV 和处理后 CSV。已有小组仓库的成员在仓库根目录执行 `git pull --ff-only --recurse-submodules origin main` 即可。首次接收此更新时，准备脚本会自动初始化新增的数据子模块。
 
@@ -13,20 +13,21 @@ git clone --recurse-submodules https://github.com/CanyonChen/DSC6013-Group17-DeL
 cd DSC6013-Group17-DeLELSTM-Recap
 ```
 
-在仓库根目录运行以下命令。示例使用两张可见 GPU。只分到一张时，两行都改为 `--gpus 0`。
+已有服务器副本可直接在仓库根目录运行短测试。先查物理 GPU 1 的 UUID，并把它设为子进程唯一可见的卡。CUDA 将这张卡编号为 0，所以脚本使用 `--gpus 0`。
 
 ```bash
-bash scripts/eval_and_ablation.sh --stage plan --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
-bash scripts/eval_and_ablation.sh --stage all --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
+gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage smoke --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
 ```
 
-第一行应显示 225 项训练。第二行准备环境、核验代码和数据，先跑 15 项一轮短测试，再从头运行 3 个数据集 × 5 种模型 × 5 个种子 × 3 折。Electricity 每次 350 轮，PM2.5 与 Exchange 各 300 轮。已装好依赖的服务器可在第二行追加 `--python /实际环境路径/bin/python`。正式训练中断后，用相同设置和输出目录续跑。
+短测试报告 `outputs/h100_gpu1_torch271-smoke/report/report.md` 应为 15/15 成功。随后用同一解释器和 GPU 运行 225 项正式预测。Electricity 每次 350 轮，PM2.5 与 Exchange 各 300 轮。若正式训练中断，在这条命令中追加 `--resume`。
 
 ```bash
-bash scripts/eval_and_ablation.sh --stage run --resume --forecast-only --gpus 0,1 --output-dir outputs/forecast_chronological
+gpu1_uuid=$(nvidia-smi -i 1 --query-gpu=uuid --format=csv,noheader) &&
+CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --stage run --python /usr/bin/python --forecast-only --gpus 0 --output-dir outputs/h100_gpu1_torch271
 ```
 
-训练结束后，检查 `outputs/forecast_chronological/report/report.md` 的成功数和计划数，逐个核对 `runs.csv` 的种子、状态与有效测试目标数。用同目录下的 `summary.csv` 填写 45 个“数据集 × 模型 × 时间折”组合的 RMSE、MAE、MAPE，列出每组实际成功数、均值和样本标准差。保留失败任务及其日志。划分、归一化和 PM2.5 目标处理同时变化，原随机成绩与新成绩的差额包含这些变化及测试时段差异。[服务器说明](../doc/ablation_workflow.md)
+训练结束后，检查 `outputs/h100_gpu1_torch271/report/report.md` 的成功数和计划数，逐个核对 `runs.csv` 的种子、状态与有效测试目标数。用 `summary.csv` 填写 45 个“数据集 × 模型 × 时间折”组合的 RMSE、MAE、MAPE、成功数、均值与样本标准差。保留失败日志，并从 `environment.json` 抄录实际 PyTorch 版本及 GPU 标识。组内原定的 `2.10.0+cu126` 固定环境有单独的安装入口和输出目录。划分、归一化和 PM2.5 目标处理同时变化，原随机成绩与新成绩的差额也包含测试时段差异。[固定环境恢复说明](../doc/ablation_workflow.md#cudnn-下载超时)
 
 ## 报告中已有的结果
 
@@ -56,7 +57,7 @@ bash scripts/eval_and_ablation.sh --stage run --resume --forecast-only --gpus 0,
 
 **已验证。** 三个数据集各三折，训练、验证、测试时间严格有序，任意两集合共享的原始时点均为零。Exchange 每处边界剔除后一集合的前 29 个窗口。扰动验证及测试输入后，九折的训练极值和缩放后的训练输入均保持一致。原随机划分下，PM2.5 训练窗口的污染物输入范围是 1–886，全数据缩放却用了 0–994。九折时间范围、有效目标数量和原协议缩放范围均已归档。[九折核查表](../results/audits/temporal_protocol.csv) · [复算脚本](../scripts/audit_temporal_protocol.py)
 
-**现有运行范围。** 2026-11-18 修订后在本地 CPU 通过 12/12 项协议与报告测试，以及 32/32 项一轮端到端短测试，覆盖三个数据集、五种模型、求解器及同折变量筛选。旧版另有 11 项小规模集成任务和 1 项全测试集 Exchange 权重审计。`--forecast-only` 默认只运行 225 项正式时间回测。完整计划仍为 554 项，含历史对照、60 项求解器消融和 25 项末折变量充分性训练。正式时间回测未在本轮运行。[测试代码](../tests/test_ablation.py) · [任务定义](../scripts/ablation_suite.py) · [运行说明](../doc/ablation_workflow.md)
+**现有运行范围。** 2026-11-18 修订后在本地 CPU 通过 13/13 项协议、环境与报告测试，以及 32/32 项一轮端到端短测试，覆盖三个数据集、五种模型、求解器及同折变量筛选。旧版另有 11 项小规模集成任务和 1 项全测试集 Exchange 权重审计。`--forecast-only` 默认只运行 225 项正式时间回测。完整计划仍为 554 项，含历史对照、60 项求解器消融和 25 项末折变量充分性训练。正式时间回测未在本轮运行。[测试代码](../tests/test_ablation.py) · [任务定义](../scripts/ablation_suite.py) · [运行说明](../doc/ablation_workflow.md)
 
 ## 后续任务
 
