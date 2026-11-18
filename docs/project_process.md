@@ -4,7 +4,9 @@
 
 ## 下一步：在服务器运行正式时间回测
 
-首次使用，在 Linux 服务器执行以下两行。一次递归克隆会取回本组代码、既有权重，以及固定作者版本内三个数据集的原始 CSV 和处理后 CSV。已有小组仓库的成员在仓库根目录执行 `git pull --ff-only --recurse-submodules origin main` 即可。首次接收此更新时，准备脚本会自动初始化新增的数据子模块。
+服务器首次完整克隆在主仓库传输阶段出现 `early EOF`。已在本地从 GitHub 验证分开下载训练代码和数据的方式，校验了 9 份 CSV，并在 CPU 上为每个数据集跑通一项 DeLELSTM 一轮短测试。服务器可从这组命令继续，正式 GPU 结果待运行。[下载中断后重试](../doc/ablation_workflow.md#下载中断后重试)
+
+首次完整获取项目时，在 Linux 服务器执行以下两行。一次递归克隆会取回本组代码、既有权重，以及固定作者版本内三个数据集的原始 CSV 和处理后 CSV。已有小组仓库的成员在仓库根目录执行 `git pull --ff-only --recurse-submodules origin main` 即可。首次接收此更新时，准备脚本会自动初始化新增的数据子模块。
 
 ```bash
 git clone --recurse-submodules https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap.git

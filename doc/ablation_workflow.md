@@ -43,6 +43,19 @@ tail -f outputs/launch_logs/ablation.log
 
 两个启动方式选一种。默认 `all` 依次执行环境安装、32 项短测试、554 项正式任务和报告生成。短测试失败时停止，不启动正式实验。已有正式任务失败时继续执行其他独立任务，最后生成含失败清单的报告并以非零状态退出。
 
+### 下载中断后重试
+
+主仓库克隆时出现 `early EOF` 或 `unexpected disconnect`，可以从原先执行克隆的父目录分两次取回本轮预测需要的文件。第一步选取训练代码与环境配置，第二步取回含三个数据集的固定上游版本。下面的命令使用新目录 `DSC6013-forecast`。
+
+```bash
+git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --sparse --branch main https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap.git DSC6013-forecast &&
+cd DSC6013-forecast &&
+git -c http.version=HTTP/1.1 sparse-checkout set scripts environment patches tests vendor docs &&
+git -c http.version=HTTP/1.1 submodule update --init --depth 1 -- vendor/upstream
+```
+
+最后一行成功时会显示子模块已检出 `b9f29dbe48bd2204e5ce7edcdbbfd55f031d30a9`。如果这一行中断，在 `DSC6013-forecast` 中重新执行该行即可。接着执行本页的 `--forecast-only` 命令。日后需要复评已有权重或编辑 Word 报告时，在同一目录执行 `git sparse-checkout disable` 即可补齐当前版本的其他文件。[Git 按需克隆说明](https://git-scm.com/docs/git-clone)
+
 ## 环境与设备
 
 - 默认创建独立环境 `.conda/delelstm-ablation`，无需 `conda activate`，也不复用 SuperMimic 的环境。
