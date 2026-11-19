@@ -20,6 +20,12 @@ button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .slide { position: absolute; inset: 0; padding: 88px 124px 72px; display: none; flex-direction: column; }
 .slide.active { display: flex; }
 .school-logo { position: absolute; top: 23px; right: 124px; width: 176px; height: auto; }
+.slide.cover, .slide.thanks {
+  background: var(--accent); color: #fff;
+  --muted: #fff; --line: rgb(255 255 255 / 50%);
+}
+.cover .kicker strong, .cover .accent, .thanks .accent { color: inherit; }
+.cover .school-logo, .thanks .school-logo { background: #fff; outline: 10px solid #fff; }
 h1, h2, p, figure { margin: 0; }
 .kicker { padding-right: 204px; font-size: 23px; font-weight: 600; color: var(--muted); letter-spacing: .085em; text-transform: uppercase; }
 .kicker strong { color: var(--accent); }
