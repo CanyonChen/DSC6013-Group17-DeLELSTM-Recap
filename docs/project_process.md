@@ -43,7 +43,9 @@ Electricity、PM2.5 每个窗口输出 22 个预测位置，Exchange 输出 28 �
 
 ## 下一步
 
-小组可以用 Word 表 3 和逐折汇总撰写汇报，把“按未来时段检验泛化、消除时间泄漏”作为已验证的贡献。如果继续研究两项 PM2.5 失败，先保留服务器 `outputs/h100_gpu1_delelstm45/jobs/` 中两个原始 `attempt_001` 的 `run.log`、`failure_location.json`、`failed_batch.npz` 和 `failed_model.pt`，再按原种子定位首次非有限运算。若要检验修复本身能否降低 RMSE，后续对照需固定同一未来测试段、目标掩码和种子。复跑入口与数据获取方式见[服务器运行说明](../doc/ablation_workflow.md#在服务器运行)。
+课堂汇报已整理为 9 页英文投影片，附逐页中文讲解提示。第 5–7 页依次展示泄漏证据、时间划分和九组未来时段成绩。[离线投影片](../doc/pre/deck.html) · [讲解提示](../doc/pre/说明.md)
+
+如果继续研究两项 PM2.5 失败，先保留服务器 `outputs/h100_gpu1_delelstm45/jobs/` 中两个原始 `attempt_001` 的 `run.log`、`failure_location.json`、`failed_batch.npz` 和 `failed_model.pt`，再按原种子定位首次非有限运算。若要检验修复本身能否降低 RMSE，后续对照需固定同一未来测试段、目标掩码和种子。复跑入口与数据获取方式见[服务器运行说明](../doc/ablation_workflow.md#在服务器运行)。
 
 ## 报告中已有的结果
 
