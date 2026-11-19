@@ -57,7 +57,7 @@ Electricity、PM2.5 每个窗口输出 22 个预测位置，Exchange 输出 28 �
 | PM2.5 | 26.3124 ± 0.4471 | 25.6103 ± 0.4114 | 160 / 184 | RETAIN（24.9538） |
 | Exchange | 0.002293 ± 0.000069 | 0.002273 ± 0.000060 | 640 / 757 | DeLELSTM |
 
-- **图 3 的完整测试重评估已完成。** 加载 15 个 DeLELSTM 权重逐个复算，原保留窗口上的 RMSE 均在附录 B 的容差内。补回尾批后，Electricity 有 4/5 次误差下降、1/5 次上升，另两组各 5/5 次下降。模型仍沿用原验证集选出的权重。[15 组配对明细](../results/figures/audit_full_test_five_runs.csv) · [五次训练权重](../outputs/five_run/)
+- **图 3 的完整测试重评估已完成。** 加载 15 个 DeLELSTM 权重逐个复算，原保留窗口上的 RMSE 与归档值之差均在复算脚本设定的容差内。补回尾批后，Electricity 有 4/5 次误差下降、1/5 次上升，另两组各 5/5 次下降。模型仍沿用原验证集选出的权重。[复算脚本](../scripts/reproduce_paper_figures.py) · [15 组配对明细](../results/figures/audit_full_test_five_runs.csv) · [五次训练权重](../outputs/five_run/)
 - **图 2 的 PM2.5 解释曲线已完成。** 从五份测试解释系数重算了 5 × 22 个位置值。目标变量首位置的平均瞬时占比为 0.603 ± 0.183，末位置为 0.023 ± 0.022，五次均为末值低于首值。横轴表示窗口内的输出位置，系数已在每次运行的保留测试窗口上取平均。[110 个位置明细](../results/figures/pm25_instantaneous_share_five_runs.csv) · [复算和绘图脚本](../scripts/reproduce_paper_figures.py)
 - **原协议的局限已有定量记录。** Exchange 的 757 个随机测试窗口全部与训练窗口共享原始时点，其中 713 个与相差一天的训练窗口重叠。PM2.5 另有一次种子 555 的早期训练在第 85 轮出现 NaN，原因待查。五次成功结果使用种子 556–560。[窗口重叠记录](../results/audits/exchange_overlap.txt) · [失败日志](../results/audits/pm_seed555_nan.txt)
 
@@ -81,7 +81,7 @@ Electricity、PM2.5 每个窗口输出 22 个预测位置，Exchange 输出 28 �
 
 **小组协作资料**
 
-- [x] 仓库首页与结果索引指向可共同编辑的 Word 稿。共享稿保留六位组员署名、报告正文和小组编写的附录程序。含学号的课程提交稿在本地 `doc/6013_Paper.docx`。报告图 1–3 的原图、逐次数据及复算脚本均已归档。[共享稿](../doc/6013_Paper_public.docx) · [图表与明细](../results/figures/) · [结果索引](../results/README.md)
+- [x] 仓库首页与结果索引指向六位组员共同署名的 Word 稿。2026-11-19，协作稿与课程提交稿的附录 B 均改为小组 GitHub 仓库链接。含学号的课程提交稿在本地 `doc/6013_Paper.docx`。报告图 1–3 的原图、逐次数据及复算脚本均已归档。[共享稿](../doc/6013_Paper_public.docx) · [图表与明细](../results/figures/) · [结果索引](../results/README.md)
 - [x] 固定上游模型和输入数据已接入小组 Git 仓库。服务器准备时校验 6 个核心源码文件和 9 份 CSV，含 PM2.5 的原始小时观测。[固定版本](../vendor/upstream) · [校验清单](../patches/upstream.json)
 - [x] 2026-11-18 从 GitHub 递归克隆新副本，取得 9 份 CSV 和 75 个历史训练权重。在该副本用 Windows CPU 和现有 Python 环境运行服务器入口，三个数据集、五种模型的 15 项一轮测试全部成功。重新生成的九折核查表与仓库版本逐字节一致，正式计划显示 225 次训练。明细表的 `github_recursive_clone` 行记录了这次试跑。[验证过的代码版本](https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap/commit/c9d92f5aa1781e308ce7a31ea972b4d436665c6b) · [短测试明细](../results/audits/temporal_smoke.csv)
 - [x] Word 参考文献第 2 条已按出版社记录修订为 ICML 2019，PMLR 97，第 2494–2504 页。[出版社记录](https://proceedings.mlr.press/v97/guo19b.html)
