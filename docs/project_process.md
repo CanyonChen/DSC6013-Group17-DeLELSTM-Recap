@@ -82,7 +82,7 @@ Electricity、PM2.5 每个窗口输出 22 个预测位置，Exchange 输出 28 �
 **小组协作资料**
 
 - [x] 仓库首页与结果索引指向六位组员共同署名的 Word 稿。2026-11-19，协作稿与课程提交稿的附录 B 均改为小组 GitHub 仓库链接。含学号的课程提交稿在本地 `doc/6013_Paper.docx`。报告图 1–3 的原图、逐次数据及复算脚本均已归档。[共享稿](../doc/6013_Paper_public.docx) · [图表与明细](../results/figures/) · [结果索引](../results/README.md)
-- [x] 2026-11-19，重画 3 张数据图并重排正文 4 张、附录 A 3 张可编辑表格。75 个单次 RMSE、110 个 PM2.5 位置值和 15 组同权重配对均可查到原始明细。表 3 单列成功种子数，表 4 分列单窗口 P50 和 P95。共享稿及课程提交稿使用相同图表。[图与原始数据](../results/README.md#当前报告的三幅图) · [绘图入口](../scripts/reproduce_paper_figures.py)
+- [x] 2026-11-19，重画 3 张数据图。两份 Word 稿的正文 4 张表和附录 A 3 张表均采用黑白三线表，顶线和底线为 1.5 磅，表头下线为 0.75 磅。75 个单次 RMSE、110 个 PM2.5 位置值和 15 组同权重配对均可查到原始明细。表 3 单列成功种子数，表 4 分列单窗口 P50 和 P95。[图与原始数据](../results/README.md#当前报告的三幅图) · [绘图入口](../scripts/reproduce_paper_figures.py)
 - [x] 固定上游模型和输入数据已接入小组 Git 仓库。服务器准备时校验 6 个核心源码文件和 9 份 CSV，含 PM2.5 的原始小时观测。[固定版本](../vendor/upstream) · [校验清单](../patches/upstream.json)
 - [x] 2026-11-18 从 GitHub 递归克隆新副本，取得 9 份 CSV 和 75 个历史训练权重。在该副本用 Windows CPU 和现有 Python 环境运行服务器入口，三个数据集、五种模型的 15 项一轮测试全部成功。重新生成的九折核查表与仓库版本逐字节一致，正式计划显示 225 次训练。明细表的 `github_recursive_clone` 行记录了这次试跑。[验证过的代码版本](https://github.com/CanyonChen/DSC6013-Group17-DeLELSTM-Recap/commit/c9d92f5aa1781e308ce7a31ea972b4d436665c6b) · [短测试明细](../results/audits/temporal_smoke.csv)
 - [x] Word 参考文献第 2 条已按出版社记录修订为 ICML 2019，PMLR 97，第 2494–2504 页。[出版社记录](https://proceedings.mlr.press/v97/guo19b.html)
