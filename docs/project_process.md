@@ -43,7 +43,7 @@ Electricity、PM2.5 每个窗口输出 22 个预测位置，Exchange 输出 28 �
 
 ## 下一步
 
-课堂汇报围绕 Exchange 的随机测试成绩和未来时段误差展开。第 2 页画出双分支架构与最小二乘重建，第 6 页展示小组从窗口处理、训练集归一化到验证选模和测试评分的流程。第 1–9 页主讲共 7 分钟，第 10–11 页供模型解释和 H100 推理测速答疑，第 12 页致谢。PDF 与离线 HTML 页序一致。[离线投影片](../doc/pre/deck.html) · [PDF](../doc/pre/pre6013.pdf) · [英文计时讲稿](../doc/pre/七分钟讲稿.md) · [中文讲解提示](../doc/pre/说明.md)
+课堂汇报从预测下一次新加坡汇率讲起，依次展示原论文基准的复现、随机测试窗口的日期重叠，以及三个后续时段的预测结果。正文与演示共用同一组实验记录。[课程报告](report/DeLELSTM_Report/DeLELSTM_Report.pdf) · [离线投影片](pre/deck.html) · [演示 PDF](pre/pre6013.pdf) · [英文计时讲稿](pre/七分钟讲稿.md) · [中文讲解提示](pre/说明.md)
 
 如果继续研究两项 PM2.5 失败，先保留服务器 `outputs/h100_gpu1_delelstm45/jobs/` 中两个原始 `attempt_001` 的 `run.log`、`failure_location.json`、`failed_batch.npz` 和 `failed_model.pt`，再按原种子定位首次非有限运算。若要检验修复本身能否降低 RMSE，后续对照需固定同一未来测试段、目标掩码和种子。复跑入口与数据获取方式见[服务器运行说明](../doc/ablation_workflow.md#在服务器运行)。
 

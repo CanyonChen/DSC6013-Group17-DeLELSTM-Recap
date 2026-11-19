@@ -1,9 +1,11 @@
 # DeLELSTM Replication and Audit
 
-DS6013 课程项目：复现 IJCAI 2023 的 **DeLELSTM**，比较其在 Electricity、PM2.5 和 Exchange 数据集上的预测结果，并核查数据处理、测试评估与解释系数。
+DSC6013 课程项目：复现 IJCAI 2023 的 **DeLELSTM**，比较其在 Electricity、PM2.5 和 Exchange 数据集上的预测结果，并核查数据处理、测试评估与解释系数。
 
 已完成 **3 个数据集 × 5 个模型 × 5 次训练，共 75 次训练**。本仓库提供实验调度脚本、相对于上游的修改补丁、课程报告，以及可重新汇总的原始指标。
 
+- [课程报告 PDF](docs/report/DeLELSTM_Report/DeLELSTM_Report.pdf) · [LaTeX 源文件](docs/report/DeLELSTM_Report/main.tex)
+- [课堂演示 HTML](docs/pre/deck.html) · [演示 PDF](docs/pre/pre6013.pdf) · [七分钟讲稿](docs/pre/七分钟讲稿.md)
 - [小组协作版 Word 报告](doc/6013_Paper_public.docx)
 - [项目进度与服务器下一步](docs/project_process.md)
 - [实验结果与证据索引](results/README.md)
@@ -158,7 +160,7 @@ python scripts/audit_full_test.py Exchange
 
 原实现使用全数据 min–max 归一化和随机窗口划分；Exchange 滚动窗口之间有重叠，验证/测试还使用 `drop_last=True`。这些设置影响结果解读，不能将随机测试结果等同于未来时段预测表现。
 
-当前报告图 2 使用五次 PM2.5 训练各自保存的平均解释系数，图 3 使用 15 个固定检查点的配对重评估。这两图属于原随机划分。表 3 报告修正后的未来时段预测。两种协议评分的测试窗口不同，跨协议的误差差异只能描述趋势。Top-50% 的正式多种子比较仍属可选实验。[图表与数据](results/figures/) · [当前课程报告](doc/6013_Paper_public.docx)
+当前报告图 2 使用五次 PM2.5 训练各自保存的平均解释系数，图 3 使用 15 个固定检查点的配对重评估。这两图属于原随机划分。表 3 报告修正后的未来时段预测。两种协议评分的测试窗口不同，跨协议的误差差异只能描述趋势。Top-50% 的正式多种子比较仍属可选实验。[图表与数据](results/figures/) · [当前课程报告](docs/report/DeLELSTM_Report/DeLELSTM_Report.pdf)
 
 ## 获取和更新项目
 

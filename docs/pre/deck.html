@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Testing DeLELSTM on future periods · Group 17</title>
+<title>From Random Windows to Future Forecasts · DeLELSTM · DSC6013 Group 17</title>
 <style>
 :root {
   --bg: #f5f5f7; --ink: #1d1d1f; --muted: #555d61; --line: #d5dada;
-  --accent: #bf165e; --paper: #fff;
+  --accent: #bf165e; --tint: #faedf3; --paper: #fff;
   --font: "Inter", "PingFang SC", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
 }
 * { box-sizing: border-box; }
@@ -17,37 +17,53 @@ button { font: inherit; }
 button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 #stage { position: absolute; top: 50%; left: 50%; width: 1920px; height: 1080px;
   transform: translate(-50%, -50%) scale(1); transform-origin: center; background: var(--bg); }
-.slide { position: absolute; inset: 0; padding: 88px 124px 72px; display: none; flex-direction: column; }
+.slide { position: absolute; inset: 0; padding: 78px 110px 64px; display: none; flex-direction: column; }
 .slide.active { display: flex; }
-.school-logo { position: absolute; top: 23px; right: 124px; width: 176px; height: auto; }
+.school-logo { position: absolute; top: 23px; right: 110px; width: 165px; height: auto; }
 .slide.cover, .slide.thanks {
   background: var(--accent); color: #fff;
   --muted: #fff; --line: rgb(255 255 255 / 50%);
 }
 .cover .kicker strong { color: inherit; }
 h1, h2, p, figure { margin: 0; }
-.kicker { padding-right: 204px; font-size: 23px; font-weight: 600; color: var(--muted); letter-spacing: .085em; text-transform: uppercase; }
+.kicker { padding-right: 204px; font-size: 23px; font-weight: 600; color: var(--muted); letter-spacing: .09em; text-transform: uppercase; }
 .kicker strong { color: var(--accent); }
-h1 { font-size: 70px; font-weight: 600; line-height: 1.11; letter-spacing: -.045em; margin-top: 23px; }
-.sub { margin-top: 18px; font-size: 33px; line-height: 1.36; color: var(--muted); }
+.kicker .source { text-transform: none; font-weight: 400; letter-spacing: 0; margin-left: 20px; padding-left: 20px; border-left: 1px solid #b7b8bc; }
+h1 { font-size: 76px; font-weight: 600; line-height: 1.08; letter-spacing: -.045em; margin-top: 23px; }
+.sub { margin-top: 16px; font-size: 32px; line-height: 1.30; color: var(--muted); }
 .accent { color: var(--accent); }
-.paper { background: var(--paper); border-radius: 26px; box-shadow: 0 8px 34px rgb(29 48 51 / 5%); }
+.paper { background: var(--paper); border-radius: 27px; border: 1px solid #e6e6e9; }
 .fig.card { flex: 1 1 0; min-height: 0; align-self: stretch; position: relative; margin: 29px 0 19px; }
 .fig img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 20px; object-fit: contain; }
 .figure-note { font-size: 29px; line-height: 1.34; color: var(--muted); }
 .figure-note strong { color: var(--ink); font-weight: 600; }
+.benchmark-pairs { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.benchmark-pairs caption { text-align: left; font-size: 27px; color: var(--muted); padding-bottom: 9px; }
+.benchmark-pairs caption strong { color: var(--accent); }
+.benchmark-pairs th, .benchmark-pairs td { text-align: left; padding: 10px 24px; white-space: nowrap; }
+.benchmark-pairs tr { border-top: 1px solid var(--line); }
+.benchmark-pairs thead th { font-size: 24px; color: var(--muted); font-weight: 500; }
+.benchmark-pairs tbody th { font-size: 26px; color: var(--ink); font-weight: 500; }
+.benchmark-pairs td { font-size: 32px; }
+.benchmark-pairs th:first-child { padding-left: 0; }
+.benchmark-pairs .original { color: var(--muted); }
+.benchmark-pairs .arrow { font-size: .8em; color: var(--muted); margin: 0 .18em; }
 .fine { font-size: 25px; line-height: 1.4; color: var(--muted); }
 .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap; border: 0; }
-.cover-main { flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
-.cover h1 { font-size: 144px; line-height: .99; letter-spacing: -.06em; margin-top: 0; }
-.cover .intro { margin-top: 40px; max-width: 1460px; font-size: 40px; color: var(--muted); line-height: 1.3; }
+.cover-main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 465px; gap: 38px; align-items: center; }
+.cover h1 { font-size: 115px; line-height: 1.02; letter-spacing: -.061em; margin: 0; }
+.cover h1 span { display: block; }
+.cover .intro { margin-top: 34px; font-size: 39px; line-height: 1.3; }
+.cover .course { font-size: 26px; letter-spacing: .055em; font-weight: 550; }
+.cover-forecast { margin: 10px 0 0; padding: 24px 0 20px 30px; border-left: 1px solid var(--line); }
+.cover-forecast svg { display: block; width: 100%; height: auto; }
 .authors { border-top: 1px solid var(--line); padding-top: 23px; font-size: 26px; line-height: 1.4; color: var(--muted); }
-.audit-grid { flex: 1; display: grid; grid-template-columns: 1.08fr .92fr; gap: 32px; align-content: center; }
-.audit-card { padding: 44px 48px 42px; min-height: 569px; }
-.audit-card h2, .speed-chart h2 { font-size: 33px; font-weight: 600; letter-spacing: -.025em; }
+.audit-grid { flex: 1; display: grid; grid-template-columns: 1.08fr .92fr; gap: 30px; align-content: center; }
+.audit-card { padding: 44px 48px 42px; min-height: 555px; }
+.audit-card h2 { font-size: 33px; font-weight: 600; letter-spacing: -.025em; }
 .big-number { font-size: 111px; line-height: 1.06; font-weight: 600; letter-spacing: -.065em; color: var(--accent); }
-.audit-card .big-number { margin: 26px 0 10px; }
+.audit-card .big-number { margin: 28px 0 12px; }
 .audit-card p { color: var(--muted); font-size: 31px; line-height: 1.35; }
 .window-example { width: 100%; height: auto; margin-top: 22px; display: block; }
 .diagram-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
@@ -66,19 +82,16 @@ h1 { font-size: 70px; font-weight: 600; line-height: 1.11; letter-spacing: -.045
 .sv .detail.math-label { font-size: 24px; }
 .sv .accent-text { fill: var(--accent); }
 .sv .group-label { font-size: 21px; font-weight: 600; fill: var(--muted); letter-spacing: .05em; }
-.equation { display: flex; align-items: baseline; gap: 28px; font-size: 29px; color: var(--muted); }
-.equation strong { font-family: Cambria, "Times New Roman", serif; font-weight: 400; font-size: 36px; color: var(--ink); }
-.equation sub { font-size: .61em; }
-.range { margin-top: 31px; }
-.range + .range { border-top: 1px solid var(--line); padding-top: 25px; margin-top: 23px; }
-.range dt { margin: 0 0 5px; font-size: 29px; color: var(--muted); }
-.range dd { margin: 0; font-size: 77px; line-height: 1.05; font-weight: 600; letter-spacing: -.05em; }
+.range { margin: 27px 0 0; }
+.range dt { font-size: 27px; color: var(--muted); }
+.range dd { display: flex; align-items: baseline; margin: 6px 0 0; font-size: 65px; font-weight: 550; letter-spacing: -.04em; }
+.range + .range { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 23px; }
 .fold-panel { margin: 31px 0 23px; padding: 34px 42px 31px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-.fold-caption { font-size: 26px; color: var(--muted); margin-bottom: 26px; }
+.fold-caption { font-size: 26px; color: var(--muted); margin-bottom: 22px; }
 .fold-row { display: grid; grid-template-columns: 154px 1fr; gap: 18px; align-items: center; margin: 10px 0; }
 .fold-label { font-size: 31px; font-weight: 600; }
 .fold-track { width: 100%; display: flex; align-items: stretch; }
-.fold-track span { height: 66px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 600; white-space: nowrap; }
+.fold-track span { height: 66px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 600; white-space: nowrap; }
 .train-block { background: #e2e7e7; color: var(--ink); }
 .val-block { width: 15%; border: 2px dashed #717b80; background: #fff; }
 .test-block { width: 10%; background: var(--accent); color: #fff; }
@@ -89,39 +102,32 @@ h1 { font-size: 70px; font-weight: 600; line-height: 1.11; letter-spacing: -.045
 .protocol-notes { display: grid; grid-template-columns: 1fr 1fr; column-gap: 45px; }
 .protocol-notes p { font-size: 28px; line-height: 1.36; color: var(--muted); }
 .protocol-notes strong { color: var(--ink); }
-.table-panel { flex: 1; margin: 33px 0 21px; padding: 40px 51px; display: flex; flex-direction: column; justify-content: center; }
+.table-panel { flex: 1; margin: 25px 0 15px; padding: 25px 45px; display: flex; flex-direction: column; justify-content: center; }
 .table-panel table { width: 100%; border-collapse: collapse; border-top: 4px solid #171717;
-  border-bottom: 4px solid #171717; color: #171717; font-variant-numeric: tabular-nums; }
-.table-panel th, .table-panel td { text-align: right; padding: 25px 18px; background: #fff; }
+  border-bottom: 3px solid #171717; color: #171717; font-variant-numeric: tabular-nums; }
+.table-panel th, .table-panel td { text-align: right; padding: 21px 18px; background: #fff; }
 .table-panel thead { border-bottom: 2px solid #171717; }
-.table-panel thead th { font-size: 30px; font-weight: 600; }
-.table-panel tbody td, .table-panel tbody th { font-weight: 400; font-size: 43px; }
+.table-panel thead th { font-size: 29px; font-weight: 600; }
+.table-panel thead .periods { text-align: center; color: var(--accent); border-bottom: 1px solid #e1c1d0; padding: 12px 8px; }
+.table-panel thead .period { padding-block: 15px; font-size: 26px; color: var(--muted); }
+.table-panel tbody td, .table-panel tbody th { font-weight: 450; font-size: 42px; }
+.table-panel tbody tr + tr { border-top: 1px solid var(--line); }
 .table-panel th:first-child { text-align: left; }
+.table-panel .ref { background: #f3f3f5; border-left: 1px solid #e1e1e4; border-right: 1px solid #e1e1e4; }
+.table-panel th small { display: block; font-size: 23px; font-weight: 400; margin-top: 4px; color: var(--muted); }
+.table-panel .period:first-child { text-align: right; }
 .table-panel sup { font-size: .52em; vertical-align: super; }
-.table-panel .fine { margin-top: 23px; }
-.speed-panel { flex: 1; display: grid; grid-template-columns: .77fr 1.23fr; gap: 54px; align-items: center; }
-.speed-stat .big-number { font-size: 130px; }
-.speed-stat .ms { font-size: .44em; margin-left: 10px; letter-spacing: -.04em; }
-.speed-stat h2 { font-size: 37px; line-height: 1.25; margin: 14px 0; font-weight: 500; }
-.speed-chart { padding: 39px 42px 36px; }
-.chart-caption { font-size: 25px; color: var(--muted); margin: 8px 0 31px; }
-.bar-row, .bar-axis { display: grid; grid-template-columns: 152px 1fr 94px; gap: 20px; align-items: center; }
-.bar-row { margin: 24px 0; }
-.ds { font-size: 27px; font-weight: 600; line-height: 1.2; }
-.ds small { display: block; font-size: 21px; color: var(--muted); font-weight: 400; margin-top: 4px; }
-.bar-track { height: 29px; border-left: 2px solid #818c8c; }
-.bar-track span { height: 100%; background: var(--accent); display: block; }
-.bar-value { text-align: right; font-size: 31px; font-variant-numeric: tabular-nums; }
-.bar-axis .axis { display: flex; justify-content: space-between; padding-top: 8px; border-top: 1px solid #9ca5a7; }
-.bar-axis span { font-size: 20px; color: var(--muted); }
+.table-panel .fine { margin-top: 15px; }
 .ending { justify-content: space-between; }
-.closing-main h1 { font-size: 103px; line-height: 1.03; max-width: 1520px; }
-.closing-main p { max-width: 1370px; font-size: 39px; line-height: 1.33; color: var(--muted); margin-top: 30px; }
-.thanks { align-items: center; justify-content: center; padding-block: 72px; text-align: center; }
-.thanks h1 { margin: 0; font-size: 130px; line-height: 1.06; letter-spacing: -.055em; }
-.next-test { border-top: 2px solid var(--line); padding-top: 24px; display: flex; align-items: baseline; gap: 48px; }
-.next-test h2 { white-space: nowrap; color: var(--accent); font-size: 29px; }
-.next-test p { font-size: 30px; line-height: 1.36; }
+.closing-main h1 { margin: 0; max-width: 1650px; font-size: 102px; line-height: 1.02; }
+.closing-main h1 span { display: block; color: var(--accent); }
+.closing-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 55px; margin-top: 57px; }
+.closing-columns article { border-top: 2px solid var(--line); padding-top: 22px; }
+.closing-columns h2 { font-size: 34px; letter-spacing: -.025em; }
+.closing-columns p { color: var(--muted); margin-top: 10px; font-size: 31px; line-height: 1.38; max-width: 720px; }
+.thanks { justify-content: center; }
+.thanks h1 { margin: 0; font-size: 150px; line-height: 1; letter-spacing: -.06em; }
+.thanks p { margin-top: 34px; font-size: 33px; }
 #controls { position: fixed; z-index: 5; left: 7px; top: 7px; display: flex; gap: 3px; padding: 4px;
   border-radius: 9px; background: white; box-shadow: 0 2px 10px #0002; opacity: 0; transition: opacity .15s; }
 #controls:hover, #controls:focus-within, #controls.open { opacity: 1; }
@@ -165,101 +171,104 @@ h1 { font-size: 70px; font-weight: 600; line-height: 1.11; letter-spacing: -.045
   </defs>
 </svg>
 
-<section class="slide cover active" data-sec="Research question" data-title="Can the random score carry over?">
+<section class="slide cover active" data-sec="Forecasting task" data-title="From Random Windows to Future Forecasts">
   <img class="school-logo" src="CityUHK_Logo_2.png" alt="City University of Hong Kong">
-  <div class="kicker"><strong>DS6013</strong> · Group 17</div>
+  <div class="course">DSC6013 · Group 17 · Option A</div>
   <div class="cover-main">
-    <h1>Testing DeLELSTM<br>on future periods</h1>
-    <p class="intro">Does a low exchange-rate error on a random split carry over to later dates?</p>
+    <div>
+      <h1><span>From Random Windows</span><span>to Future Forecasts</span></h1>
+      <p class="intro">A replication of DeLELSTM on three forecasting benchmarks</p>
+    </div>
+    <figure class="cover-forecast" aria-label="At the forecast cutoff, past observations are known and the next observation is the prediction target.">
+      <svg viewBox="0 0 435 270" role="img" aria-labelledby="cover-chart-title" fill="none">
+        <title id="cover-chart-title">One-step-ahead forecasting</title>
+        <g fill="white" font-family="Helvetica Neue, Arial, sans-serif">
+          <text x="8" y="38" font-size="28" font-weight="600">One step ahead</text>
+          <text x="8" y="238" font-size="25">Observed</text><text x="310" y="238" font-size="25">Forecast</text>
+        </g>
+        <path d="M19 156H244" stroke="white" stroke-width="3"/>
+        <path d="M244 156H370" stroke="white" stroke-width="3" stroke-dasharray="7 8"/>
+        <g fill="white"><circle cx="20" cy="156" r="8"/><circle cx="76" cy="156" r="8"/><circle cx="132" cy="156" r="8"/><circle cx="188" cy="156" r="8"/><circle cx="244" cy="156" r="8"/></g>
+        <path d="M280 95V195" stroke="white" stroke-width="2" stroke-dasharray="4 7"/>
+        <circle cx="371" cy="156" r="13" stroke="white" stroke-width="3"/>
+      </svg>
+    </figure>
   </div>
   <footer class="authors">CHEN Canyang · DONG Zhangyan · GUAN Wenxi · XING Zhixuan · XU Rufei · ZHUANG Erdong</footer>
 </section>
 
-<section class="slide" data-sec="Research question" data-title="How DeLELSTM makes a forecast">
+<section class="slide" data-sec="Forecasting task" data-title="How DeLELSTM predicts the next rate">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Model architecture · Released implementation · Paper Section 2</div>
-  <h1>DeLELSTM forecasts from its reconstructed state</h1>
-  <p class="sub">Exchange example · 8 input rates, a 32 × 16 design matrix and 16 fitted coefficients per prediction step.</p>
+  <div class="kicker">Model architecture <span class="source">Report §2</span></div>
+  <h1>Two hidden states, one exchange-rate forecast</h1>
+  <p class="sub">Eight rates enter at each step. The model weights each currency’s history and its latest change to predict the next Singapore rate.</p>
   <figure class="diagbox pad paper">
-    <svg class="sv" viewBox="0 0 1600 475" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="arch-title arch-desc">
-      <title id="arch-title">The DeLELSTM forward pass for one Exchange prediction</title>
-      <desc id="arch-desc">A standard LSTM produces a provisional shared state H at step t, the target of the least-squares fit. A tensorized LSTM provides eight independent currency states. The cached previous states and their current changes form the two blocks of a 32-by-16 design matrix A. The solver fits a separate vector w for this sample and time step. The model returns those coefficients and computes the reconstructed state as A times w. This reconstructed state alone feeds the affine readout and is the next standard-LSTM hidden input. Both branches carry their own cell states.</desc>
+    <svg class="sv" viewBox="0 0 1600 410" role="img" aria-labelledby="arch-title arch-desc">
+      <title id="arch-title">How an Exchange forecast uses history and change</title>
+      <desc id="arch-desc">Eight input rates enter two branches. The standard LSTM gives the shared state H. The tensorized LSTM gives eight prior states and eight changes, forming the columns of A. Least squares fits H on A and returns sixteen coefficients. The reconstructed state goes to the readout and back to the standard branch.</desc>
       <g class="wire" marker-end="url(#flow-arrow)">
-        <path d="M200 254 H229 V147 H262"/><path d="M229 254 V365 H262"/>
-        <path d="M542 147 H943"/><path d="M542 365 H586"/>
-        <path d="M885 319 H913 V181 H943"/><path d="M885 416 H1250 V186 H1284"/>
-        <path d="M1195 147 H1284"/><path d="M1069 222 V272"/>
-        <path d="M1437 215 V311"/>
+        <path d="M215 203H240V135H272"/><path d="M240 203V286H272"/>
+        <path d="M642 135H742"/><path d="M642 286H742"/><path d="M1132 205H1233"/>
       </g>
-      <path class="return-wire" d="M1437 95 V46 H405 V88" marker-end="url(#return-arrow)"/>
-      <text class="detail accent-text" x="921" y="30">Ĥₜ is the standard branch’s hidden input at step t + 1</text>
-      <text class="detail" x="743" y="132">Hₜ is the fitting target</text>
-      <text class="detail" x="1239" y="132">wₜ</text>
-      <text class="detail" x="1070" y="401">Reuse the same basis Aₜ</text>
-
-      <rect class="node" x="10" y="199" width="190" height="111" rx="15"/>
-      <text class="label" x="105" y="244">Input xₜ</text><text class="detail" x="105" y="281">8 exchange rates</text>
-
-      <rect class="node" x="266" y="93" width="276" height="110" rx="15"/>
-      <text class="label" x="404" y="137">Standard LSTM</text>
-      <text class="detail" x="404" y="177">Shared Hₜ · 32 values</text>
-      <rect class="node" x="266" y="303" width="276" height="126" rx="15"/>
-      <text class="label" x="404" y="344">Tensorized LSTM</text>
-      <text class="detail" x="404" y="380">One state per currency</text><text class="detail" x="404" y="410">hₜ has 8 rows of 32</text>
-
-      <rect class="node" x="590" y="266" width="295" height="184" rx="15"/>
-      <text class="label" x="737" y="308">Design matrix Aₜ</text>
-      <text class="detail" x="737" y="348">8 prior-state columns</text><text class="detail" x="737" y="377">8 state-change columns</text>
-      <path d="M616 392 H859" stroke="#d6d6da" stroke-width="1.5"/>
-      <text class="detail math-label" x="737" y="425">Δhₜ = hₜ − hₜ₋₁</text>
-
-      <rect class="node" x="948" y="90" width="247" height="132" rx="15"/>
-      <text class="label" x="1071" y="132">Least squares</text>
-      <text class="detail" x="1071" y="170">Fit wₜ for this sample</text><text class="detail" x="1071" y="199">at this time step</text>
-      <rect class="node" x="948" y="277" width="247" height="87" rx="15"/>
-      <text class="detail" x="1071" y="312">Explanation weights</text><text class="detail math-label" x="1071" y="343">8 prior α, 8 change β</text>
-
-      <rect class="key-node" x="1289" y="96" width="297" height="119" rx="15"/>
-      <text class="state-label accent-text" x="1437" y="140">Reconstructed state</text><text class="math-label" x="1437" y="186">Ĥₜ = Aₜ wₜ</text>
-      <rect class="node" x="1289" y="316" width="297" height="119" rx="15"/>
-      <text class="label" x="1437" y="354">Affine readout</text><text class="math-label" x="1437" y="389">ŷₜ₊₁ = Ĥₜ Wₚ + bₚ</text>
-      <text class="detail" x="1437" y="419">Next Singapore rate</text>
+      <path class="return-wire" d="M938 106V53H460V79" marker-end="url(#return-arrow)"/>
+      <text class="detail accent-text" x="692" y="35">Reconstructed state at the next step</text>
+      <rect class="node" x="8" y="151" width="207" height="104" rx="15"/>
+      <text class="label" x="112" y="197">Input xₜ</text><text class="detail" x="112" y="231">8 exchange rates</text>
+      <rect class="node" x="277" y="84" width="365" height="103" rx="15"/>
+      <text class="label" x="460" y="127">Standard LSTM</text><text class="detail" x="460" y="165">Shared state Hₜ · fit target</text>
+      <rect class="node" x="277" y="230" width="365" height="119" rx="15"/>
+      <text class="label" x="460" y="276">Tensorized LSTM</text><text class="detail" x="460" y="314">8 prior states + 8 changes</text>
+      <text class="detail" x="691" y="268">Aₜ</text>
+      <rect class="key-node" x="748" y="108" width="384" height="198" rx="17"/>
+      <text class="label accent-text" x="940" y="161">Least squares</text>
+      <text class="detail" x="940" y="204">Fit 16 coefficients wₜ</text>
+      <path d="M794 225H1084" stroke="#d6bac7" stroke-width="1.5"/>
+      <text class="math-label" x="940" y="271">Ĥₜ = Aₜ wₜ ≈ Hₜ</text>
+      <rect class="node" x="1239" y="153" width="350" height="105" rx="15"/>
+      <text class="label" x="1414" y="197">Linear readout</text>
+      <text class="detail" x="1414" y="234">Next Singapore rate</text>
+      <text class="detail" x="460" y="382">One hidden state per currency</text>
+      <text class="detail" x="940" y="354">8 history weights, 8 change weights</text>
     </svg>
   </figure>
-  <p class="equation">Least-squares objective <strong>w<sub>t</sub> ∈ arg min<sub>w</sub> ‖H<sub>t</sub> − A<sub>t</sub>w‖²</strong><span>over 32 hidden coordinates</span></p>
+  <p class="figure-note"><strong>PM2.5 example.</strong> Its mean instantaneous share fell from <strong>60.3%</strong> at the first output to <strong>2.3%</strong> at the last across five runs.</p>
 </section>
 
-<section class="slide" data-sec="Historical benchmark" data-title="Reproducing the model ranking">
+<section class="slide" data-sec="Benchmark replication" data-title="Which benchmark winners matched?">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Fixed random split · Paper Figure 1</div>
-  <h1>DeLELSTM led on two of three datasets</h1>
-  <p class="sub">Five models and five training seeds on each dataset gave 75 runs. Lower test RMSE means a closer forecast.</p>
+  <div class="kicker">Fixed random split <span class="source">75 runs · Report Table 1 and Figure 1</span></div>
+  <h1>All three benchmark winners matched the paper</h1>
+  <p class="sub">DeLELSTM led on Electricity and Exchange by mean root mean squared error (RMSE). RETAIN led on PM2.5.</p>
   <figure class="fig card paper">
     <img src="media/figure_1_rmse_five_runs.png" alt="Individual test RMSE values and means for five models and three datasets. DeLELSTM ranks first on Electricity and Exchange. RETAIN ranks first on PM2.5. The Electricity axis is logarithmic and includes the 17.50 LSTM run.">
   </figure>
-  <p class="figure-note">DeLELSTM had the lowest mean RMSE on <strong>Electricity and Exchange</strong>. RETAIN led on PM2.5.</p>
+  <table class="benchmark-pairs">
+    <caption>DeLELSTM’s three mean RMSE values were <strong>within 1.2%</strong> of the published means.</caption>
+    <thead><tr><th scope="col">DeLELSTM mean RMSE</th><th scope="col">Electricity</th><th scope="col">PM2.5</th><th scope="col">Exchange</th></tr></thead>
+    <tbody><tr><th scope="row">Published → replicated</th><td><span class="original">1.7247</span> <span class="arrow">→</span> 1.7185</td><td><span class="original">26.612</span> <span class="arrow">→</span> 26.3124</td><td><span class="original">0.0023</span> <span class="arrow">→</span> 0.002293</td></tr></tbody>
+  </table>
 </section>
 
-<section class="slide" data-sec="Historical benchmark" data-title="Restoring the omitted test windows">
+<section class="slide" data-sec="Benchmark replication" data-title="A reference using every random test window">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Historical reference · Paper Figure 3</div>
-  <h1>117 Exchange test windows went unscored</h1>
-  <p class="sub">We kept all 15 DeLELSTM checkpoints fixed and restored the last partial test batch on each dataset.</p>
+  <div class="kicker">Scoring coverage <span class="source">15 fixed checkpoints · Report Figure 3</span></div>
+  <h1>Restoring the last batch lowered 14 of 15 scores</h1>
+  <p class="sub">Each line follows one DeLELSTM checkpoint from the retained windows to the complete test set.</p>
   <figure class="fig card paper">
     <img src="media/figure_3_test_windows_five_run.png" alt="Paired retained versus full test RMSE. Electricity uses 64 versus 92 windows, PM2.5 160 versus 184 and Exchange 640 versus 757. Fourteen pairs decrease and one Electricity pair increases.">
   </figure>
-  <p class="figure-note"><strong>14 of 15 RMSE values fell.</strong> We use the complete random test set as our historical reference.</p>
+  <p class="figure-note">The Exchange score originally covered <strong>640 of 757</strong> windows. The complete-set mean is our reference for each dataset.</p>
 </section>
 
-<section class="slide" data-sec="Auditing the dates" data-title="Where future information entered training">
+<section class="slide" data-sec="Auditing the dates" data-title="Which test observations reached training?">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Protocol audit · Paper Section 6.1</div>
-  <h1>Future information entered training in two ways</h1>
-  <p class="sub">The random split mixed dates. The scaler also used input values from outside the training set.</p>
+  <div class="kicker">Tracing the split <span class="source">Report §4</span></div>
+  <h1>Which test observations reached training?</h1>
+  <p class="sub">Two checks revealed where held-out observations entered the released evaluation.</p>
   <div class="audit-grid">
     <article class="audit-card paper">
       <h2>Exchange · overlapping dates</h2>
-      <div class="big-number">757 / 757</div>
+      <div class="big-number">757<span style="font-size:.58em; color:var(--muted)"> / 757</span></div>
       <p>test windows shared at least one day with training.</p>
       <svg class="window-example" viewBox="0 0 710 164" role="img" aria-labelledby="overlap-title overlap-desc">
         <title id="overlap-title">Two adjacent 30-day windows</title>
@@ -275,17 +284,21 @@ h1 { font-size: 70px; font-weight: 600; line-height: 1.11; letter-spacing: -.045
     </article>
     <article class="audit-card paper">
       <h2>PM2.5 · input scaling</h2>
-      <dl class="range"><dt>Range of training inputs</dt><dd>1–886</dd></dl>
-      <dl class="range"><dt>Range used to scale those windows</dt><dd class="accent">0–994</dd></dl>
+      <dl class="range"><dt>Training readings</dt><dd>1–886</dd></dl>
+      <dl class="range"><dt>Full series used for scaling</dt><dd class="accent">0–994</dd></dl>
+      <svg viewBox="0 0 680 51" width="100%" height="51" role="img" aria-label="The training range spans 885 units. The range used by the scaler spans 994.">
+        <path d="M3 14H605" stroke="#74767d" stroke-width="9" stroke-linecap="round"/>
+        <path d="M2 38H677" stroke="#bf165e" stroke-width="9" stroke-linecap="round"/>
+      </svg>
     </article>
   </div>
 </section>
 
-<section class="slide" data-sec="Auditing the dates" data-title="Our data and evaluation pipeline">
+<section class="slide" data-sec="Forecasting later periods" data-title="Training and testing in time order">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Our evaluation pipeline · Paper Sections 6.3–6.4</div>
-  <h1>Training data set the scale for every later forecast</h1>
-  <p class="sub">We ran the same five steps for each chronological fold.</p>
+  <div class="kicker">Forecasting later dates <span class="source">Report §5</span></div>
+  <h1>Fit on the past. Forecast the next period.</h1>
+  <p class="sub">Only the training period sets the input scale. Validation chooses a checkpoint before the test period begins.</p>
   <figure class="diagbox pad paper">
     <svg class="sv" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="pipeline-title pipeline-desc">
       <title id="pipeline-title">Data and evaluation pipeline for the corrected experiments</title>
@@ -315,95 +328,73 @@ h1 { font-size: 70px; font-weight: 600; line-height: 1.11; letter-spacing: -.045
       <text class="detail accent-text" x="1113" y="376">Reuse the training min/max on both later sets</text>
     </svg>
   </figure>
-  <p class="figure-note"><strong>PM2.5.</strong> Fill inputs from past readings. Mask missing targets during training, validation and testing.</p>
+  <p class="figure-note"><strong>PM2.5.</strong> We carried the last available reading forward for inputs and scored only observed targets.</p>
 </section>
 
-<section class="slide" data-sec="Auditing the dates" data-title="Checking the time boundaries">
+<section class="slide" data-sec="Forecasting later periods" data-title="Verifying all nine time splits">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Chronological evaluation · Paper Section 6.3</div>
-  <h1>Each of the nine splits had zero shared time points</h1>
-  <p class="sub">We checked the original time points in each training, validation and test set.</p>
+  <div class="kicker">Boundary checks <span class="source">Three folds per dataset · Report Table 2</span></div>
+  <h1>All nine splits kept the source dates separate</h1>
+  <p class="sub">Within each fold, training, validation and testing shared zero source time points.</p>
   <figure class="fold-panel paper" aria-label="Three expanding training folds per dataset">
-    <figcaption class="fold-caption">Three expanding training periods per dataset · shares of window starts before boundary exclusions</figcaption>
+    <figcaption class="fold-caption">Shares of ordered window starts before boundary exclusions</figcaption>
     <div class="fold-row"><span class="fold-label">Fold 1</span><div class="fold-track"><span class="train-block" style="width:55%">Train 55%</span><span class="val-block">Validate 15%</span><span class="test-block">Test 10%</span></div></div>
     <div class="fold-row"><span class="fold-label">Fold 2</span><div class="fold-track"><span class="train-block" style="width:65%">Train 65%</span><span class="val-block">Validate 15%</span><span class="test-block">Test 10%</span></div></div>
     <div class="fold-row"><span class="fold-label">Fold 3</span><div class="fold-track"><span class="train-block" style="width:75%">Train 75%</span><span class="val-block">Validate 15%</span><span class="test-block">Test 10%</span></div></div>
     <div class="time-axis"><span>Earlier</span><span>Later</span></div>
   </figure>
   <div class="protocol-notes">
-    <p><strong>Exchange.</strong> Dropping 29 starts separated the 30-day windows.</p>
+    <p><strong>Exchange.</strong> We removed 29 window starts at each boundary.</p>
     <p><strong>PM2.5.</strong> The final test scored 3,964 of 4,026 targets.</p>
   </div>
 </section>
 
-<section class="slide" data-sec="Future-period results" data-title="How the three datasets compared">
+<section class="slide" data-sec="Forecasting later periods" data-title="DeLELSTM on three successive periods">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">DeLELSTM on later dates · Paper Table 3</div>
-  <h1>Future forecast errors varied by dataset</h1>
-  <p class="sub">Mean test RMSE for DeLELSTM. <strong>43 of 45</strong> planned runs produced scores. Compare within each row.</p>
+  <div class="kicker">Later-period results <span class="source">DeLELSTM · Report Table 3 and Appendix B</span></div>
+  <h1>Forecast errors varied across later periods</h1>
+  <p class="sub">Compare the mean test RMSE within each row. Each dataset uses its own target scale.</p>
   <div class="table-panel paper">
     <table>
       <caption class="sr">Mean DeLELSTM test RMSE on the full historical random split and on three later test periods. Lower is better.</caption>
-      <thead><tr><th scope="col">Dataset</th><th scope="col">Full random test</th><th scope="col">Future period 1</th><th scope="col">Future period 2</th><th scope="col">Future period 3</th></tr></thead>
+      <thead>
+        <tr><th scope="col" rowspan="2">Dataset</th><th class="ref" scope="col" rowspan="2">Random test<small>All windows</small></th><th class="periods" scope="colgroup" colspan="3">Later test periods</th></tr>
+        <tr><th class="period" scope="col">Period 1</th><th class="period" scope="col">Period 2</th><th class="period" scope="col">Period 3</th></tr>
+      </thead>
       <tbody>
-        <tr data-dataset="Electricity"><th scope="row">Electricity</th><td>1.6825</td><td>1.6299</td><td>1.5753</td><td>1.9677</td></tr>
-        <tr data-dataset="PM"><th scope="row">PM2.5</th><td>25.6103</td><td>18.09</td><td>23.01<sup>*</sup></td><td>17.85</td></tr>
-        <tr data-dataset="Exchange"><th scope="row">Exchange</th><td>0.002273</td><td>0.025994</td><td>0.008203</td><td>0.005136</td></tr>
+        <tr data-dataset="Electricity"><th scope="row">Electricity</th><td class="ref">1.6825</td><td>1.6299</td><td>1.5753</td><td>1.9677</td></tr>
+        <tr data-dataset="PM"><th scope="row">PM2.5</th><td class="ref">25.6103</td><td>18.09</td><td>23.01<sup>*</sup></td><td>17.85</td></tr>
+        <tr data-dataset="Exchange"><th scope="row">Exchange</th><td class="ref">0.002273</td><td>0.025994</td><td>0.008203</td><td>0.005136</td></tr>
       </tbody>
     </table>
-    <p class="fine">* Two PM2.5 runs failed in period 2. This mean uses 3 seeds. All other means use 5.</p>
+    <p class="fine">* Two PM2.5 runs failed in period 2. Its mean uses 3 seeds. All other means use 5, giving 43 scored runs out of 45.</p>
   </div>
-  <p class="figure-note">The protocols cover different test dates. The historical PM2.5 score also includes filled targets.</p>
+  <p class="figure-note">Only DeLELSTM was retrained. Test dates differ, and the random PM2.5 reference includes filled targets.</p>
 </section>
 
-<section class="slide ending" data-sec="Future-period results" data-title="What the random reference tells us">
+<section class="slide ending" data-sec="Conclusion" data-title="What the two evaluations tell us">
   <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Conclusion · Exchange</div>
+  <div class="kicker">Conclusion <span class="source">Report §6</span></div>
   <div class="closing-main">
-    <h1>Exchange error was higher<br>in <span class="accent">all three future periods.</span></h1>
-    <p>The three period means were about 2.3 to 11.4 times the full random-test RMSE. PM2.5 was lower in all three periods. Electricity was mixed.</p>
-  </div>
-  <div class="next-test">
-    <h2>Next experiment</h2>
-    <p>Keep the future windows, observed targets and seeds fixed. Change one part of the evaluation at a time.</p>
-  </div>
-</section>
-
-<section class="slide" data-sec="Q&amp;A" data-title="How the model used the latest change">
-  <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Q&amp;A · Model interpretation · Paper Figure 2</div>
-  <h1>How did DeLELSTM use the latest PM2.5 change?</h1>
-  <p class="sub">For each variable, DeLELSTM weights the previous hidden state and the change since the last step.</p>
-  <figure class="fig card paper">
-    <img src="media/figure_2_pm25_five_run.png" alt="Across 22 output positions, the mean instantaneous share of PM2.5 falls from 0.603 to 0.023. Five runs and their mean plus or minus one sample standard deviation are shown.">
-  </figure>
-  <p class="figure-note">The mean instantaneous share fell from <strong>60.3% to 2.3%</strong> across the 22 output positions.</p>
-</section>
-
-<section class="slide" data-sec="Q&amp;A" data-title="How fast a forecast ran on one H100">
-  <img class="school-logo" src="CityUHK_Logo.png" alt="City University of Hong Kong">
-  <div class="kicker">Q&amp;A · Inference speed · Paper Table 4</div>
-  <h1>How fast was one forecast on an H100?</h1>
-  <p class="sub">Inputs and weights were already on the GPU. FP32 timing includes the coefficient solves, with TF32 off.</p>
-  <div class="speed-panel">
-    <div class="speed-stat">
-      <div class="big-number">17–19<span class="ms">ms</span></div>
-      <h2>Median single-window latency</h2>
-      <p class="fine">Across the three datasets, P95 ranged<br>from 17.49 to 22.49 ms.</p>
+    <h1>For tomorrow’s forecast,<span>which dates did training see?</span></h1>
+    <div class="closing-columns">
+      <article>
+        <h2>Benchmark comparison</h2>
+        <p>All three published RMSE winners recurred across 75 training runs.</p>
+      </article>
+      <article>
+        <h2>Later-period forecast</h2>
+        <p>Compared with the full random test, mean RMSE was lower in every PM2.5 period, higher in every Exchange period and mixed for Electricity.</p>
+      </article>
     </div>
-    <figure class="speed-chart paper" aria-labelledby="throughput-title">
-      <h2 id="throughput-title">Batched throughput</h2>
-      <figcaption class="chart-caption">Test windows per second</figcaption>
-      <div class="bar-row" data-dataset="Electricity"><span class="ds">Electricity<small>Batch 64</small></span><div class="bar-track" aria-hidden="true"><span style="width:35.9245%"></span></div><span class="bar-value">2,155</span></div>
-      <div class="bar-row" data-dataset="PM"><span class="ds">PM2.5<small>Batch 32</small></span><div class="bar-track" aria-hidden="true"><span style="width:28.2871%"></span></div><span class="bar-value">1,697</span></div>
-      <div class="bar-row" data-dataset="Exchange"><span class="ds">Exchange<small>Batch 128</small></span><div class="bar-track" aria-hidden="true"><span style="width:88.6211%"></span></div><span class="bar-value">5,317</span></div>
-      <div class="bar-axis" aria-hidden="true"><span></span><div class="axis"><span>0</span><span>3,000</span><span>6,000</span></div><span></span></div>
-    </figure>
   </div>
+  <p class="figure-note">Read a forecast score alongside its training dates, scored windows and observed targets.</p>
 </section>
-<section class="slide thanks" data-sec="Closing" data-title="Thanks for Listening">
+
+<section class="slide thanks" data-sec="Closing" data-title="Thank you">
   <img class="school-logo" src="CityUHK_Logo_2.png" alt="City University of Hong Kong">
-  <h1>Thanks for Listening</h1>
+  <h1>Thank you.</h1>
+  <p>DSC6013 · Group 17 · Option A</p>
 </section>
 </main>
 
