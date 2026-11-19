@@ -37,13 +37,15 @@ Word 表 3 使用 `chronological/delelstm45/` 下的正式结果。服务器运�
 
 ## 当前报告的三幅图
 
-| 图 | Word 稿内原图 | 复算输入或明细 |
+| 图 | 稿内 PNG 与矢量 PDF | 复算输入或明细 |
 | --- | --- | --- |
-| 图 1，各模型五次 RMSE | [PNG](figures/figure_1_rmse_five_runs.png) | [75 次训练明细](five_run/verified_detail.csv) |
-| 图 2，PM2.5 瞬时占比 | [PNG](figures/figure_2_pm25_five_run.png) | [五次各 22 个位置](figures/pm25_instantaneous_share_five_runs.csv) |
-| 图 3，完整及保留窗口的 RMSE | [PNG](figures/figure_3_test_windows_five_run.png) | [三个数据集的 15 组配对](figures/audit_full_test_five_runs.csv) |
+| 图 1，各模型五次 RMSE | [PNG](figures/figure_1_rmse_five_runs.png) · [PDF](figures/figure_1_rmse_five_runs.pdf) | [75 次训练明细](five_run/verified_detail.csv) |
+| 图 2，PM2.5 瞬时占比 | [PNG](figures/figure_2_pm25_five_run.png) · [PDF](figures/figure_2_pm25_five_run.pdf) | [五次各 22 个位置](figures/pm25_instantaneous_share_five_runs.csv) |
+| 图 3，完整及保留窗口的 RMSE | [PNG](figures/figure_3_test_windows_five_run.png) · [PDF](figures/figure_3_test_windows_five_run.pdf) | [三个数据集的 15 组配对](figures/audit_full_test_five_runs.csv) |
 
-准备好项目环境和数据后，执行 `python scripts/reproduce_paper_figures.py`。脚本从归档的检查点与系数重算两张明细表，逐次核对保留窗口 RMSE，并从原始数值重新绘图。输出在 `outputs/paper_figures/`。[复算脚本](../scripts/reproduce_paper_figures.py)
+准备好项目环境和数据后，执行 `python scripts/reproduce_paper_figures.py`，即可从检查点与解释系数重算两张明细表、逐次核对保留窗口 RMSE，并绘图。仅需从上述 CSV 重新排图时，运行 `python scripts/reproduce_paper_figures.py --from-archived`。两个入口都在 `outputs/paper_figures/` 生成 165.1 mm 宽的矢量 PDF 和 400 dpi PNG。[复算与绘图脚本](../scripts/reproduce_paper_figures.py)
+
+图 1 用空心圆表示每次训练，用菱形表示算术均值。Electricity 使用以 10 为底的对数刻度，保留 RMSE 为 17.50 的 LSTM 运行。图 2 的色带与图 3 的误差棒均表示五次训练之间的一个样本标准差。图 3 的虚线标出补回尾批后 RMSE 上升的那一次 Electricity 运行。图 1 和图 3 的 Exchange 读数均须乘以 10⁻³。
 
 ## 单次运行与解释结果
 
