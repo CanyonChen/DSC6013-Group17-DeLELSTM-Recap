@@ -20,6 +20,19 @@
 
 40 个新成功任务的记录耗时合计 **11 小时 55 分钟**。进度到 10/45 时，3 项来自复用，另外 7 项的用时合计 **1 小时 54 分钟**。43 个成功任务的单项中位用时依次为 Electricity 6.55 分钟、PM2.5 21.15 分钟和 Exchange 24.89 分钟。失败记录没有计时，整次队列的墙钟耗时和 GPU 利用率仍缺少相应记录。[任务耗时](../results/chronological/delelstm45/runs.csv)
 
+## DeLELSTM 推理效率
+
+正式训练的 `seconds` 覆盖数据准备、训练、验证、测试和解释导出。单独测速时，加载第三折预先选定种子的最佳验证权重，Electricity 和 Exchange 用 555，PM2.5 用 556。服务器在项目根目录执行以下命令，入口只选择物理 GPU 1。
+
+```bash
+git -c http.version=HTTP/1.1 pull --ff-only origin main &&
+/usr/bin/python scripts/benchmark_inference.py
+```
+
+在 FP32 下，每个真实测试窗口单独前向一次，记录延迟中位数和 P95。批量模式用 64、32、128 个窗口分别处理 Electricity、PM2.5 和 Exchange，每个数据集完整跑十遍，包含尾批，报告每秒处理的窗口数。两项测量都先预热，模型权重和输入已在设备上，计时包括递归预测和解释系数计算。CUDA 在计时边界同步。结果同时输出到终端和 `outputs/h100_gpu1_delelstm45/inference/`。[测速入口](../scripts/benchmark_inference.py) · [PyTorch 同步计时说明](https://docs.pytorch.org/docs/stable/notes/cuda.html#asynchronous-execution)
+
+本地 CPU 已用三个数据集的短测权重验证测速流程，按原批量重算的预测与保存值逐项一致。正式 H100 推理数据待服务器回传。
+
 ## 下一步
 
 小组可以用 Word 表 3 和逐折汇总撰写汇报，把“按未来时段检验泛化、消除时间泄漏”作为已验证的贡献。如果继续研究两项 PM2.5 失败，先保留服务器 `outputs/h100_gpu1_delelstm45/jobs/` 中两个原始 `attempt_001` 的 `run.log`、`failure_location.json`、`failed_batch.npz` 和 `failed_model.pt`，再按原种子定位首次非有限运算。若要检验修复本身能否降低 RMSE，后续对照需固定同一未来测试段、目标掩码和种子。复跑入口与数据获取方式见[服务器运行说明](../doc/ablation_workflow.md#在服务器运行)。

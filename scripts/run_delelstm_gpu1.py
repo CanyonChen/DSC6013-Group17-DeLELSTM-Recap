@@ -67,17 +67,22 @@ def import_completed(source, destination, settings):
     print(f"Imported {imported}. Completed {ready}/{len(plan)}. To train: {len(plan) - ready}.", flush=True)
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--reuse-from", type=Path, help="Previous formal forecasting output directory")
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
-    args = parser.parse_args()
+def select_gpu1():
+    """Expose only physical GPU 1 before the training or inference runtime starts."""
     uuid = subprocess.check_output(
         ["nvidia-smi", "-i", "1", "--query-gpu=uuid", "--format=csv,noheader"], text=True
     ).strip()
     if not uuid.startswith("GPU-") or len(uuid.splitlines()) != 1:
         raise RuntimeError("Could not identify physical GPU 1.")
     os.environ["CUDA_VISIBLE_DEVICES"] = uuid
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--reuse-from", type=Path, help="Previous formal forecasting output directory")
+    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
+    args = parser.parse_args()
+    select_gpu1()
     if args.reuse_from:
         settings = configuration(suite_parser().parse_args(["--stage", "run", *FORECAST_ARGS]))
         import_completed(args.reuse_from, args.output_dir, settings)
