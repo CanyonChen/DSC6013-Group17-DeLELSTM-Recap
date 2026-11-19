@@ -1,0 +1,79 @@
+{
+  "measured_at_utc": "2026-11-19T03:11:12.303656+00:00",
+  "benchmark_commit": "81ed9f8b3b9804b7f2752cbc3a4301c72b61f09c",
+  "training_commit": "29841200e552804b582407cff4ccb1c01512aea8",
+  "training_settings_custom": false,
+  "device": "NVIDIA H100 80GB HBM3",
+  "physical_gpu": 1,
+  "torch": "2.7.1+cu126",
+  "cuda": "12.6",
+  "cpu_threads": 4,
+  "precision": "FP32 (TF32 off)",
+  "scope": "resident-input model forward including decomposition; synchronized wall time",
+  "single_warmups": 10,
+  "single_timed": "one call per test window",
+  "batch_warmup_passes": 1,
+  "batch_timed_passes": 10,
+  "results": [
+    {
+      "dataset": "Electricity",
+      "fold": 2,
+      "seed": 555,
+      "checkpoint": "jobs/train__chronological__Electricity__Delelstm__555__2__original__0.0/attempt_001/best.pt",
+      "test_windows": 92,
+      "input_shape": [
+        24,
+        16
+      ],
+      "outputs_per_window": 22,
+      "batch_size": 64,
+      "parameters": 291137,
+      "single_p50_ms": 18.500758334994316,
+      "single_p95_ms": 22.487348690629005,
+      "batch_windows_per_s": 2155.467979347097,
+      "full_test_pass_median_ms": 42.56780259311199,
+      "batch_peak_allocated_mib": 37.0390625,
+      "batch_prediction_max_abs_diff": 0
+    },
+    {
+      "dataset": "PM",
+      "fold": 2,
+      "seed": 556,
+      "checkpoint": "jobs/train__chronological__PM__Delelstm__556__2__original__0.0/attempt_001/best.pt",
+      "test_windows": 183,
+      "input_shape": [
+        24,
+        8
+      ],
+      "outputs_per_window": 22,
+      "batch_size": 32,
+      "parameters": 40097,
+      "single_p50_ms": 17.068583518266678,
+      "single_p95_ms": 17.48821120709181,
+      "batch_windows_per_s": 1697.2267377269416,
+      "full_test_pass_median_ms": 112.62624058872461,
+      "batch_peak_allocated_mib": 32.77392578125,
+      "batch_prediction_max_abs_diff": 0
+    },
+    {
+      "dataset": "Exchange",
+      "fold": 2,
+      "seed": 555,
+      "checkpoint": "jobs/train__chronological__Exchange__Delelstm__555__2__original__0.0/attempt_001/best.pt",
+      "test_windows": 727,
+      "input_shape": [
+        30,
+        8
+      ],
+      "outputs_per_window": 28,
+      "batch_size": 128,
+      "parameters": 40097,
+      "single_p50_ms": 18.9911350607872,
+      "single_p95_ms": 22.064443863928318,
+      "batch_windows_per_s": 5317.263911456461,
+      "full_test_pass_median_ms": 142.8020065650344,
+      "batch_peak_allocated_mib": 34.7744140625,
+      "batch_prediction_max_abs_diff": 0
+    }
+  ]
+}

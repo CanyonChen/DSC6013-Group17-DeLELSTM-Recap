@@ -82,6 +82,8 @@ python scripts/setup_upstream.py
 
 上方命令用于复跑，使用服务器已有的 PyTorch `2.7.1+cu126`，按 UUID 选择物理 GPU 1。正式结果生成在 `outputs/h100_gpu1_delelstm45/report/`。沿用此目录时，入口跳过成功任务，对失败项按原种子创建新尝试。[本次结果与下一步](docs/project_process.md) · [各折测试区间和有效目标数](results/audits/temporal_protocol.csv)
 
+使用已训练权重测推理速度，在服务器仓库根目录运行 `/usr/bin/python scripts/benchmark_inference.py`。入口只使用物理 GPU 1。正式测速记录覆盖三个数据集末折的单窗口延迟与批量吞吐率。[H100 实测结果](results/chronological/delelstm45/inference_gpu1.json) · [计时方法](docs/project_process.md#delelstm-推理效率)
+
 完整套件另含历史随机协议对照和消融。在当前服务器上也可以单卡执行。
 
 ```bash

@@ -31,7 +31,15 @@ git -c http.version=HTTP/1.1 pull --ff-only origin main &&
 
 在 FP32 下，每个真实测试窗口单独前向一次，记录延迟中位数和 P95。批量模式用 64、32、128 个窗口分别处理 Electricity、PM2.5 和 Exchange，每个数据集完整跑十遍，包含尾批，报告每秒处理的窗口数。两项测量都先预热，模型权重和输入已在设备上，计时包括递归预测和解释系数计算。CUDA 在计时边界同步。结果同时输出到终端和 `outputs/h100_gpu1_delelstm45/inference/`。[测速入口](../scripts/benchmark_inference.py) · [PyTorch 同步计时说明](https://docs.pytorch.org/docs/stable/notes/cuda.html#asynchronous-execution)
 
-本地 CPU 已用三个数据集的短测权重验证测速流程，按原批量重算的预测与保存值逐项一致。正式 H100 推理数据待服务器回传。
+2026-11-19 已收到 H100 正式测速结果。测试使用 PyTorch 2.7.1+cu126，每个数据集各测一个末折权重。表中单窗口延迟统计覆盖每个测试窗口，P95 为第 95 百分位。吞吐率按十遍的总窗口数除以总秒数计算，整套测试用时取十遍的中位数。
+
+| 数据集 | 测试窗口 | 单窗口 P50 / P95（ms） | 批量 | 吞吐率（窗口/秒） | 整套测试中位用时（ms） | PyTorch 峰值分配（MiB） |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Electricity | 92 | 18.50 / 22.49 | 64 | 2,155 | 42.57 | 37.04 |
+| PM2.5 | 183 | 17.07 / 17.49 | 32 | 1,697 | 112.63 | 32.77 |
+| Exchange | 727 | 18.99 / 22.06 | 128 | 5,317 | 142.80 | 34.77 |
+
+Electricity、PM2.5 每个窗口输出 22 个预测位置，Exchange 输出 28 个。三个数据集按原批量重算的预测与同一权重保存的预测最大绝对差均为零。峰值显存统计 PyTorch 在批量测速期间分配的张量内存，含驻留的权重和测试输入。报告第 6.5 节表 4 已收录延迟与吞吐率。[服务器原始测速结果](../results/chronological/delelstm45/inference_gpu1.json) · [小组报告](../doc/6013_Paper_public.docx)
 
 ## 下一步
 

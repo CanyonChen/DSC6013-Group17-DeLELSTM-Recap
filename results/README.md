@@ -11,8 +11,9 @@ Word 表 3 使用 `chronological/delelstm45/` 下的正式结果。服务器运�
 - [summary.csv](chronological/delelstm45/summary.csv) 给出九组完整测试窗口的 RMSE、MAE、MAPE、样本标准差和成功数。
 - [runs.csv](chronological/delelstm45/runs.csv) 保留服务器的全部 45 条记录，包括有效测试目标数、成功任务的耗时与失败原因。`artifact_dir` 相对于服务器运行目录。
 - [campaign.json](chronological/delelstm45/campaign.json) 登记训练代码版本、环境、3 个复用任务和两个失败位置。各测试区间见[九折数据核查](audits/temporal_protocol.csv)。
+- [inference_gpu1.json](chronological/delelstm45/inference_gpu1.json) 保存 Word 表 4 的独立 H100 推理测速，记录各数据集末折权重、单窗口 P50/P95、完整测试集批量吞吐率、PyTorch 峰值分配及预测一致性。
 
-这三份归档可用于复算表 3 的种子间统计。若需从单个预测值复核误差，服务器的 `outputs/h100_gpu1_delelstm45/jobs/<任务>/attempt_001/` 保存了成功任务的 `predictions.npz`、`split.json` 和 `best.pt`。同一位置保存失败任务的日志、触发批次和模型状态。
+逐种子记录可用于复算表 3 的种子间统计。若需从单个预测值复核误差，服务器的 `outputs/h100_gpu1_delelstm45/jobs/<任务>/attempt_001/` 保存了成功任务的 `predictions.npz`、`split.json` 和 `best.pt`。同一位置保存失败任务的日志、触发批次和模型状态。
 
 ## 五次独立训练
 
