@@ -1,23 +1,28 @@
 # DSC6013 第 17 组｜DeLELSTM 复现项目进度
 
-更新于 **2026-11-18**。本阶段只训练 DeLELSTM，观察修复时间划分和输入归一化后，它在三个未来时段的预测误差。45 项时间回测对应 3 个数据集 × 3 个时间折 × 5 个种子。旧协议下已完成的 15 次 DeLELSTM 训练提供历史参照。报告第 6.1、6.3 节及表 2 已记录泄漏证据、每折缩放方法和有效目标数。[共享 Word 报告](../doc/6013_Paper_public.docx) · [九个划分的核查记录](../results/audits/temporal_protocol.csv)
+更新于 **2026-11-19**。修正时间划分和输入归一化后，小组在一张 H100 上完成了 DeLELSTM 的正式未来时段回测。3 个数据集 × 3 个时间折 × 5 个种子共 45 项，43 项得到测试成绩，2 项在训练中失败。Word 报告第 6.1、6.3 节记录了泄漏证据和修正方法，第 6.4 节表 3 给出九组成绩、测试范围和有效目标数。[共享 Word 报告](../doc/6013_Paper_public.docx) · [九个划分的核查记录](../results/audits/temporal_protocol.csv)
 
-## 当前进度与单卡续跑
+## H100 正式回测结果
 
-H100 上的 15 项短测试全部通过。随后组员从五模型正式队列回传了 6 条完成记录。其中可计入本阶段的两项是 Electricity 第一折的 DeLELSTM，种子 555 和 556 分别用时 387.4 和 469.6 秒。回传内容只有任务名和耗时，误差值仍在服务器。按这份记录，45 项中已有 2 项可复用，另有 43 项待确认或训练。与原定 225 项相比，本阶段少安排 180 项，计划训练次数减少 80%。[短测试环境](../results/audits/h100_forecast_smoke.json)
+这次在代码 `2984120` 上运行，物理 GPU 1 是唯一可见设备，在进程内显示为 `cuda:0`。PyTorch 为 2.7.1+cu126，CUDA 为 12.6。Electricity 第一折的种子 555、556、557 从前一队列复用，本次新启动 42 项，其中 40 项成功。与五模型的 225 项计划相比，本阶段少安排 180 项训练，计划任务数减少 80%。此前的 15 项 H100 短测试也全部通过。[正式运行记录](../results/chronological/delelstm45/campaign.json) · [短测试环境](../results/audits/h100_forecast_smoke.json)
 
-如果原 225 项队列仍在前台运行，在原训练终端按一次 Ctrl+C，等命令提示符返回。保留 `outputs/h100_gpu1_torch271`，在同一仓库根目录执行下面的命令。入口使用 `/usr/bin/python` 和物理 GPU 1 的 UUID，按正式设置复用已完成任务的权重、预测和日志，将剩余任务放入独立目录。再次执行相同命令会跳过已完成项。[单模型入口](../scripts/run_delelstm_gpu1.py) · [首次获取代码和数据](../doc/ablation_workflow.md#在服务器运行)
+表内给出测试 RMSE 的均值 ± 样本标准差。历史列使用旧协议的五份 DeLELSTM 权重，在完整随机测试集上重新评分。后三列各自对应一个更晚的测试区间，按成功种子统计。除 PM2.5 第二折为 3/5 外，其余八组均为 5/5。
 
-若 Ctrl+C 后旧队列仍显示新的 `START`，在原 Bash 终端按 Ctrl+Z，再用 `jobs -l` 核对暂停的旧训练作业。假如该作业显示为 `[1]`，执行 `kill -TERM %1`。若它仍显示 `Stopped`，对同一作业执行 `kill -CONT %1` 以送达终止信号。作业号以当前终端显示为准。
+| 数据集 | 历史完整随机测试集 | 时间折 1 | 时间折 2 | 时间折 3 |
+| --- | ---: | ---: | ---: | ---: |
+| Electricity | 1.6825 ± 0.0357 | 1.6299 ± 0.0682 | 1.5753 ± 0.0613 | 1.9677 ± 0.0236 |
+| PM2.5 | 25.6103 ± 0.4114 | 18.09 ± 0.24 | 23.01 ± 0.32 | 17.85 ± 0.05 |
+| Exchange | 0.002273 ± 0.000060 | 0.025994 ± 0.007192 | 0.008203 ± 0.003832 | 0.005136 ± 0.001467 |
 
-```bash
-git -c http.version=HTTP/1.1 pull --ff-only origin main &&
-/usr/bin/python scripts/run_delelstm_gpu1.py --reuse-from outputs/h100_gpu1_torch271
-```
+与历史参照相比，PM2.5 三折的 RMSE 都更低，Electricity 前两折更低、末折更高，Exchange 三折都更高。新旧协议使用的测试窗口不同，PM2.5 又改为仅对真实观测评分。这些差异支持描述各时段的预测表现，单项修正对误差的贡献仍需同测试段对照。已按 45 条逐种子记录复算九组 RMSE、MAE、MAPE 的均值和样本标准差，并核对每个成功任务的有效测试目标数。[逐折汇总](../results/chronological/delelstm45/summary.csv) · [逐种子明细](../results/chronological/delelstm45/runs.csv) · [历史完整测试集明细](../results/figures/audit_full_test_five_runs.csv)
 
-训练结束后回传 `outputs/h100_gpu1_delelstm45/report/summary.csv` 和同目录的 `runs.csv`。先核对 45 项的状态，再按数据集分别列出三折的 RMSE 均值、样本标准差、成功种子数及有效测试目标数，MAE 和 MAPE 作补充。将下表的原测试 RMSE 标明为历史参照。新旧测试窗口、可用观测和评估设置不同，差异只能描述趋势。即使某折的 RMSE 更低，单凭该差异也无法把改善归因于修复。
+两项失败均在 PM2.5 第二折（`fold=1`）。种子 556 的训练损失在 `epoch=70, batch=15` 出现非有限值，种子 559 的梯度在 `epoch=75, batch=32` 出现非有限值。轮次和批次均从零计数。该折的三个成功种子是 557、558、560，每个种子在 3,999 个实测目标上评分。失败种子保留在计划分母中。[失败记录](../results/chronological/delelstm45/campaign.json)
 
-本地已通过 15 项测试。单模型续跑另用 CPU 在 Electricity 和 PM2.5 的末折做了一轮小规模验证，每个分区取 16 个窗口。Electricity 种子 555 的预测文件复用前后逐字节相同，两个 PM2.5 任务成功续跑。Electricity 种子 556 在首个批次出现非有限梯度，单独从头运行也复现了该异常，失败按原种子记录。此处的四项均为流程验证，H100 正式成绩单独统计。[单模型续跑测试](../tests/test_delelstm_forecast.py)
+40 个新成功任务的记录耗时合计 **11 小时 55 分钟**。进度到 10/45 时，3 项来自复用，另外 7 项的用时合计 **1 小时 54 分钟**。43 个成功任务的单项中位用时依次为 Electricity 6.55 分钟、PM2.5 21.15 分钟和 Exchange 24.89 分钟。失败记录没有计时，整次队列的墙钟耗时和 GPU 利用率仍缺少相应记录。[任务耗时](../results/chronological/delelstm45/runs.csv)
+
+## 下一步
+
+小组可以用 Word 表 3 和逐折汇总撰写汇报，把“按未来时段检验泛化、消除时间泄漏”作为已验证的贡献。如果继续研究两项 PM2.5 失败，先保留服务器 `outputs/h100_gpu1_delelstm45/jobs/` 中两个原始 `attempt_001` 的 `run.log`、`failure_location.json`、`failed_batch.npz` 和 `failed_model.pt`，再按原种子定位首次非有限运算。若要检验修复本身能否降低 RMSE，后续对照需固定同一未来测试段、目标掩码和种子。复跑入口与数据获取方式见[服务器运行说明](../doc/ablation_workflow.md#在服务器运行)。
 
 ## 报告中已有的结果
 
@@ -49,6 +54,8 @@ git -c http.version=HTTP/1.1 pull --ff-only origin main &&
 
 **验证与可选实验。** 此前在本地 CPU 通过 13 项协议、环境与报告测试，以及 32 项一轮端到端短测试。通用脚本支持五模型预测比较和求解器、变量充分性消融。本阶段通过 `--forecast-only --models Delelstm` 选择其中的 45 项。[测试代码](../tests/test_ablation.py) · [任务定义](../scripts/ablation_suite.py) · [运行说明](../doc/ablation_workflow.md)
 
+本地已通过 15 项测试。单模型续跑另用 CPU 在 Electricity 和 PM2.5 的末折做了一轮小规模验证，每个分区取 16 个窗口。Electricity 种子 555 的预测文件复用前后逐字节相同，两个 PM2.5 任务成功续跑。Electricity 种子 556 在首个批次出现非有限梯度，单独从头运行也复现了该异常，失败按原种子记录。此处的四项均为流程验证，H100 正式成绩单独统计。[单模型续跑测试](../tests/test_delelstm_forecast.py)
+
 ## 后续任务
 
 **小组协作资料**
@@ -63,7 +70,7 @@ git -c http.version=HTTP/1.1 pull --ff-only origin main &&
 1. [x] **PM2.5 输入与评分已修正，2026-11-18。** 按原始 PRSA 小时记录前向填补输入，剔除无历史可用的首日。训练损失、验证选模及测试 RMSE/MAE/MAPE 均使用原始观测目标。末折训练、验证、测试分别有 28,338、5,975、3,964 个有效目标，测试时剔除了 4,026 个候选位置中的 62 个。[数据读取](../scripts/ablation_data.py) · [训练与评分](../scripts/ablation_engine.py)
 2. [x] **Electricity 变量充分性流程已切换到最后一个时间折，2026-11-18。** 四种解释模型在同一末折训练集导出排名。前 8 个变量、随机 8 个和全部 16 个变量的 LSTM 共用种子、划分及测试窗口。排名依赖、重训、配对汇总均通过短测试。[任务定义](../scripts/ablation_suite.py) · [配对汇总](../scripts/ablation_report.py)
 3. [x] **数据与训练路径已验证，2026-11-18。** 改动未来原始 PM2.5 观测不影响此前填补输入。只改动缺失目标处的预测，训练损失、有效位置梯度和评分保持一致。9 个完整时间划分均已核对，32 项短测试全部完成。另用 PM2.5 末折的全部窗口训练 DeLELSTM 一轮，从保存的 183 × 22 个预测位置中取出 3,964 个真实目标，独立重算的 RMSE、MAE 与运行记录一致。[协议测试](../tests/test_ablation.py) · [各折明细](../results/audits/temporal_protocol.csv)
-4. [ ] **完成 DeLELSTM 的 45 项正式时间回测。** 归档九组逐折汇总和逐种子记录，在报告第 6、7 节呈现与历史成绩的描述性对照，注明测试区间、有效目标数和失败记录。
+4. [x] **正式回测及报告回填，2026-11-19。** 全部 45 项均已有最终状态，43 项产生预测成绩。九组指标、两项训练失败及历史参照已写入共享报告第 6.4、7 节。[表 3 所用汇总](../results/chronological/delelstm45/summary.csv) · [全部 45 条记录](../results/chronological/delelstm45/runs.csv)
 5. 同一未来测试段上的修复前后配对、其他模型的预测排名、Top-50% 和求解器消融均列为后续可选实验。[扩展实验配置](../doc/ablation_workflow.md)
 
 后续更新时，在对应任务旁补上完成日期、实际完成数量和结果链接。

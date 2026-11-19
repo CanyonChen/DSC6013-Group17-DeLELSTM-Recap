@@ -1,8 +1,18 @@
 # 报告实验结果与审计证据
 
-本目录保存课程报告所用的历史模型成绩、图表原图、逐次明细和时间协议核查。正式时间回测完成后，将在进度文档中登记对应的提交与结果目录。[当前 Word 报告](../doc/6013_Paper_public.docx) · [项目进度](../docs/project_process.md)
+本目录保存课程报告所用的历史模型成绩、图表原图、逐次明细、时间协议核查及 H100 正式时间回测。[当前 Word 报告](../doc/6013_Paper_public.docx) · [项目进度](../docs/project_process.md)
 
 旧交付包标注的 2026-10-31 和 2026-11-01 是整理日期。历史环境与指标文件没有完整训练时间戳。[历史 Word 稿](../doc/DeLELSTM_Five_Run_Course_Paper.docx)
+
+## 未来时段预测
+
+Word 表 3 使用 `chronological/delelstm45/` 下的正式结果。服务器运行代码 `2984120`，只用物理 GPU 1。三个数据集各有三个时间折，每折计划五个种子。45 项中有 43 项得到测试成绩，PM2.5 第二折以 3 个成功种子计算各项均值及样本标准差。
+
+- [summary.csv](chronological/delelstm45/summary.csv) 给出九组完整测试窗口的 RMSE、MAE、MAPE、样本标准差和成功数。
+- [runs.csv](chronological/delelstm45/runs.csv) 保留服务器的全部 45 条记录，包括有效测试目标数、成功任务的耗时与失败原因。`artifact_dir` 相对于服务器运行目录。
+- [campaign.json](chronological/delelstm45/campaign.json) 登记训练代码版本、环境、3 个复用任务和两个失败位置。各测试区间见[九折数据核查](audits/temporal_protocol.csv)。
+
+这三份归档可用于复算表 3 的种子间统计。若需从单个预测值复核误差，服务器的 `outputs/h100_gpu1_delelstm45/jobs/<任务>/attempt_001/` 保存了成功任务的 `predictions.npz`、`split.json` 和 `best.pt`。同一位置保存失败任务的日志、触发批次和模型状态。
 
 ## 五次独立训练
 

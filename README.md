@@ -74,13 +74,13 @@ python scripts/setup_upstream.py
 
 ## 服务器补充实验
 
-本阶段只训练 DeLELSTM，在 3 个数据集上分别做 3 折、5 种子的未来时段预测，共 45 项。各折只用训练数据拟合输入缩放参数，验证集选模，未来测试集评分。旧随机划分的 DeLELSTM 成绩作历史参照。
+本阶段在 3 个数据集上完成了 DeLELSTM 的 3 折、5 种子未来时段预测。45 项中有 43 项得到测试成绩，PM2.5 第二折的两个种子在训练中失败。各折只用训练数据拟合缩放参数，验证集选模，未来测试集评分。Word 报告表 3 给出各折结果，旧随机划分成绩作历史参照。[正式逐折汇总](results/chronological/delelstm45/summary.csv) · [全部 45 条任务记录](results/chronological/delelstm45/runs.csv)
 
 ```bash
 /usr/bin/python scripts/run_delelstm_gpu1.py
 ```
 
-入口复用 H100 现有的 PyTorch `2.7.1+cu126`，用 UUID 选择物理 GPU 1。已运行五模型队列的组员应先停止旧队列，在上方命令末尾追加 `--reuse-from outputs/h100_gpu1_torch271`。新结果写入 `outputs/h100_gpu1_delelstm45/report/`。[切换命令与验收方法](docs/project_process.md) · [各折测试区间和有效目标数](results/audits/temporal_protocol.csv)
+上方命令用于复跑，使用服务器已有的 PyTorch `2.7.1+cu126`，按 UUID 选择物理 GPU 1。正式结果生成在 `outputs/h100_gpu1_delelstm45/report/`。沿用此目录时，入口跳过成功任务，对失败项按原种子创建新尝试。[本次结果与下一步](docs/project_process.md) · [各折测试区间和有效目标数](results/audits/temporal_protocol.csv)
 
 完整套件另含历史随机协议对照和消融。在当前服务器上也可以单卡执行。
 
@@ -92,7 +92,7 @@ CUDA_VISIBLE_DEVICES="$gpu1_uuid" bash scripts/eval_and_ablation.sh --gpus 0
 
 脚本创建独立 Conda 环境，先执行短测试，再完成完整测试审计、时间划分、Top-50% 变量充分性、求解器消融、解释稳定性及 CPU/GPU 对照。默认正式计划为 **554 项任务（90 次历史重评估、464 次新训练）**，每张 GPU 独立运行一个任务；另有 32 项短测试。
 
-完整套件的报告保存至 `outputs/ablation/report/`，权重、预测与日志保存在同一实验目录。续跑时沿用相同的 GPU、环境和目录，追加 `--stage run --resume`。服务器正式结果待运行。[全流程说明](doc/ablation_workflow.md)
+完整套件的报告保存至 `outputs/ablation/report/`，权重、预测与日志保存在同一实验目录。续跑时沿用相同的 GPU、环境和目录，追加 `--stage run --resume`。554 项完整套件列为后续可选实验。[全流程说明](doc/ablation_workflow.md)
 
 ## 复跑报告原实验
 
@@ -156,7 +156,7 @@ python scripts/audit_full_test.py Exchange
 
 原实现使用全数据 min–max 归一化和随机窗口划分；Exchange 滚动窗口之间有重叠，验证/测试还使用 `drop_last=True`。这些设置影响结果解读，不能将随机测试结果等同于未来时段预测表现。
 
-当前报告图 2 使用五次 PM2.5 训练各自保存的平均解释系数，图 3 使用 15 个固定检查点的配对重评估。这些结果属于原随机划分。九折时间边界、训练集缩放和 PM2.5 观测目标已完成核查，未来时段预测与 Top-50% 的正式多种子比较仍待训练。[图表与数据](results/figures/) · [当前课程报告](doc/6013_Paper_public.docx)
+当前报告图 2 使用五次 PM2.5 训练各自保存的平均解释系数，图 3 使用 15 个固定检查点的配对重评估。这两图属于原随机划分。表 3 报告修正后的未来时段预测。两种协议评分的测试窗口不同，跨协议的误差差异只能描述趋势。Top-50% 的正式多种子比较仍属可选实验。[图表与数据](results/figures/) · [当前课程报告](doc/6013_Paper_public.docx)
 
 ## 获取和更新项目
 

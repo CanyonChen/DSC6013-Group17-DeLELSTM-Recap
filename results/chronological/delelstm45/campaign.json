@@ -1,0 +1,39 @@
+{
+  "source": "Group member's terminal log, report/summary.csv, report/runs.csv and the two failed result.json records",
+  "reported_on": "2026-11-19",
+  "server_output_directory": "outputs/h100_gpu1_delelstm45",
+  "git_commit": "29841200e552804b582407cff4ccb1c01512aea8",
+  "runtime": {
+    "python": "3.13.13",
+    "torch": "2.7.1+cu126",
+    "cuda": "12.6",
+    "device": "NVIDIA H100 80GB HBM3",
+    "physical_gpu": 1,
+    "visible_device": "cuda:0"
+  },
+  "protocol": "chronological",
+  "model": "Delelstm",
+  "planned": 45,
+  "reused_successful": 3,
+  "newly_successful": 40,
+  "failed": 2,
+  "pending": 0,
+  "reused_from": "outputs/h100_gpu1_torch271",
+  "reused_jobs": [
+    "train__chronological__Electricity__Delelstm__555__0__original__0.0",
+    "train__chronological__Electricity__Delelstm__556__0__original__0.0",
+    "train__chronological__Electricity__Delelstm__557__0__original__0.0"
+  ],
+  "failed_jobs": [
+    {
+      "id": "train__chronological__PM__Delelstm__556__1__original__0.0",
+      "attempt": "attempt_001",
+      "reason": "FloatingPointError: Non-finite training loss at epoch=70, batch=15"
+    },
+    {
+      "id": "train__chronological__PM__Delelstm__559__1__original__0.0",
+      "attempt": "attempt_001",
+      "reason": "FloatingPointError: Non-finite gradient at epoch=75, batch=32"
+    }
+  ]
+}

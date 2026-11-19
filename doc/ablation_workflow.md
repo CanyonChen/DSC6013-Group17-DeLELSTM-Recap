@@ -25,7 +25,7 @@ git pull --ff-only --recurse-submodules origin main
 /usr/bin/python scripts/run_delelstm_gpu1.py
 ```
 
-本阶段仅运行 DeLELSTM 的 45 项正式时间回测，结果保存在 `outputs/h100_gpu1_delelstm45/report/`。已有五模型训练结果时，先停止旧队列，再在命令末尾追加 `--reuse-from outputs/h100_gpu1_torch271`。入口按 UUID 选择物理 GPU 1，进程内编号为 `cuda:0`。`environment.json` 保存实际设备和 PyTorch 版本。[切换与验收](../docs/project_process.md) · [CUDA 设备编号说明](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/environment-variables.html)
+本阶段仅运行 DeLELSTM 的 45 项正式时间回测，结果保存在 `outputs/h100_gpu1_delelstm45/report/`。已有五模型训练结果时，先停止旧队列，再在命令末尾追加 `--reuse-from outputs/h100_gpu1_torch271`。入口按 UUID 选择物理 GPU 1，进程内编号为 `cuda:0`。`environment.json` 保存实际设备和 PyTorch 版本。[本次成绩与运行记录](../docs/project_process.md) · [CUDA 设备编号说明](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/environment-variables.html)
 
 以下命令用于另行启动完整套件，包括历史检查点和求解器消融。
 
@@ -187,4 +187,4 @@ python -m unittest discover -s tests -v
 
 ## H100 服务器验证
 
-组员在 Linux 上复用 `/usr/bin/python` 运行了 `--stage smoke --forecast-only`。提交 `6a0e3a6` 的服务器报告记录 15/15 项成功，环境为单张可见的 NVIDIA H100 80GB HBM3、PyTorch 2.7.1 和 CUDA 12.6。后续回传的正式运行中，已有两个 Electricity 第一折的 DeLELSTM 种子完成，45 项单模型汇总待回传。[服务器短测试摘要](../results/audits/h100_forecast_smoke.json) · [GPU 1 正式启动命令](../docs/project_process.md)
+组员在 Linux 上复用 `/usr/bin/python` 和物理 GPU 1。提交 `6a0e3a6` 的 15 项短测试全部成功。提交 `2984120` 的正式 DeLELSTM 队列复用 3 项、新成功 40 项。PM2.5 第二折的种子 556 出现非有限损失，559 出现非有限梯度。两项失败保留在逐种子记录中，九组均值和样本标准差已从该记录复算。[短测试环境](../results/audits/h100_forecast_smoke.json) · [正式运行记录](../results/chronological/delelstm45/campaign.json) · [逐种子结果](../results/chronological/delelstm45/runs.csv)
